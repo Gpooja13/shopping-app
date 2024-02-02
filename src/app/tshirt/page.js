@@ -13,7 +13,7 @@ const TShirt = () => {
               <div className="block relative rounded overflow-hidden">
                 <Image
                   alt="ecommerce"
-                  className="h-[36vh] block"
+                  className=" block"
                   src="/tshirt.jpg"
                   width={800}
                   height={1500}
@@ -38,7 +38,7 @@ const TShirt = () => {
               <div className="block relative rounded overflow-hidden">
                 <Image
                   alt="ecommerce"
-                  className="h-[36vh] block"
+                  className=" block"
                   src="/tshirt.jpg"
                   width={800}
                   height={1500}
@@ -63,7 +63,7 @@ const TShirt = () => {
               <div className="block relative rounded overflow-hidden">
                 <Image
                   alt="ecommerce"
-                  className="h-[36vh] block"
+                  className=" block"
                   src="/tshirt.jpg"
                   width={800}
                   height={1500}
@@ -88,7 +88,7 @@ const TShirt = () => {
               <div className="block relative rounded overflow-hidden">
                 <Image
                   alt="ecommerce"
-                  className="h-[36vh] block"
+                  className=" block"
                   src="/tshirt.jpg"
                   width={800}
                   height={1500}
@@ -113,7 +113,7 @@ const TShirt = () => {
               <div className="block relative rounded overflow-hidden">
                 <Image
                   alt="ecommerce"
-                  className="h-[36vh] block"
+                  className=" block"
                   src="/tshirt.jpg"
                   width={800}
                   height={1500}
@@ -138,7 +138,7 @@ const TShirt = () => {
               <div className="block relative rounded overflow-hidden">
                 <Image
                   alt="ecommerce"
-                  className="h-[36vh] block"
+                  className=" block"
                   src="/tshirt.jpg"
                   width={800}
                   height={1500}
@@ -164,7 +164,7 @@ const TShirt = () => {
               <div className="block relative rounded overflow-hidden">
                 <Image
                   alt="ecommerce"
-                  className="h-[36vh] block"
+                  className=" block"
                   src="/tshirt.jpg"
                   width={800}
                   height={1500}
@@ -189,7 +189,7 @@ const TShirt = () => {
               <div className="block relative rounded overflow-hidden">
                 <Image
                   alt="ecommerce"
-                  className="h-[36vh] block"
+                  className=" block"
                   src="/tshirt.jpg"
                   width={800}
                   height={1500}

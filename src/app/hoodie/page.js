@@ -13,7 +13,7 @@ const Hoodie = () => {
               <div className="block relative rounded overflow-hidden">
                 <Image
                   alt="ecommerce"
-                  className="h-[36vh] block"
+                  className=" block"
                   src="/hoodie.jpg"
                   width={800}
                   height={1500}
@@ -38,7 +38,7 @@ const Hoodie = () => {
               <div className="block relative rounded overflow-hidden">
                 <Image
                   alt="ecommerce"
-                  className="h-[36vh] block"
+                  className=" block"
                   src="/hoodie.jpg"
                   width={800}
                   height={1500}
@@ -63,7 +63,7 @@ const Hoodie = () => {
               <div className="block relative rounded overflow-hidden">
                 <Image
                   alt="ecommerce"
-                  className="h-[36vh] block"
+                  className=" block"
                   src="/hoodie.jpg"
                   width={800}
                   height={1500}
@@ -88,7 +88,7 @@ const Hoodie = () => {
               <div className="block relative rounded overflow-hidden">
                 <Image
                   alt="ecommerce"
-                  className="h-[36vh] block"
+                  className=" block"
                   src="/hoodie.jpg"
                   width={800}
                   height={1500}

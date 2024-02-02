@@ -8,12 +8,12 @@ const Sticker = () => {
         <div className="flex flex-wrap -m-4 justify-center">
          
          
-        <div className="lg:w-1/5 md:w-1/2 p-4 w-full flex items-center flex-col m-2 shadow-md">
+        <div className="lg:w-1/5 md:w-1/2 p-4 w-full flex items-center flex-col md:m-2 shadow-md">
             <Link href={"/products/abc"}>
               <div className="block relative rounded overflow-hidden">
                 <Image
                   alt="ecommerce"
-                  className="h-[36vh] block"
+                  className=" block"
                   src="/sticker.jpg"
                   width={800}
                   height={1500}
@@ -33,12 +33,12 @@ const Sticker = () => {
           </div>
 
 
-          <div className="lg:w-1/5 md:w-1/2 p-4 w-full flex items-center flex-col m-2 shadow-md">
+          <div className="lg:w-1/5 md:w-1/2 p-4 w-full flex items-center flex-col md:m-2 shadow-md">
             <Link href={"/products/abc"}>
               <div className="block relative rounded overflow-hidden">
                 <Image
                   alt="ecommerce"
-                  className="h-[36vh] block"
+                  className=" block"
                   src="/sticker.jpg"
                   width={800}
                   height={1500}
@@ -58,12 +58,12 @@ const Sticker = () => {
           </div>
 
 
-          <div className="lg:w-1/5 md:w-1/2 p-4 w-full flex items-center flex-col m-2 shadow-md">
+          <div className="lg:w-1/5 md:w-1/2 p-4 w-full flex items-center flex-col md:m-2 shadow-md">
             <Link href={"/products/abc"}>
               <div className="block relative rounded overflow-hidden">
                 <Image
                   alt="ecommerce"
-                  className="h-[36vh] block"
+                  className=" block"
                   src="/sticker.jpg"
                   width={800}
                   height={1500}
@@ -83,12 +83,12 @@ const Sticker = () => {
           </div>
 
 
-          <div className="lg:w-1/5 md:w-1/2 p-4 w-full flex items-center flex-col m-2 shadow-md">
+          <div className="lg:w-1/5 md:w-1/2 p-4 w-full flex items-center flex-col md:m-2 shadow-md">
             <Link href={"/products/abc"}>
               <div className="block relative rounded overflow-hidden">
                 <Image
                   alt="ecommerce"
-                  className="h-[36vh] block"
+                  className=" block"
                   src="/sticker.jpg"
                   width={800}
                   height={1500}
