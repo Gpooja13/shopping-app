@@ -1,10 +1,20 @@
 "use client";
 import { useState } from "react";
+import { useGlobalContext } from "../../Context/store";
 
 const Post = ({ params }) => {
   const slugWord = params.slug;
   const [pin, setPin] = useState("");
   const [serviceable, setServiceable] = useState("");
+  const {
+    cart,
+    setCart,
+    subTotal,
+    setSubTotal,
+    addToCart,
+    removeFromCart,
+    clear,
+  } = useGlobalContext();
 
   const checkServiceability = async () => {
     console.log("first");
@@ -43,9 +53,9 @@ const Post = ({ params }) => {
                 <svg
                   fill="currentColor"
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   className="w-4 h-4 text-indigo-500"
                   viewBox="0 0 24 24"
                 >
@@ -54,9 +64,9 @@ const Post = ({ params }) => {
                 <svg
                   fill="currentColor"
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   className="w-4 h-4 text-indigo-500"
                   viewBox="0 0 24 24"
                 >
@@ -65,9 +75,9 @@ const Post = ({ params }) => {
                 <svg
                   fill="currentColor"
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   className="w-4 h-4 text-indigo-500"
                   viewBox="0 0 24 24"
                 >
@@ -76,9 +86,9 @@ const Post = ({ params }) => {
                 <svg
                   fill="currentColor"
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   className="w-4 h-4 text-indigo-500"
                   viewBox="0 0 24 24"
                 >
@@ -87,9 +97,9 @@ const Post = ({ params }) => {
                 <svg
                   fill="none"
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   className="w-4 h-4 text-indigo-500"
                   viewBox="0 0 24 24"
                 >
@@ -101,9 +111,9 @@ const Post = ({ params }) => {
                 <a className="text-gray-500">
                   <svg
                     fill="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     className="w-5 h-5"
                     viewBox="0 0 24 24"
                   >
@@ -113,9 +123,9 @@ const Post = ({ params }) => {
                 <a className="text-gray-500">
                   <svg
                     fill="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     className="w-5 h-5"
                     viewBox="0 0 24 24"
                   >
@@ -125,9 +135,9 @@ const Post = ({ params }) => {
                 <a className="text-gray-500">
                   <svg
                     fill="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     className="w-5 h-5"
                     viewBox="0 0 24 24"
                   >
@@ -164,9 +174,9 @@ const Post = ({ params }) => {
                     <svg
                       fill="none"
                       stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
                       className="w-4 h-4"
                       viewBox="0 0 24 24"
                     >
@@ -181,7 +191,7 @@ const Post = ({ params }) => {
                 ₹499.00
               </span>
               
-              <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm">
+              <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm" onClick={()=>{addToCart(slugWord, 1, 499, "yellow-tshirt", 'S', 'Red')}}>
                 Add to cart
               </button>
               <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm">
@@ -190,9 +200,9 @@ const Post = ({ params }) => {
               <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                 <svg
                   fill="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   className="w-5 h-5"
                   viewBox="0 0 24 24"
                 >
@@ -221,7 +231,7 @@ const Post = ({ params }) => {
                     This pincode is serviceable.
                   </div>
                 )}
-                {!serviceable && serviceable != null && (
+                {!serviceable && serviceable != "" && (
                   <div className="text-red-700 text-sm mt-3">
                     Sorry! We dont deliver to this pincode.
                   </div>

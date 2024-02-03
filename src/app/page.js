@@ -1,10 +1,31 @@
+"use client";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { useGlobalContext } from "./Context/store";
 
 export default function Home() {
+  const {
+    cart,
+    setCart,
+    subTotal,
+    setSubTotal,
+    addToCart,
+    removeFromCart,
+    clear,
+  } = useGlobalContext();
+  
+  
   return (
     <main>
       <div>
-        <Image className="m-auto w-[100vw]" src="/cover.jpg" alt="cover" width={900} height={900} />
+        <Image
+          className="m-auto w-[100vw]"
+          src="/cover.jpg"
+          alt="cover"
+          width={900}
+          height={900}
+          priority
+        />
       </div>
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-24 mx-auto">
@@ -171,3 +192,18 @@ export default function Home() {
     </main>
   );
 }
+
+// // pages/index.js
+
+// import React from 'react';
+// import Layout from './layout';
+
+// const Home = () => {
+//   return (
+//     <Layout title="My Next.js App">
+//       <p>Welcome to my Next.js app!</p>
+//     </Layout>
+//   );
+// };
+
+// export default Home;
