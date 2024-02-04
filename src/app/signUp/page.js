@@ -1,10 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 
-const login = () => {
+const signUp = () => {
   return (
     <section class="h-screen">
-      <div class="container h-full px-6 py-10">
+      <div class="container h-full px-6 py-6">
         <div class="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between">
           <div class="mb-12 md:mb-0 md:w-8/12 lg:w-6/12">
             <img
@@ -23,16 +23,32 @@ const login = () => {
                 width={80}
                 height={80}
               />
-              <h2 className="font-bold text-3xl">Sign in to your account</h2>
+              <h2 className="font-bold text-3xl">Sign Up with us</h2>
             </div>
 
             <form>
+            <div class="relative mb-6" data-te-input-wrapper-init>
+                <label
+                  for="name"
+                  class="block mb-2 text-sm font-medium text-gray-900"
+                >
+                  Name
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-indigo-400 focus:border-indigo-600 block w-full p-2.5  "
+                  placeholder="Joe Bank"
+                  required=""
+                />
+              </div>
               <div class="relative mb-6" data-te-input-wrapper-init>
                 <label
                   for="email"
                   class="block mb-2 text-sm font-medium text-gray-900"
                 >
-                  Your email
+                  Email
                 </label>
                 <input
                   type="email"
@@ -61,33 +77,13 @@ const login = () => {
                 />
               </div>
 
-              <div class="mb-6 flex items-center justify-between">
-                <div class="flex items-center h-5">
-                  <input
-                    id="terms"
-                    aria-describedby="terms"
-                    type="checkbox"
-                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 mr-3 "
-                    required=""
-                  />
-                  Remember me
-                </div>
-
-                <Link
-                  href={"/forgot"}
-                  class="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600"
-                >
-                  Forgot password?
-                </Link>
-              </div>
-
               <button
                 type="submit"
                 class="inline-block w-full rounded bg-primary px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] bg-indigo-500 "
                 data-te-ripple-init
                 data-te-ripple-color="light"
               >
-                Sign in
+                Sign Up
               </button>
 
               <div class="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
@@ -99,12 +95,12 @@ const login = () => {
                 <Link
                   class="mb-3 flex w-1/2 items-center justify-center rounded bg-primary px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] mr-2 "
                   style={{ backgroundColor: "#3b5998" }}
-                  href={"/signUp"}
+                  href={"/login"}
                   role="button"
                   data-te-ripple-init
                   data-te-ripple-color="light"
                 >
-                  Sign Up
+                  Sign In
                 </Link>
                 <a
                   class="mb-3 flex w-1/2 items-center justify-center rounded bg-primary px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] ml-2 "
@@ -130,7 +126,7 @@ const login = () => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default login;
+export default signUp

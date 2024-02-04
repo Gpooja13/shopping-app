@@ -7,6 +7,7 @@ import React, { useRef, useEffect } from "react";
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
 import { BsBagCheckFill } from "react-icons/bs";
 import { useGlobalContext } from "../app/Context/store";
+import { MdAccountCircle } from "react-icons/md";
 
 const Navbar = () => {
   const ref = useRef();
@@ -34,6 +35,7 @@ const Navbar = () => {
     try {
       if (localStorage.getItem("cart")) {
         setCart(JSON.parse(localStorage.getItem("cart")));
+        saveCart(JSON.parse(localStorage.getItem("cart")));
       }
     } catch (err) {
       console.log(err);
@@ -67,12 +69,17 @@ const Navbar = () => {
 
       <div className="absolute right-0 md:top-4 top-12 mx-5">
         <button onClick={toggleCart}>
-          <IoCartOutline className="text-xl md:text-3xl" />
+          <IoCartOutline className="text-xl md:text-3xl mx-2 md:mx-4" />
         </button>
+        <Link href={'/login'}>
+        <button>
+          <MdAccountCircle className="text-xl md:text-3xl" />
+        </button>
+        </Link>
       </div>
       <div
         ref={ref}
-        className="absolute w-72 h-full top-0 right-0 bg-[lavender] py-10 px-8 transition-transform transform translate-x-full"
+        className="absolute w-72 h-full top-0 right-0 bg-[lavender] py-10 px-8 transition-transform transform translate-x-full z-50"
       >
         <h2 className="font-w-6 text-xl text-center mb-6">Shopping cart</h2>
         <span
@@ -104,7 +111,8 @@ const Navbar = () => {
                       }}
                     />
                     <span className="mx-2 text-sm">{cart[k].qty}</span>
-                    <CiCirclePlus onClick={() => {
+                    <CiCirclePlus
+                      onClick={() => {
                         addToCart(
                           k,
                           1,
@@ -112,20 +120,27 @@ const Navbar = () => {
                           cart[k].size,
                           cart[k].variant
                         );
-                      }} />
+                      }}
+                    />
                   </div>
                 </div>
               </li>
             );
           })}
         </ol>
+        <div> Pay ₹{subTotal}</div>
         <div className="p-2 mt-6 w-full">
-          <button className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-sm">
-            <BsBagCheckFill className="m-1" />
-            Checkout
-          </button>
+          <Link href={"/checkout"}>
+            <button className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-sm">
+              <BsBagCheckFill className="m-1" />
+              Checkout
+            </button>
+          </Link>
           <br />
-          <button className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-sm" onClick={clear}>
+          <button
+            className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-sm"
+            onClick={clear}
+          >
             Clear Cart
           </button>
         </div>
