@@ -17,8 +17,7 @@ const Post = ({ params }) => {
   } = useGlobalContext();
 
   const checkServiceability = async () => {
-    console.log("first");
-    const fetchApi = await fetch("http://localhost:3000/api");
+    const fetchApi = await fetch("http://localhost:3000/api/pincode");
     const data = await fetchApi.json();
 
     if (data.includes(parseInt(pin))) {
