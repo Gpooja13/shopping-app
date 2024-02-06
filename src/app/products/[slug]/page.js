@@ -1,11 +1,17 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useGlobalContext } from "../../Context/store";
+// import { useRouter } from "next/router";
 
 const Post = ({ params }) => {
   const slugWord = params.slug;
   const [pin, setPin] = useState("");
   const [serviceable, setServiceable] = useState("");
+  const [productOneData, setProductOneData] = useState();
+  const [variant, setVariant] = useState();
+  const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
+  // const router = useRouter();
   const {
     cart,
     setCart,
@@ -13,8 +19,22 @@ const Post = ({ params }) => {
     setSubTotal,
     addToCart,
     removeFromCart,
+    buyNow,
     clear,
   } = useGlobalContext();
+
+  async function fetchProductOneData() {
+    const res = await fetch(
+      `http://localhost:3000/api/productDesc/${slugWord}`
+    );
+    const productOne = await res.json();
+    setProductOneData(productOne.productOne);
+    setVariant(productOne.variant);
+    setColor(productOne.color);
+    setSize(productOne.size);
+    console.log(productOne.productOne);
+    console.log(productOne.variant);
+  }
 
   const checkServiceability = async () => {
     const fetchApi = await fetch("http://localhost:3000/api/pincode");
@@ -31,6 +51,15 @@ const Post = ({ params }) => {
     setPin(e.target.value);
   };
 
+  const refreshVariant = (newcolor, newsize) => {
+    let url = `http://localhost:3000/product/${variants[newcolor][newsize][slug]}`;
+    window.location = url;
+  };
+
+  useEffect(() => {
+    fetchProductOneData();
+  }, []);
+
   return (
     <section className="text-gray-600 body-font overflow-hidden">
       <div className="container px-5 py-16 mx-auto">
@@ -45,7 +74,9 @@ const Post = ({ params }) => {
               BRAND NAME
             </h2>
             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-              The Catcher in the Rye
+              {productOneData && productOneData.title} (
+              {productOneData && productOneData.size}/
+              {productOneData && productOneData.color})
             </h1>
             <div className="flex mb-4">
               <span className="flex items-center">
@@ -146,28 +177,59 @@ const Post = ({ params }) => {
               </span>
             </div>
             <p className="leading-relaxed">
-              Fam locavore kickstarter distillery. Mixtape chillwave tumeric
-              sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo
-              juiceramps cornhole raw denim forage brooklyn. Everyday carry +1
-              seitan poutine tumeric. Gastropub blue bottle austin listicle
-              pour-over, neutra jean shorts keytar banjo tattooed umami
-              cardigan.
+              {productOneData && productOneData.desc}
             </p>
             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
               <div className="flex">
                 <span className="mr-3">Color</span>
-                <button className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"></button>
-                <button className="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6 focus:outline-none"></button>
-                <button className="border-2 border-gray-300 ml-1 bg-indigo-500 rounded-full w-6 h-6 focus:outline-none"></button>
+                {variant &&
+                  Object.keys(variant).includes("red") &&
+                  Object.keys(variant)["red"].includes("size") && (
+                    <button
+                      className={`border-2 bg-red-300 rounded-full w-6 h-6 focus:outline-none ${
+                        color === "red" ? "border-black" : "border-grey-300"
+                      }`}
+                    ></button>
+                  )}
+                {variant && Object.keys(variant).includes("pink") && (
+                  <button className="border-2 border-pink-300 rounded-full w-6 h-6 focus:outline-none"></button>
+                )}
+                {variant &&
+                  Object.keys(variant).includes("blue") &&
+                  Object.keys(variant)["red"].includes(size) && (
+                    <button className="border-2 border-blue-300 rounded-full w-6 h-6 focus:outline-none"></button>
+                  )}
+
+                {/* <button className="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6 focus:outline-none"></button>
+                <button className="border-2 border-gray-300 ml-1 bg-indigo-500 rounded-full w-6 h-6 focus:outline-none"></button> */}
               </div>
               <div className="flex ml-6 items-center">
                 <span className="mr-3">Size</span>
                 <div className="relative">
-                  <select className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10">
-                    <option>SM</option>
-                    <option>M</option>
-                    <option>L</option>
-                    <option>XL</option>
+                  <select
+                    className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10"
+                    value={size}
+                    onChange={(e) => refreshVariant(color, e.target.value)}
+                  >
+                    {variant && color && variant[color] && (
+                      <>
+                        {variant[color].includes("XS") && (
+                          <option value={"XS"}>XS</option>
+                        )}
+                        {variant[color].includes("S") && (
+                          <option value={"S"}>S</option>
+                        )}
+                        {variant[color].includes("M") && (
+                          <option value={"M"}>M</option>
+                        )}
+                        {variant[color].includes("L") && (
+                          <option value={"L"}>L</option>
+                        )}
+                        {variant[color].includes("XL") && (
+                          <option value={"XL"}>XL</option>
+                        )}
+                      </>
+                    )}
                   </select>
                   <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
                     <svg
@@ -187,13 +249,38 @@ const Post = ({ params }) => {
             </div>
             <div className="flex">
               <span className="title-font font-medium text-2xl text-gray-900">
-                ₹499.00
+                ₹{productOneData && productOneData.price}
               </span>
-              
-              <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm" onClick={()=>{addToCart(slugWord, 1, 499, "yellow-tshirt", 'S', 'Red')}}>
+
+              <button
+                className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm"
+                onClick={() => {
+                  addToCart(
+                    slugWord,
+                    1,
+                    productOneData.price,
+                    productOneData.title,
+                    size,
+                    color
+                  );
+                }}
+              >
                 Add to cart
               </button>
-              <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm">
+              <button
+                className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm"
+                onClick={() => {
+                  buyNow(
+                    slugWord,
+                    1,
+                    productOneData.price,
+                    productOneData.title,
+                    size,
+                    color
+                  );
+                  // router.push("/checkout");
+                }}
+              >
                 Buy now
               </button>
               <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
@@ -230,8 +317,8 @@ const Post = ({ params }) => {
                     This pincode is serviceable.
                   </div>
                 )}
-                {!serviceable && serviceable != "" && (
-                  <div className="text-red-700 text-sm mt-3">
+                {!serviceable && serviceable !== "" && (
+                  <div className="text-red-700 text-sm mt-2">
                     Sorry! We dont deliver to this pincode.
                   </div>
                 )}

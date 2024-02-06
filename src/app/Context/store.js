@@ -1,8 +1,10 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
+import { useRouter } from 'next/router'
 
 export const GlobalContext = createContext();
+
 
 export const GlobalContextProvider = ({ children }) => {
   const [cart, setCart] = useState({});
@@ -41,6 +43,16 @@ export const GlobalContextProvider = ({ children }) => {
     saveCart(myCart);
   };
 
+  const buyNow=(itemCode, qty, price, name, size, variant)=>{
+    const router = useRouter();
+    let myCart = {qty: 1, price, name, size, variant};
+    
+    setCart(myCart);
+    saveCart(myCart);
+
+    // router.push("./checkout")
+  }
+
   const clear = () => {
     setCart({});
     saveCart({});
@@ -55,6 +67,7 @@ export const GlobalContextProvider = ({ children }) => {
         setSubTotal,
         addToCart,
         removeFromCart,
+        buyNow,
         clear,
       }}
     >

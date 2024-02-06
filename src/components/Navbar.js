@@ -96,7 +96,7 @@ const Navbar = () => {
             return (
               <li key={k}>
                 <div className="item flex">
-                  <div className="w-2/3 font-semibold">{cart[k].name}</div>
+                  <div className="w-2/3 font-semibold">{cart[k].name} ({cart[k].size/cart[k].variant})</div>
                   <div className="flex items-center justify-center w-1/3 font-semibold text-lg">
                     <CiCircleMinus
                       className="cursor-pointer"
