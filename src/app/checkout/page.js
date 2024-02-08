@@ -5,6 +5,7 @@ import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
 import { BsBagCheckFill } from "react-icons/bs";
 import { useGlobalContext } from "../Context/store";
 
+
 const Checkout = () => {
   const {
     cart,
@@ -163,7 +164,7 @@ const Checkout = () => {
                       <li key={k}>
                         <div className="item flex">
                           <div className="mx-4 font-semibold">
-                            {cart[k].name}
+                            {cart[k].name} ({cart[k].size/cart[k].variant})
                           </div>
                           <div className="flex items-center justify-center w-1/3 font-semibold text-lg">
                             <CiCircleMinus

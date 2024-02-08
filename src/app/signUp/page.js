@@ -1,9 +1,72 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const signUp = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data={name,email,password}
+    try {
+      const res = await fetch("http://localhost:3000/api/signUp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const userData = await res.json();
+      console.log(userData)
+      setName("");
+      setEmail("");
+      setPassword("");
+      toast.success("🦄 Your account has been created", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        // transition:"Bounce" 
+      });
+    } catch (error) {
+      toast.error("error", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        // transition:"Bounce" 
+      });
+    }
+  };
+
   return (
     <section className="h-screen">
+    <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        // transition:Bounce
+      />
       <div className="container h-full px-6 py-6">
         <div className="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between">
           <div className="mb-12 md:mb-0 md:w-8/12 lg:w-6/12">
@@ -26,15 +89,16 @@ const signUp = () => {
               <h2 className="font-bold text-3xl">Sign Up with us</h2>
             </div>
 
-            <form>
-            <div className="relative mb-6" data-te-input-wrapper-init>
+            <form onSubmit={handleSubmit} method="POST">
+              <div className="relative mb-6" data-te-input-wrapper-init>
                 <label
-                  for="name"
+                  htmlFor="name"
                   className="block mb-2 text-sm font-medium text-gray-900"
                 >
                   Name
                 </label>
                 <input
+                  onChange={(e) => setName(e.target.value)}
                   type="text"
                   name="name"
                   id="name"
@@ -45,12 +109,13 @@ const signUp = () => {
               </div>
               <div className="relative mb-6" data-te-input-wrapper-init>
                 <label
-                  for="email"
+                  htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-900"
                 >
                   Email
                 </label>
                 <input
+                  onChange={(e) => setEmail(e.target.value)}
                   type="email"
                   name="email"
                   id="email"
@@ -62,12 +127,15 @@ const signUp = () => {
 
               <div className="relative mb-6" data-te-input-wrapper-init>
                 <label
-                  for="password"
+                  htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-900 "
                 >
                   Password
                 </label>
                 <input
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
                   type="password"
                   name="password"
                   id="password"
@@ -126,7 +194,7 @@ const signUp = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default signUp
+export default signUp;

@@ -1,7 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useGlobalContext } from "../../Context/store";
-// import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Image from "next/image";
 
 const Post = ({ params }) => {
   const slugWord = params.slug;
@@ -11,7 +14,7 @@ const Post = ({ params }) => {
   const [variant, setVariant] = useState();
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
-  // const router = useRouter();
+  const router = useRouter();
   const {
     cart,
     setCart,
@@ -62,12 +65,27 @@ const Post = ({ params }) => {
 
   return (
     <section className="text-gray-600 body-font overflow-hidden">
+      <ToastContainer
+        position="bottom-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        // transition:Bounce
+      />
       <div className="container px-5 py-16 mx-auto">
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
           <img
             alt="ecommerce"
             className="lg:w-1/2 w-full lg:h-auto object-cover object-top px-20 rounded"
             src="/tshirt.jpg"
+            // src="https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGhvdG98ZW58MHx8MHx8fDA%3D"
+            // width={40} height={60}
           />
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
             <h2 className="text-sm title-font text-gray-500 tracking-widest">
@@ -263,6 +281,17 @@ const Post = ({ params }) => {
                     size,
                     color
                   );
+                  toast.success("🦄 Product added into the cart!", {
+                    position: "bottom-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    // transition:Bounce ,
+                  });
                 }}
               >
                 Add to cart
@@ -278,7 +307,7 @@ const Post = ({ params }) => {
                     size,
                     color
                   );
-                  // router.push("/checkout");
+                  router.push("/checkout");
                 }}
               >
                 Buy now

@@ -5,7 +5,7 @@ import connectdb from "../../../../middleware/connectdb";
 export async function GET(request, content) {
   const slugID = content.params.productDesc;
   let productOne = await product.findOne({ slug: slugID });
-  let variants = await product.find({ title: productOne.title });
+  let variants = await product.find({ title: productOne.title, category:productOne.category });
 
   let colorSizeSlug = {}; //{red:{xl:{slug:'wear-tshirt'}}}
 
