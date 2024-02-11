@@ -2,12 +2,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
-import { BsBagCheckFill } from "react-icons/bs";
 import { useGlobalContext } from "../Context/store";
-
+import Head from "next/head";
+import BuyProduct from "@/components/razorpay/BuyProduct";
 
 const Checkout = () => {
   const {
+    item,
+    setItem,
     cart,
     setCart,
     subTotal,
@@ -19,6 +21,12 @@ const Checkout = () => {
 
   return (
     <div className="container m-auto">
+      <Head>
+        <meta
+          name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0"
+        />
+      </Head>
       <section className="text-gray-600 body-font relative">
         <div className="container px-8 md:px-5 lg:px-5 py-10 mx-auto">
           <div className="flex flex-col text-center w-full mb-12">
@@ -144,6 +152,7 @@ const Checkout = () => {
                   />
                 </div>
               </div>
+
               {/* <div className="p-2 w-full">
                 <button className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
                   Button
@@ -164,7 +173,7 @@ const Checkout = () => {
                       <li key={k}>
                         <div className="item flex">
                           <div className="mx-4 font-semibold">
-                            {cart[k].name} ({cart[k].size/cart[k].variant})
+                            {cart[k].name} ({cart[k].size / cart[k].variant})
                           </div>
                           <div className="flex items-center justify-center w-1/3 font-semibold text-lg">
                             <CiCircleMinus
@@ -199,12 +208,13 @@ const Checkout = () => {
 
                   <div className="p-2 mt-6 w-full">
                     <span className="font-bold">Subtotal: ₹{subTotal}</span>
-                    <Link href={"/checkout"}>
+                    <BuyProduct totalAmount={subTotal} products={item} />
+                    {/* <Link href={"/checkout"}>
                       <button className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-sm">
                         <BsBagCheckFill className="m-1" />
                         Pay ₹{subTotal}
                       </button>
-                    </Link>
+                    </Link> */}
                     <br />
                   </div>
                 </div>

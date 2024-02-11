@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -13,9 +13,9 @@ const login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(`${process.env.NEXT_PUBLIC_HOST}/api/login`)
     try {
-      const res = await fetch("http://localhost:3000/api/login", {
+      const res = await fetch(`http://localhost:3000/api/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,6 +69,13 @@ const login = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if(localStorage.getItem('token')){
+      router.push('/')
+    }
+  }, [])
+  
   return (
     <section className="h-screen">
       <ToastContainer
@@ -149,8 +156,8 @@ const login = () => {
                 />
               </div>
 
-              <div className="mb-6 flex items-center justify-between">
-                <div className="flex items-center h-5">
+              <div className="mb-6 flex items-center justify-between  text-green-600">
+                {/* <div className="flex items-center h-5">
                   <input
                     id="terms"
                     aria-describedby="terms"
@@ -159,7 +166,7 @@ const login = () => {
                     required=""
                   />
                   Remember me
-                </div>
+                </div> */}
 
                 <Link
                   href={"/forgot"}

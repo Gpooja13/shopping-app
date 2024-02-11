@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { IoCartOutline } from "react-icons/io5";
 import { IoMdClose } from "react-icons/io";
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState} from "react";
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
 import { BsBagCheckFill } from "react-icons/bs";
 import { useGlobalContext } from "../app/Context/store";
@@ -12,6 +12,7 @@ import { MdAccountCircle, MdLogin } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingBar from "react-top-loading-bar";
+import { usePathname } from 'next/navigation'
 
 const Navbar = () => {
   const [user, setUser] = useState({ value: null });
@@ -20,9 +21,11 @@ const Navbar = () => {
   const ref = useRef();
   const router = useRouter();
   const [progress, setProgress] = useState(0);
+ const location=usePathname();
   const {
     cart,
     setCart,
+    saveCart,
     subTotal,
     setSubTotal,
     addToCart,
@@ -44,7 +47,8 @@ const Navbar = () => {
     localStorage.removeItem("token");
     setUser({ value: null });
     setKey(Math.random());
-    toast.success("🦄 Your have been successfully logged in", {
+    router.push("/")
+    toast.success("🦄 Your have been successfully logged out", {
       position: "top-right",
       autoClose: 2000,
       hideProgressBar: false,
@@ -58,15 +62,11 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    if (router && router.events) {
-      console.log("router")
-      router.events.start("routeChangeComplete", () => {
-        setProgress(100);
-      });
-      router.events.on("routeChangeComplete", () => {
-        setProgress(100);
-      });
-    }
+    const startLoadingBar = () => {
+      setProgress(100);
+    };
+
+    startLoadingBar();
 
     try {
       if (localStorage.getItem("cart")) {
@@ -82,7 +82,8 @@ const Navbar = () => {
       setUser({ value: token });
       setKey(Math.random());
     }
-  }, [router.query]);
+ 
+  }, [location]);
 
   return (
     <div className="flex flex-col md:flex-row justify-center md:justify-start items-center py-2 shadow-md">
@@ -130,12 +131,12 @@ const Navbar = () => {
         <button onClick={toggleCart}>
           <IoCartOutline className="text-xl md:text-3xl mx-2 md:mx-4" />
         </button>
-        <a
+        <span
           onMouseOver={() => setDropDown(true)}
           onMouseLeave={() => setDropDown(false)}
         >
           {dropDown && (
-            <div className="absolute right-[-10px] bg-purple-300 top-8 py-2 rounded-md px-5 w-36 cursor-pointer">
+            <div className="absolute right-[-10px] bg-white top-8 py-2 rounded-md px-5 w-36 cursor-pointer shadow-lg border">
               <ul>
                 <Link href={"/account"}>
                   <li className="py-2 text-sm hover:font-semibold">
@@ -161,7 +162,7 @@ const Navbar = () => {
               />
             </button>
           )}
-        </a>
+        </span>
         {!user.value && (
           <Link href={"/login"}>
             <button>

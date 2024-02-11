@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { GlobalContextProvider } from "./Context/store";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,14 +14,17 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <GlobalContextProvider>
-          <Navbar />
-          {children}
-          <Footer />
-        </GlobalContextProvider>
-      </body>
-    </html>
+    <>
+      <html lang="en">
+        <body className={inter.className}>
+          <GlobalContextProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </GlobalContextProvider>
+        </body>
+      </html>
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" />
+    </>
   );
 }

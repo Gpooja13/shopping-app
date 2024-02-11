@@ -17,6 +17,7 @@ export default function Home() {
   
   return (
     <main>
+     
       <div>
         <Image
           className="m-auto w-[100vw]"
