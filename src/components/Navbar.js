@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { IoCartOutline } from "react-icons/io5";
 import { IoMdClose } from "react-icons/io";
-import React, { useRef, useEffect, useState} from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
 import { BsBagCheckFill } from "react-icons/bs";
 import { useGlobalContext } from "../app/Context/store";
@@ -12,7 +12,7 @@ import { MdAccountCircle, MdLogin } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingBar from "react-top-loading-bar";
-import { usePathname } from 'next/navigation'
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const [user, setUser] = useState({ value: null });
@@ -21,7 +21,7 @@ const Navbar = () => {
   const ref = useRef();
   const router = useRouter();
   const [progress, setProgress] = useState(0);
- const location=usePathname();
+  const location = usePathname();
   const {
     cart,
     setCart,
@@ -47,7 +47,7 @@ const Navbar = () => {
     localStorage.removeItem("token");
     setUser({ value: null });
     setKey(Math.random());
-    router.push("/")
+    router.push("/");
     toast.success("🦄 Your have been successfully logged out", {
       position: "top-right",
       autoClose: 2000,
@@ -62,6 +62,7 @@ const Navbar = () => {
   };
 
   useEffect(() => {
+    ref.current.classList.add("translate-x-full")
     const startLoadingBar = () => {
       setProgress(100);
     };
@@ -80,9 +81,8 @@ const Navbar = () => {
     const token = localStorage.getItem("token");
     if (token) {
       setUser({ value: token });
-      setKey(Math.random());
     }
- 
+    setKey(Math.random());
   }, [location]);
 
   return (

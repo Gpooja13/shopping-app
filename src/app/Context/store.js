@@ -7,7 +7,6 @@ export const GlobalContext = createContext();
 export const GlobalContextProvider = ({ children }) => {
   const [cart, setCart] = useState({});
   const [subTotal, setSubTotal] = useState(0);
-  const [item, setItem] = useState([]);
 
   const saveCart = (myCart) => {
     localStorage.setItem("cart", JSON.stringify(myCart));
@@ -17,12 +16,12 @@ export const GlobalContextProvider = ({ children }) => {
     for (let i = 0; i < Object.keys(myCart).length; i++) {
       const itemCode = Object.keys(myCart)[i];
       subt += myCart[itemCode].price * myCart[itemCode].qty;
-      p = { productId: myCart[itemCode].slug, quantity: myCart[itemCode].qty };
-      list.push(p);
+      // p = { productId: myCart[itemCode].slug, quantity: myCart[itemCode].qty };
+      // list.push(p);
     }
     setSubTotal(subt);
-    setItem(list)
-    console.log(item)
+    // setItem(list)
+    // console.log(item)
   };
 
   const addToCart = (itemCode, qty, price, name, size, variant) => {
@@ -49,7 +48,8 @@ export const GlobalContextProvider = ({ children }) => {
   };
 
   const buyNow = (itemCode, qty, price, name, size, variant) => {
-    let myCart = { itemCode: { qty: 1, price, name, size, variant } };
+    let myCart={}
+    myCart[itemCode]= { qty: 1, price, name, size, variant } ;
 
     setCart(myCart);
     saveCart(myCart);
@@ -58,14 +58,13 @@ export const GlobalContextProvider = ({ children }) => {
   const clear = () => {
     setCart({});
     saveCart({});
-    setItem([])
   };
 
   return (
     <GlobalContext.Provider
       value={{
-        item,
-        setItem,
+        // item,
+        // setItem,
         cart,
         setCart,
         saveCart,

@@ -3,7 +3,7 @@ import Razorpay from "razorpay";
 import shortid from "shortid";
 import crypto from "crypto";
 import Order from "../../../../models/order";
-import connectdb from "../../../../middleware/connectdb"
+import connectdb from "../../../../middleware/connectdb";
 // import Payment from "../../../database/model/Payment"
 // import dbConnect from '../../../database/database'
 const instance = new Razorpay({
@@ -18,49 +18,56 @@ export async function POST(req, res) {
     address,
     amount,
     status,
+    name,
+    email,
+    phone,
+    pincode,
     razorpay_order_id,
     razorpay_payment_id,
     razorpay_signature,
   } = await req.json();
+
+  console.log(razorpay_order_id, razorpay_payment_id, razorpay_signature);
+
   const body = razorpay_order_id + "|" + razorpay_payment_id;
   console.log("id==", body);
 
   const expectedSignature = crypto
-    .createHmac("sha256", process.env.RAZORPAY_APT_SECRET)
+    .createHmac("sha256", process.env.RAZORPAY_API_SECRET)
     .update(body.toString())
     .digest("hex");
 
   const isAuthentic = expectedSignature === razorpay_signature;
-
+  console.log(isAuthentic);
   if (isAuthentic) {
-    // console.log(Order);
-
-    // await dbConnect();
-
-    // await Order.create({
-    //   // userId,
-    //   // products,
-    //   // address,
-    //   // amount,
-    //   // status,
-    //   razorpay_order_id,
-    //   razorpay_payment_id,
-    //   razorpay_signature,
-    // });
 
     let o = new Order({
       userId,
       products,
       address,
-      amount,
+      amount:amount/100,
       status,
-      razorpay_order_id,
-      razorpay_payment_id,
-      razorpay_signature,
+      name,
+      email,
+      phone,
+      pincode,
+      payment: {
+        razorpay_order_id,
+        razorpay_payment_id,
+        razorpay_signature,
+      },
     });
     await o.save();
-
-    return NextResponse.redirect(new URL("/paymentsuccess", req.url));
+    
+    return NextResponse.json(
+      {
+        message: "success",
+        _id:o._id
+      },
+      {
+        status: 200,
+      }
+    );
   } else {
     return NextResponse.json(
       {
@@ -71,13 +78,4 @@ export async function POST(req, res) {
       }
     );
   }
-
-  return NextResponse.json(
-    {
-      message: "success",
-    },
-    {
-      status: 200,
-    }
-  );
 }

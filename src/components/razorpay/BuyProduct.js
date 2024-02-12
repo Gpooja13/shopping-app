@@ -3,26 +3,46 @@ import React, { Suspense } from "react";
 import Buy from "./Buy";
 import { useRouter } from "next/navigation";
 import Loading from "@/app/loading";
+import { useGlobalContext } from "../../app/Context/store";
 
-const BuyProduct = ({totalAmount, products}) => {
+const BuyProduct = ({
+  totalAmount,
+  products,
+  name,
+  email,
+  phone,
+  address,
+  pincode,
+  disabled,
+}) => {
   const router = useRouter();
+  const {
+    cart,
+    setCart,
+    subTotal,
+    setSubTotal,
+    addToCart,
+    removeFromCart,
+    buyNow,
+    clear,
+  } = useGlobalContext();
 
-  const makePayment = async ({ items}) => {
+  const makePayment = async ({ products }) => {
     // "use server"
     const key = process.env.RAZORPAY_API_KEY;
     console.log(key);
     // Make API call to the serverless API
-    const data = await fetch("http://localhost:3000/api/payment/razorpay",{
+    const data = await fetch("http://localhost:3000/api/payment/razorpay", {
       method: "POST",
       // headers: {
       //   // Authorization: 'YOUR_AUTH_HERE'
       // },
       body: JSON.stringify({
-       amount:totalAmount,
+        amount: totalAmount,
       }),
     });
     const { order } = await data.json();
-    console.log(order.id);
+    console.log("orderID" + order.id);
     const options = {
       key: key,
       name: "Shoppers",
@@ -33,36 +53,40 @@ const BuyProduct = ({totalAmount, products}) => {
       // image: logoBase64,
       handler: async function (response) {
         // if (response.length==0) return <Loading/>;
-        console.log(response);
+        console.log("response"+response);
 
-        const data = await fetch("http://localhost:3000/api/payment/paymentverify", {
-          method: "POST",
-          // headers: {
-          //   // Authorization: 'YOUR_AUTH_HERE'
-          // },
-          body: JSON.stringify({
+        const data = await fetch(
+          "http://localhost:3000/api/payment/paymentverify",
+          {
+            method: "POST",
+            // headers: {
+            //   // Authorization: 'YOUR_AUTH_HERE'
+            // },
+            body: JSON.stringify({
+              userId: "abc",
+              products: products,
+              amount: order.amount,
+              status: "Paid",
+              name: name,
+              email: email,
+              phone: phone,
+              address: address,
+              pincode: pincode,
 
-            userId:"abc", 
-            products:items, 
-            address: "Lucknow",
-            amount: order.amount,
-            status:"Pending",
-            
-            razorpay_payment_id: response.razorpay_payment_id,
-            razorpay_order_id: response.razorpay_order_id,
-            razorpay_signature: response.razorpay_signature,
-          }),
-        });
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature,
+            }),
+          }
+        );
 
         const res = await data.json();
-
         console.log("response verify==", res);
 
         if (res?.message == "success") {
           console.log("redirected.......");
-          router.push(
-            "/paymentsuccess?paymentid=" + response.razorpay_payment_id
-          );
+          router.push("/order?orderid=" + res._id);
+          clear();
         }
 
         // Validate payment at server - using webhooks is a better idea.
@@ -71,9 +95,9 @@ const BuyProduct = ({totalAmount, products}) => {
         // alert(response.razorpay_signature);
       },
       prefill: {
-        name: "mmantratech",
-        email: "mmantratech@gmail.com",
-        contact: "9354536067",
+        name: "Pooja Gupta",
+        email: "believix13@gmail.com",
+        contact: "8299552682",
       },
     };
 
@@ -85,10 +109,16 @@ const BuyProduct = ({totalAmount, products}) => {
     });
   };
 
+
   return (
     <>
       <Suspense fallback={<Loading />}>
-        <Buy makePayment={makePayment} totalAmount={totalAmount} />
+        <Buy
+          makePayment={makePayment}
+          totalAmount={totalAmount}
+          disabled={disabled}
+          products={products}
+        />
       </Suspense>
     </>
   );
