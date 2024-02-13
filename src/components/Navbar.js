@@ -143,7 +143,7 @@ const Navbar = () => {
                     My Account
                   </li>
                 </Link>
-                <Link href={"/order"}>
+                <Link href={"/orders"}>
                   <li className="py-2 text-sm hover:font-bold">Orders</li>
                 </Link>
 

@@ -7,6 +7,7 @@ const orderSchema = new mongoose.Schema(
     pincode:{ type: String, required: true },
     address: { type: String, required: true },
     phone:{ type: String, required: true },
+    email:{ type: String, required: true },
     products:{type:Object, required:true},
     amount: { type: Number, required: true },
     status: { type: String, default: "Pending", required: true },

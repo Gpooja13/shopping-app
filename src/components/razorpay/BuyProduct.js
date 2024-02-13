@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import Buy from "./Buy";
 import { useRouter } from "next/navigation";
 import Loading from "@/app/loading";
@@ -39,10 +39,13 @@ const BuyProduct = ({
       // },
       body: JSON.stringify({
         amount: totalAmount,
+        products:products
       }),
     });
-    const { order } = await data.json();
-    console.log("orderID" + order.id);
+    const {msg, order} = await data.json();
+    if(msg==="success"){
+    
+    console.log("orderID " + order.id);
     const options = {
       key: key,
       name: "Shoppers",
@@ -106,7 +109,10 @@ const BuyProduct = ({
 
     paymentObject.on("payment.failed", function (response) {
       alert("Payment failed. Please try again. Contact support for help");
-    });
+    });}
+    else{
+      console.log("Cart has been tampered.Try again");
+    }
   };
 
 

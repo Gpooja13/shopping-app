@@ -9,7 +9,6 @@ import BuyProduct from "@/components/razorpay/BuyProduct";
 
 const Checkout = () => {
   const {
-    
     cart,
     setCart,
     subTotal,
@@ -28,7 +27,7 @@ const Checkout = () => {
   const [pincode, setPincode] = useState("");
   const [disabled, setDisabled] = useState(true);
 
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     if (e.target.name === "name") {
       setName(e.target.value);
     }
@@ -43,7 +42,25 @@ const Checkout = () => {
     }
     if (e.target.name === "pincode") {
       setPincode(e.target.value);
+      if (e.target.value.length == 6) {
+        const fetchApi = await fetch("http://localhost:3000/api/pincode");
+        const data = await fetchApi.json();
+  
+        if (Object.keys(data).includes(e.target.value)) {
+          setState(data[e.target.value][1]);
+          setCity(data[e.target.value][0]);
+        }
+        else{
+          setState("")
+          setCity("")
+        }
+      }
+      else{
+        setState("")
+        setCity("")
+      }
     }
+    
   };
 
   useEffect(() => {
@@ -179,7 +196,7 @@ const Checkout = () => {
                     type="text"
                     id="city"
                     name="city"
-                    readOnly={true}
+                    onChange={handleChange}
                     className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   />
                 </div>
@@ -197,7 +214,7 @@ const Checkout = () => {
                     type="text"
                     id="state"
                     name="state"
-                    readOnly={true}
+                    onChange={handleChange}
                     className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   />
                 </div>

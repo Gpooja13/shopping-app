@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import { useSearchParams } from "next/navigation";
 
 const Success = () => {
@@ -12,7 +11,7 @@ const Success = () => {
         className="bg-green-100 border border-green-400 w-1/2 text-green-700 px-4 py-3 rounded relative"
         role="alert"
       >
-        <strong className="font-bold">Payment successful!</strong>
+        <strong className="font-bold">Payment successful! </strong>
         <span className="block sm:inline">
           Your OrderID= {orderid} has been processed.
         </span>

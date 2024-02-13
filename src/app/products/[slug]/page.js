@@ -43,7 +43,7 @@ const Post = ({ params }) => {
     const fetchApi = await fetch("http://localhost:3000/api/pincode");
     const data = await fetchApi.json();
 
-    if (data.includes(parseInt(pin))) {
+    if (Object.keys(data).includes(pin)) {
       setServiceable(true);
     } else {
       setServiceable(false);

@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import Razorpay from "razorpay";
 import shortid from "shortid";
+import product from "../../../../models/product";
+import connectdb from "../../../../middleware/connectdb";
 
 const instance = new Razorpay({
   key_id: process.env.RAZORPAY_API_KEY,
@@ -9,7 +11,22 @@ const instance = new Razorpay({
 
 export async function POST(req) {
   const payload = await req.json();
-  console.log(payload.items);
+  const { products } = payload;
+  let sumTotal = 0;
+  let productOne = 0;
+  for (const item in products) {
+    sumTotal += products[item].price * products[item].qty;
+
+    productOne = await product.findOne({ slug: item });
+    if (products[item].price !== productOne.price) {
+      return NextResponse.json({ msg: "failed" });
+    }
+  }
+
+  if (sumTotal !== payload.amount) {
+    return NextResponse.json({ msg: "failed" });
+  }
+
   // const payment_capture = 1;
   const amount = payload.amount * 100; // amount in paisa. In our case it's INR 1
   const currency = "INR";
