@@ -10,6 +10,7 @@ const TShirt = () => {
     const res = await fetch("http://localhost:3000/api/tshirt");
     const products = await res.json();
     setProductData(products);
+    console.log(products);
   }
 
   useEffect(() => {
@@ -32,8 +33,9 @@ const TShirt = () => {
                     <Image
                       alt="ecommerce"
                       className=" block"
-                      src="/tshirt.jpg"
+                      // src="/tshirt.jpg"
                       // src={productData[item.image]}
+                      src="https://m.media-amazon.com/images/I/51uGECebmZL._AC_UY1100_.jpg"
                       width={800}
                       height={1500}
                     />
@@ -52,12 +54,12 @@ const TShirt = () => {
                         </span>
                       )}
                       {productData[item].size.includes("S") && (
-                        <span className="border border-gray-300 px-1 mx-1">
+                        <span className="border border-gray-300 px-1 mx-1 rounded-full">
                           S
                         </span>
                       )}
                       {productData[item].size.includes("M") && (
-                        <span className="border border-gray-300 px-1 mx-1">
+                        <span className="border border-gray-300 px-1 mx-1 rounded-full">
                           M
                         </span>
                       )}

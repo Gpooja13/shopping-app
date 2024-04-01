@@ -45,22 +45,24 @@ const Checkout = () => {
       if (e.target.value.length == 6) {
         const fetchApi = await fetch("http://localhost:3000/api/pincode");
         const data = await fetchApi.json();
-  
+
         if (Object.keys(data).includes(e.target.value)) {
           setState(data[e.target.value][1]);
           setCity(data[e.target.value][0]);
+        } else {
+          setState("");
+          setCity("");
         }
-        else{
-          setState("")
-          setCity("")
-        }
-      }
-      else{
-        setState("")
-        setCity("")
+      } else {
+        setState("");
+        setCity("");
       }
     }
-    
+  };
+
+  const linkToItem = (slug) => {
+    let url = `http://localhost:3000/products/${slug}`;
+    window.location = url;
   };
 
   useEffect(() => {
@@ -239,8 +241,11 @@ const Checkout = () => {
                     {Object.keys(cart).map((k) => (
                       <li key={k}>
                         <div className="item flex">
-                          <div className="mx-4 font-semibold">
-                            {cart[k].name} ({cart[k].size / cart[k].variant})
+                          <div
+                            className="mx-4 font-semibold cursor-pointer"
+                            onClick={() => linkToItem(cart[k])}
+                          >
+                            {cart[k].name} ({cart[k].size} / {cart[k].variant})
                           </div>
                           <div className="flex items-center justify-center w-1/3 font-semibold text-lg">
                             <CiCircleMinus
@@ -254,9 +259,11 @@ const Checkout = () => {
                                   cart[k].variant
                                 );
                               }}
+                              title="Sub"
                             />
                             <span className="mx-2 text-sm">{cart[k].qty}</span>
                             <CiCirclePlus
+                              className="cursor-pointer"
                               onClick={() => {
                                 addToCart(
                                   k,
@@ -266,7 +273,11 @@ const Checkout = () => {
                                   cart[k].variant
                                 );
                               }}
+                              title="Add"
                             />
+                          </div>
+                          <div className="m-auto">
+                            ₹{cart[k].price * cart[k].qty}
                           </div>
                         </div>
                       </li>

@@ -62,6 +62,11 @@ const Navbar = () => {
     });
   };
 
+  const linkToItem = (slug) => {
+    let url = `http://localhost:3000/products/${slug}`;
+    window.location = url;
+  };
+
   useEffect(() => {
     ref.current.classList.add("translate-x-full");
     const startLoadingBar = () => {
@@ -106,144 +111,7 @@ const Navbar = () => {
         theme="light"
         // transition:Bounce
       />
-      {/* <div className="logo mx-5">
-        <Link href={"/"}>
-          <Image src="/logo.webp" alt="logo" width={40} height={40} />
-        </Link>
-      </div>
-      <div className="nav">
-        <ul className="flex items-center space-x-6 md:text-md">
-          <Link href="/tshirt">
-            <li>T-shirt</li>
-          </Link>
-          <Link href="/hoodie">
-            <li>Hoodies</li>
-          </Link>
-          <Link href="/sticker">
-            <li>Stickers</li>
-          </Link>
-          <Link href="/mug">
-            <li>Mugs</li>
-          </Link>
-        </ul>
-      </div> */}
-
-      {/* <div className="absolute right-0 md:top-4 top-4 mx-5">
-        <button onClick={toggleCart}>
-          <IoCartOutline className="text-xl md:text-3xl mx-2 md:mx-4" />
-        </button>
-        <span
-          onMouseOver={() => setDropDown(true)}
-          onMouseLeave={() => setDropDown(false)}
-        >
-          {dropDown && (
-            <div className="absolute right-[-10px] bg-white top-8 py-2 rounded-md px-5 w-36 cursor-pointer shadow-lg border">
-              <ul>
-                <Link href={"/account"}>
-                  <li className="py-2 text-sm hover:font-semibold">
-                    My Account
-                  </li>
-                </Link>
-                <Link href={"/orders"}>
-                  <li className="py-2 text-sm hover:font-bold">Orders</li>
-                </Link>
-
-                <li onClick={logout} className="py-2 text-sm hover:font-bold">
-                  Logout
-                </li>
-              </ul>
-            </div>
-          )}
-          {user.value && (
-            <button>
-              <MdAccountCircle
-                className="text-xl md:text-3xl"
-                onMouseOver={() => setDropDown(true)}
-                onMouseLeave={() => setDropDown(false)}
-              />
-            </button>
-          )}
-        </span>
-        {!user.value && (
-          <Link href={"/login"}>
-            <button>
-              <MdLogin className="text-xl md:text-3xl" />
-            </button>
-          </Link>
-        )}
-      </div>
-
-      <div
-        ref={ref}
-        className="absolute w-72 h-full top-0 right-0 bg-[lavender] py-10 px-8 transition-transform transform translate-x-full z-50 overflow-y-auto"
-      >
-        <h2 className="font-w-6 text-xl text-center mb-6">Shopping cart</h2>
-        <span
-          className="absolute top-2 right-2 cursor-pointer"
-          onClick={toggleCart}
-        >
-          <IoMdClose className="text-2xl" />
-        </span>
-        <ol className="list-decimal font-semibold">
-          {Object.keys(cart).length === 0 && (
-            <div className="my-4 font-semibold text-sm">Cart is empty!</div>
-          )}
-          {Object.keys(cart).map((k) => {
-            return (
-              <li key={key}>
-                <div className="item flex">
-                  <div className="w-2/3 font-semibold">
-                    {cart[k].name} ({cart[k].size / cart[k].variant})
-                  </div>
-                  <div className="flex items-center justify-center w-1/3 font-semibold text-lg">
-                    <CiCircleMinus
-                      className="cursor-pointer"
-                      onClick={() => {
-                        removeFromCart(
-                          k,
-                          1,
-                          cart[k].price,
-                          cart[k].size,
-                          cart[k].variant
-                        );
-                      }}
-                    />
-                    <span className="mx-2 text-sm">{cart[k].qty}</span>
-                    <CiCirclePlus
-                      onClick={() => {
-                        addToCart(
-                          k,
-                          1,
-                          cart[k].price,
-                          cart[k].size,
-                          cart[k].variant
-                        );
-                      }}
-                    />
-                  </div>
-                </div>
-              </li>
-            );
-          })}
-        </ol>
-        <div> Pay ₹{subTotal}</div>
-        <div className="p-2 mt-6 w-full">
-          <Link href={"/checkout"}>
-            <button className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-sm">
-              <BsBagCheckFill className="m-1" />
-              Checkout
-            </button>
-          </Link>
-          <br />
-          <button
-            className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-sm"
-            onClick={clear}
-          >
-            Clear Cart
-          </button>
-        </div>
-      </div> */}
-
+      
       <header className="text-gray-600 body-font">
         <div className="container mx-auto flex flex-wrap p-3 flex-col md:flex-row items-center">
           <div className="pl-7 pr-4">
@@ -272,7 +140,7 @@ const Navbar = () => {
 
           <div className="absolute right-0 md:top-4 top-4 mx-5 z-50">
             <button onClick={toggleCart}>
-              <IoCartOutline className="text-xl md:text-3xl mx-2 md:mx-4" />
+              <IoCartOutline className="text-xl md:text-3xl mx-2 md:mx-4" title="Cart" />
               {numOfItems === 0 ? (
                 <></>
               ) : (
@@ -317,6 +185,7 @@ const Navbar = () => {
                     className="text-xl md:text-3xl"
                     onMouseOver={() => setDropDown(true)}
                     onMouseLeave={() => setDropDown(false)}
+                    title="My Account"
                   />
                 </button>
               )}
@@ -324,7 +193,7 @@ const Navbar = () => {
             {!user.value && (
               <Link href={"/login"}>
                 <button>
-                  <MdLogin className="text-xl md:text-3xl" />
+                  <MdLogin className="text-xl md:text-3xl" title="Login" />
                 </button>
               </Link>
             )}
@@ -351,8 +220,11 @@ const Navbar = () => {
                 return (
                   <li key={key}>
                     <div className="item flex">
-                      <div className="w-2/3 font-semibold">
-                        {cart[k].name} ({cart[k].size / cart[k].variant})
+                      <div
+                        className="w-2/3 font-semibold cursor-pointer"
+                        onClick={() => linkToItem(cart[k])}
+                      >
+                        {cart[k].name} ({cart[k].size} / {cart[k].variant})
                       </div>
                       <div className="flex items-center justify-center w-1/3 font-semibold text-lg">
                         <CiCircleMinus
@@ -366,9 +238,11 @@ const Navbar = () => {
                               cart[k].variant
                             );
                           }}
+                          title="Sub"
                         />
                         <span className="mx-2 text-sm">{cart[k].qty}</span>
                         <CiCirclePlus
+                          className="cursor-pointer"
                           onClick={() => {
                             addToCart(
                               k,
@@ -378,6 +252,7 @@ const Navbar = () => {
                               cart[k].variant
                             );
                           }}
+                          title="Add"
                         />
                       </div>
                     </div>
@@ -385,7 +260,13 @@ const Navbar = () => {
                 );
               })}
             </ol>
-            {numOfItems ? <div> Pay ₹{subTotal}</div> : <></>}
+            {numOfItems ? (
+              <div className="flex justify-center font-semibold mt-5">
+                Pay ₹{subTotal}
+              </div>
+            ) : (
+              <></>
+            )}
 
             <div className="p-2 mt-6 w-full">
               <Link href={"/checkout"}>
@@ -406,7 +287,7 @@ const Navbar = () => {
               </Link>
               <br />
               <button
-                className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-sm w-[150px]"
+                className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-sm w-[150px] justify-center"
                 onClick={clear}
               >
                 Clear Cart

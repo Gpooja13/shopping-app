@@ -12,8 +12,6 @@ const Post = ({ params }) => {
   const [serviceable, setServiceable] = useState("");
   const [productOneData, setProductOneData] = useState();
   const [variant, setVariant] = useState();
-  const [color, setColor] = useState("");
-  const [size, setSize] = useState("");
   const router = useRouter();
   const {
     cart,
@@ -33,8 +31,6 @@ const Post = ({ params }) => {
     const productOne = await res.json();
     setProductOneData(productOne.productOne);
     setVariant(productOne.variant);
-    setColor(productOne.color);
-    setSize(productOne.size);
     console.log(productOne.productOne);
     console.log(productOne.variant);
   }
@@ -54,13 +50,14 @@ const Post = ({ params }) => {
     setPin(e.target.value);
   };
 
-  const refreshVariant = (newcolor, newsize) => {
-    let url = `http://localhost:3000/product/${variants[newcolor][newsize][slug]}`;
+  const refreshVariant = (newsize) => {
+    let url = `http://localhost:3000/products/${variant[newsize].slug}`;
     window.location = url;
   };
 
   useEffect(() => {
     fetchProductOneData();
+    console.log(variant);
   }, []);
 
   return (
@@ -88,9 +85,24 @@ const Post = ({ params }) => {
             // width={40} height={60}
           />
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+            <div className="float-right">
+              <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-3 ">
+                <svg
+                  fill="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  className="w-5 h-5"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
+                </svg>
+              </button>
+            </div>
             <h2 className="text-sm title-font text-gray-500 tracking-widest">
               BRAND NAME
             </h2>
+
             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
               {productOneData && productOneData.title} (
               {productOneData && productOneData.size}/
@@ -155,7 +167,7 @@ const Post = ({ params }) => {
                 </svg>
                 <span className="text-gray-600 ml-3">4 Reviews</span>
               </span>
-              <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200 space-x-2s">
+              <span className="flex ml-5 pl-3 py-2 border-l-2 border-gray-200 space-x-2s">
                 <a className="text-gray-500">
                   <svg
                     fill="currentColor"
@@ -200,7 +212,7 @@ const Post = ({ params }) => {
             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
               <div className="flex">
                 <span className="mr-3">Color</span>
-                {variant &&
+                {/* {variant &&
                   Object.keys(variant).includes("red") &&
                   Object.keys(variant)["red"].includes("size") && (
                     <button
@@ -218,32 +230,36 @@ const Post = ({ params }) => {
                     <button className="border-2 border-blue-300 rounded-full w-6 h-6 focus:outline-none"></button>
                   )}
 
-                {/* <button className="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6 focus:outline-none"></button>
-                <button className="border-2 border-gray-300 ml-1 bg-indigo-500 rounded-full w-6 h-6 focus:outline-none"></button> */}
+                <button className="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6 focus:outline-none"></button> */}
+                <div
+                  className={`border-2 border-gray-300 ml-1 bg-${productOneData?.color}-500 rounded-full w-6 h-6 focus:outline-none`}
+                ></div>
               </div>
               <div className="flex ml-6 items-center">
                 <span className="mr-3">Size</span>
                 <div className="relative">
                   <select
                     className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10"
-                    value={size}
-                    onChange={(e) => refreshVariant(color, e.target.value)}
+                    value={productOneData?.size}
+                    onChange={(e) => {
+                      refreshVariant(e.target.value);
+                    }}
                   >
-                    {variant && color && variant[color] && (
+                    {variant && (
                       <>
-                        {variant[color].includes("XS") && (
+                        {Object.keys(variant).includes("XS") && (
                           <option value={"XS"}>XS</option>
                         )}
-                        {variant[color].includes("S") && (
+                        {Object.keys(variant).includes("S") && (
                           <option value={"S"}>S</option>
                         )}
-                        {variant[color].includes("M") && (
+                        {Object.keys(variant).includes("M") && (
                           <option value={"M"}>M</option>
                         )}
-                        {variant[color].includes("L") && (
+                        {Object.keys(variant).includes("L") && (
                           <option value={"L"}>L</option>
                         )}
-                        {variant[color].includes("XL") && (
+                        {Object.keys(variant).includes("XL") && (
                           <option value={"XL"}>XL</option>
                         )}
                       </>
@@ -266,22 +282,22 @@ const Post = ({ params }) => {
               </div>
             </div>
             <div className="flex">
-              <span className="title-font font-medium text-2xl text-gray-900">
+              <span className="title-font font-medium text-2xl text-gray-900 mr-4">
                 ₹{productOneData && productOneData.price}
               </span>
 
               <button
-                className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm"
+                className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm "
                 onClick={() => {
                   addToCart(
                     slugWord,
                     1,
                     productOneData.price,
                     productOneData.title,
-                    size,
-                    color
+                    productOneData.size,
+                    productOneData.color
                   );
-                  toast.success("🦄 Product added into the cart!", {
+                  toast.success("Product added into the cart!", {
                     position: "bottom-center",
                     autoClose: 2000,
                     hideProgressBar: false,
@@ -297,47 +313,35 @@ const Post = ({ params }) => {
                 Add to cart
               </button>
               <button
-                className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm"
+                className="flex ml-4 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm"
                 onClick={() => {
                   buyNow(
                     slugWord,
                     1,
                     productOneData.price,
                     productOneData.title,
-                    size,
-                    color
+                    productOneData.size,
+                    productOneData.color
                   );
                   router.push("/checkout");
                 }}
               >
                 Buy now
               </button>
-              <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
-                <svg
-                  fill="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  className="w-5 h-5"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
-                </svg>
-              </button>
             </div>
             <div className="flex flex-col mt-3">
               <div className="mt-6 flex space-x-2 text-sm">
                 <input
                   type="text"
-                  className="px-2 border-2"
+                  className="rounded border appearance-none border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10 w-[255px]"
                   onChange={onchange}
                   placeholder="Enter pincode"
                 />
                 <button
-                  className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                  className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded items-center"
                   onClick={checkServiceability}
                 >
-                  Check pincode
+                  Check
                 </button>
               </div>
               <div>

@@ -11,8 +11,8 @@ export const GlobalContextProvider = ({ children }) => {
 
   const saveCart = (myCart) => {
     localStorage.setItem("cart", JSON.stringify(myCart));
-    let subt,
-      num = 0;
+    let subt=0;
+    let num = 0;
     let p;
     let list = [];
     for (let i = 0; i < Object.keys(myCart).length; i++) {
@@ -22,10 +22,11 @@ export const GlobalContextProvider = ({ children }) => {
       // p = { productId: myCart[itemCode].slug, quantity: myCart[itemCode].qty };
       // list.push(p);
     }
+    
     setSubTotal(subt);
     setNumOfItems(num);
     // setItem(list)
-    // console.log(item)
+    
   };
 
   const addToCart = (itemCode, qty, price, name, size, variant) => {
