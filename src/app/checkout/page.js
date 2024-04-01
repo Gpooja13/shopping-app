@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
-import { useGlobalContext } from "../Context/store";
+import { useGlobalContext } from "../../Context/store";
 import Head from "next/head";
 import BuyProduct from "@/components/razorpay/BuyProduct";
 

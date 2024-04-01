@@ -7,7 +7,7 @@ import { IoMdClose } from "react-icons/io";
 import React, { useRef, useEffect, useState } from "react";
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
 import { BsBagCheckFill } from "react-icons/bs";
-import { useGlobalContext } from "../app/Context/store";
+import { useGlobalContext } from "../Context/store";
 import { MdAccountCircle, MdLogin } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -26,6 +26,7 @@ const Navbar = () => {
     cart,
     setCart,
     saveCart,
+    numOfItems,
     subTotal,
     setSubTotal,
     addToCart,
@@ -245,7 +246,7 @@ const Navbar = () => {
 
       <header className="text-gray-600 body-font">
         <div className="container mx-auto flex flex-wrap p-3 flex-col md:flex-row items-center">
-          <div className="pl-7 pr-5">
+          <div className="pl-7 pr-4">
             <Link
               className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
               href={"/"}
@@ -272,6 +273,13 @@ const Navbar = () => {
           <div className="absolute right-0 md:top-4 top-4 mx-5 z-50">
             <button onClick={toggleCart}>
               <IoCartOutline className="text-xl md:text-3xl mx-2 md:mx-4" />
+              {numOfItems === 0 ? (
+                <></>
+              ) : (
+                <span className="rounded-full text-white bg-red-600 absolute bottom-[25px] right-[43px] w-[13px] h-[14px] text-xs font-medium">
+                  {numOfItems}
+                </span>
+              )}
             </button>
             <span
               onMouseOver={() => setDropDown(true)}
@@ -289,7 +297,9 @@ const Navbar = () => {
                       <li className="py-2 text-sm hover:font-bold">Orders</li>
                     </Link>
                     <Link href={"/contact"}>
-                      <li className="py-2 text-sm hover:font-bold">Contact Us</li>
+                      <li className="py-2 text-sm hover:font-bold">
+                        Contact Us
+                      </li>
                     </Link>
 
                     <li
@@ -333,7 +343,9 @@ const Navbar = () => {
             </span>
             <ol className="list-decimal font-semibold">
               {Object.keys(cart).length === 0 && (
-                <div className="my-4 font-semibold text-sm">Cart is empty!</div>
+                <div className="my-4 font-semibold text-sm ml-[60px] mt-10">
+                  Cart is empty!
+                </div>
               )}
               {Object.keys(cart).map((k) => {
                 return (
@@ -373,17 +385,28 @@ const Navbar = () => {
                 );
               })}
             </ol>
-            <div> Pay ₹{subTotal}</div>
+            {numOfItems ? <div> Pay ₹{subTotal}</div> : <></>}
+
             <div className="p-2 mt-6 w-full">
               <Link href={"/checkout"}>
-                <button className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-sm">
-                  <BsBagCheckFill className="m-1" />
-                  Checkout
-                </button>
+                {numOfItems ? (
+                  <button className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-sm">
+                    <BsBagCheckFill className="m-1" />
+                    Checkout
+                  </button>
+                ) : (
+                  <button
+                    className="flex mx-auto text-white bg-indigo-400 border-0 py-2 px-8 focus:outline-none  rounded text-sm"
+                    disabled
+                  >
+                    <BsBagCheckFill className="m-1" />
+                    Checkout
+                  </button>
+                )}
               </Link>
               <br />
               <button
-                className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-sm"
+                className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-sm w-[150px]"
                 onClick={clear}
               >
                 Clear Cart

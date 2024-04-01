@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useGlobalContext } from "../../Context/store";
+import { useGlobalContext } from "../../../Context/store";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

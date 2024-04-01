@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import Buy from "./Buy";
 import { useRouter } from "next/navigation";
 import Loading from "@/app/loading";
-import { useGlobalContext } from "../../app/Context/store";
+import { useGlobalContext } from "../../Context/store";
 
 const BuyProduct = ({
   totalAmount,
