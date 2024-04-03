@@ -13,6 +13,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingBar from "react-top-loading-bar";
 import { usePathname } from "next/navigation";
+import { FaRegHeart } from "react-icons/fa";
 
 const Navbar = () => {
   const [user, setUser] = useState({ value: null });
@@ -28,7 +29,6 @@ const Navbar = () => {
     saveCart,
     numOfItems,
     subTotal,
-    setSubTotal,
     addToCart,
     removeFromCart,
     clear,
@@ -111,7 +111,7 @@ const Navbar = () => {
         theme="light"
         // transition:Bounce
       />
-      
+
       <header className="text-gray-600 body-font">
         <div className="container mx-auto flex flex-wrap p-3 flex-col md:flex-row items-center">
           <div className="pl-7 pr-4">
@@ -137,10 +137,24 @@ const Navbar = () => {
               Mugs
             </Link>
           </nav>
-
-          <div className="absolute right-0 md:top-4 top-4 mx-5 z-50">
+          <div className="absolute right-20 md:top-5 top-5 mx-8 z-50">
+            {(
+              <Link href="/wishList">
+              <button>
+                <FaRegHeart
+                  className="text-xl md:text-2xl mx-2 md:mx-4"
+                  title="WishList"
+                />
+              </button>
+              </Link>
+            )}
+          </div>
+          <div className="absolute right-0 md:top-4 top-4 mx-7 z-50">
             <button onClick={toggleCart}>
-              <IoCartOutline className="text-xl md:text-3xl mx-2 md:mx-4" title="Cart" />
+              <IoCartOutline
+                className="text-xl md:text-3xl mx-2 md:mx-4"
+                title="Cart"
+              />
               {numOfItems === 0 ? (
                 <></>
               ) : (

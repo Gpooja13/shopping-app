@@ -8,10 +8,12 @@ export const GlobalContextProvider = ({ children }) => {
   const [cart, setCart] = useState({});
   const [subTotal, setSubTotal] = useState(0);
   const [numOfItems, setNumOfItems] = useState(0);
+  const [wishItems, setWishItems] = useState([]);
+  const [included, setIncluded] = useState(false);
 
   const saveCart = (myCart) => {
     localStorage.setItem("cart", JSON.stringify(myCart));
-    let subt=0;
+    let subt = 0;
     let num = 0;
     let p;
     let list = [];
@@ -22,11 +24,10 @@ export const GlobalContextProvider = ({ children }) => {
       // p = { productId: myCart[itemCode].slug, quantity: myCart[itemCode].qty };
       // list.push(p);
     }
-    
+
     setSubTotal(subt);
     setNumOfItems(num);
     // setItem(list)
-    
   };
 
   const addToCart = (itemCode, qty, price, name, size, variant) => {
@@ -65,6 +66,23 @@ export const GlobalContextProvider = ({ children }) => {
     saveCart({});
   };
 
+  const addToWishList = (product) => {
+    const exists = wishItems.some((elem) => elem.title === product.title);
+    if (exists) {
+      const newArray = wishItems.filter((item) => item !== product);
+      console.log(newArray);
+      localStorage.setItem("wishList", JSON.stringify(newArray));
+      setWishItems(newArray);
+      setIncluded(false);
+      console.log("remove");
+    } else {
+      wishItems.push(product);
+      localStorage.setItem("wishList", JSON.stringify(wishItems));
+      setIncluded(true);
+      console.log("added");
+    }
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -75,6 +93,11 @@ export const GlobalContextProvider = ({ children }) => {
         saveCart,
         subTotal,
         numOfItems,
+        wishItems,
+        addToWishList,
+        included,
+        setIncluded,
+        setWishItems,
         setSubTotal,
         addToCart,
         removeFromCart,

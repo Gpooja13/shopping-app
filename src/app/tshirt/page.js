@@ -10,7 +10,6 @@ const TShirt = () => {
     const res = await fetch("http://localhost:3000/api/tshirt");
     const products = await res.json();
     setProductData(products);
-    console.log(products);
   }
 
   useEffect(() => {
@@ -21,7 +20,7 @@ const TShirt = () => {
     <section className="text-gray-600 body-font">
       <div className="container px-12 py-24 mx-auto">
         <div className="flex flex-wrap -m-4 justify-center">
-        {/* {Object.keys(productData).length===0 && <p>Sorry all the products are cuurently out of stock. New stock comming soon. Stay tuned!</p>} */}
+          {/* {Object.keys(productData).length===0 && <p>Sorry all the products are cuurently out of stock. New stock comming soon. Stay tuned!</p>} */}
           {Object.keys(productData).map((item) => {
             return (
               <div

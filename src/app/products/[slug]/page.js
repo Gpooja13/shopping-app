@@ -4,6 +4,7 @@ import { useGlobalContext } from "../../../Context/store";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FaHeart } from "react-icons/fa";
 import Image from "next/image";
 
 const Post = ({ params }) => {
@@ -19,8 +20,13 @@ const Post = ({ params }) => {
     subTotal,
     setSubTotal,
     addToCart,
+    addToWishList,
     removeFromCart,
     buyNow,
+    wishItems,
+    setWishItems,
+    included,
+    setIncluded,
     clear,
   } = useGlobalContext();
 
@@ -31,8 +37,7 @@ const Post = ({ params }) => {
     const productOne = await res.json();
     setProductOneData(productOne.productOne);
     setVariant(productOne.variant);
-    console.log(productOne.productOne);
-    console.log(productOne.variant);
+
   }
 
   const checkServiceability = async () => {
@@ -57,7 +62,6 @@ const Post = ({ params }) => {
 
   useEffect(() => {
     fetchProductOneData();
-    console.log(variant);
   }, []);
 
   return (
@@ -86,17 +90,11 @@ const Post = ({ params }) => {
           />
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
             <div className="float-right">
-              <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-3 ">
-                <svg
-                  fill="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  className="w-5 h-5"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
-                </svg>
+              <button
+                className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-3"
+                onClick={() => addToWishList(productOneData)}
+              >
+                {included ? <FaHeart className="text-red-600" /> : <FaHeart />}
               </button>
             </div>
             <h2 className="text-sm title-font text-gray-500 tracking-widest">
