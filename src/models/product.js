@@ -7,6 +7,7 @@ const productSchema = new mongoose.Schema(
     desc: { type: String, required: true },
     image: { type: String, required: true },
     category: { type: String, required: true },
+    gender: { type: String, required: true },
     size: { type: String },
     color: { type: String },
     price: { type: Number, required: true },
@@ -14,5 +15,5 @@ const productSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-mongoose.models={}
+mongoose.models = {};
 export default mongoose.model("Product", productSchema);

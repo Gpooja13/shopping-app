@@ -124,17 +124,17 @@ const Navbar = () => {
             </Link>
           </div>
           <nav className="md:mr-auto md:ml-6 md:py-1 md:pl-6 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
-            <Link href="/tshirt" className="mr-8 hover:text-gray-900">
-              T-shirt
+            <Link href="/men" className="mr-8 hover:text-gray-900">
+              Men
             </Link>
             <Link href="/hoodie" className="mr-8 hover:text-gray-900">
-              Hoodies
+              Women
             </Link>
             <Link href="/sticker" className="mr-8 hover:text-gray-900">
-              Stickers
+              Kids
             </Link>
             <Link href="/mug" className="mr-8 hover:text-gray-900">
-              Mugs
+              Accesories
             </Link>
           </nav>
           <div className="absolute right-20 md:top-5 top-5 mx-8 z-50">
@@ -232,7 +232,7 @@ const Navbar = () => {
               )}
               {Object.keys(cart).map((k) => {
                 return (
-                  <li key={key}>
+                  <li key={key} className="mb-2">
                     <div className="item flex">
                       <div
                         className="w-2/3 font-semibold cursor-pointer"
@@ -258,6 +258,7 @@ const Navbar = () => {
                         <CiCirclePlus
                           className="cursor-pointer"
                           onClick={() => {
+                            if(cart[k].qty<cart[k].availableQty){
                             addToCart(
                               k,
                               1,
@@ -265,6 +266,7 @@ const Navbar = () => {
                               cart[k].size,
                               cart[k].variant
                             );
+                            }
                           }}
                           title="Add"
                         />

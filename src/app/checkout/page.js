@@ -265,6 +265,7 @@ const Checkout = () => {
                             <CiCirclePlus
                               className="cursor-pointer"
                               onClick={() => {
+                                if(cart[k].qty<cart[k].availableQty){
                                 addToCart(
                                   k,
                                   1,
@@ -272,6 +273,7 @@ const Checkout = () => {
                                   cart[k].size,
                                   cart[k].variant
                                 );
+                                }
                               }}
                               title="Add"
                             />

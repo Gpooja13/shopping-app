@@ -10,6 +10,7 @@ export const GlobalContextProvider = ({ children }) => {
   const [numOfItems, setNumOfItems] = useState(0);
   const [wishItems, setWishItems] = useState([]);
   const [included, setIncluded] = useState(false);
+  const [sort, setSort] = useState("default");
 
   const saveCart = (myCart) => {
     localStorage.setItem("cart", JSON.stringify(myCart));
@@ -30,12 +31,20 @@ export const GlobalContextProvider = ({ children }) => {
     // setItem(list)
   };
 
-  const addToCart = (itemCode, qty, price, name, size, variant) => {
+  const addToCart = (
+    itemCode,
+    qty,
+    price,
+    name,
+    size,
+    variant,
+    availableQty
+  ) => {
     let myCart = { ...cart };
     if (itemCode in myCart) {
       myCart[itemCode].qty += qty;
     } else {
-      myCart[itemCode] = { qty: 1, price, name, size, variant };
+      myCart[itemCode] = { qty: 1, price, name, size, variant, availableQty };
     }
     setCart(myCart);
     saveCart(myCart);
@@ -53,9 +62,9 @@ export const GlobalContextProvider = ({ children }) => {
     saveCart(myCart);
   };
 
-  const buyNow = (itemCode, qty, price, name, size, variant) => {
+  const buyNow = (itemCode, qty, price, name, size, variant, availableQty) => {
     let myCart = {};
-    myCart[itemCode] = { qty: 1, price, name, size, variant };
+    myCart[itemCode] = { qty: 1, price, name, size, variant, availableQty };
 
     setCart(myCart);
     saveCart(myCart);
@@ -83,6 +92,28 @@ export const GlobalContextProvider = ({ children }) => {
     }
   };
 
+  const sorting = (data, sortType) => {
+    if (sortType === "highest-lowest") {
+      const sortedData = Object.fromEntries(
+        Object.entries(data).sort(([, a], [, b]) => a.price - b.price)
+      );
+      return sortedData;
+    }
+    if (sortType === "lowest-highest") {
+      const sortedData = Object.fromEntries(
+        Object.entries(data).sort(([, a], [, b]) => b.price - a.price)
+      );
+      return sortedData;
+    }
+    if (sortType === "default") {
+      return data;
+    }
+  };
+
+  const filtering=()=>{
+    
+  }
+
   return (
     <GlobalContext.Provider
       value={{
@@ -103,6 +134,9 @@ export const GlobalContextProvider = ({ children }) => {
         removeFromCart,
         buyNow,
         clear,
+        sorting,
+        sort,
+        setSort,
       }}
     >
       {children}

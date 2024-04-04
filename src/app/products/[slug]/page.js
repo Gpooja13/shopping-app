@@ -37,7 +37,6 @@ const Post = ({ params }) => {
     const productOne = await res.json();
     setProductOneData(productOne.productOne);
     setVariant(productOne.variant);
-
   }
 
   const checkServiceability = async () => {
@@ -287,14 +286,17 @@ const Post = ({ params }) => {
               <button
                 className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm "
                 onClick={() => {
-                  addToCart(
-                    slugWord,
-                    1,
-                    productOneData.price,
-                    productOneData.title,
-                    productOneData.size,
-                    productOneData.color
-                  );
+                  if (cart[slugWord].qty < productOneData.availableQty) {
+                    addToCart(
+                      slugWord,
+                      1,
+                      productOneData.price,
+                      productOneData.title,
+                      productOneData.size,
+                      productOneData.color,
+                      productOneData.availableQty
+                    );
+                  
                   toast.success("Product added into the cart!", {
                     position: "bottom-center",
                     autoClose: 2000,
@@ -306,6 +308,20 @@ const Post = ({ params }) => {
                     theme: "light",
                     // transition:Bounce ,
                   });
+                  }
+                  else{
+                    toast.error("Stock not available", {
+                    position: "bottom-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    // transition:Bounce ,
+                  });
+                  }
                 }}
               >
                 Add to cart
@@ -313,15 +329,31 @@ const Post = ({ params }) => {
               <button
                 className="flex ml-4 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm"
                 onClick={() => {
+                  if (cart[slugWord].qty < productOneData.availableQty) {
                   buyNow(
                     slugWord,
                     1,
                     productOneData.price,
                     productOneData.title,
                     productOneData.size,
-                    productOneData.color
+                    productOneData.color,
+                    productOneData.availableQty
                   );
                   router.push("/checkout");
+                  }
+                  else{
+                    toast.error("Stock not available", {
+                    position: "bottom-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    // transition:Bounce ,
+                  }); 
+                  }
                 }}
               >
                 Buy now
