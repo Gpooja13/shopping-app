@@ -11,24 +11,24 @@ export const GlobalContextProvider = ({ children }) => {
   const [wishItems, setWishItems] = useState([]);
   const [included, setIncluded] = useState(false);
   const [sort, setSort] = useState("default");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedPrice, setSelectedPrice] = useState("");
+  const [userDetail, setUserDetail] = useState("");
 
   const saveCart = (myCart) => {
     localStorage.setItem("cart", JSON.stringify(myCart));
     let subt = 0;
     let num = 0;
-    let p;
-    let list = [];
+
     for (let i = 0; i < Object.keys(myCart).length; i++) {
       const itemCode = Object.keys(myCart)[i];
       subt += myCart[itemCode].price * myCart[itemCode].qty;
       num += myCart[itemCode].qty;
-      // p = { productId: myCart[itemCode].slug, quantity: myCart[itemCode].qty };
-      // list.push(p);
     }
 
     setSubTotal(subt);
     setNumOfItems(num);
-    // setItem(list)
   };
 
   const addToCart = (
@@ -79,7 +79,6 @@ export const GlobalContextProvider = ({ children }) => {
     const exists = wishItems.some((elem) => elem.title === product.title);
     if (exists) {
       const newArray = wishItems.filter((item) => item !== product);
-      console.log(newArray);
       localStorage.setItem("wishList", JSON.stringify(newArray));
       setWishItems(newArray);
       setIncluded(false);
@@ -110,15 +109,60 @@ export const GlobalContextProvider = ({ children }) => {
     }
   };
 
-  const filtering=()=>{
-    
-  }
+  const uniqueData = (data, property) => {
+    let newVal = Object.keys(data).map((curElem) => {
+      if (property === "category") {
+        return data[curElem].category;
+      }
+      if (property === "color") {
+        return data[curElem].color;
+      }
+      if (property === "brand") {
+        return data[curElem].brand;
+      }
+      if (property === "price") {
+        return data[curElem].price;
+      }
+    });
+    property === "price"
+      ? (newVal = [...new Set(newVal)])
+      : (newVal = ["All", ...new Set(newVal)]);
+    return newVal;
+  };
+
+  const filtering = (data, category, color, price) => {
+    if (category) {
+      if (category === "All") {
+        return data;
+      }
+      data = Object.fromEntries(
+        Object.entries(data).filter(
+          ([key, value]) => value.category === category
+        )
+      );
+    }
+    if (color) {
+      if (color === "All") {
+        return data;
+      }
+      data = Object.fromEntries(
+        Object.entries(data).filter(([key, value]) => value.color === color)
+      );
+    }
+    if (price) {
+      data = Object.fromEntries(
+        Object.entries(data).filter(([key, value]) => value.price <= price)
+      );
+    }
+    console.log("newData", data);
+    return data;
+  };
 
   return (
     <GlobalContext.Provider
       value={{
-        // item,
-        // setItem,
+        userDetail,
+        setUserDetail,
         cart,
         setCart,
         saveCart,
@@ -137,6 +181,14 @@ export const GlobalContextProvider = ({ children }) => {
         sorting,
         sort,
         setSort,
+        uniqueData,
+        selectedColor,
+        setSelectedColor,
+        selectedCategory,
+        setSelectedCategory,
+        selectedPrice,
+        setSelectedPrice,
+        filtering,
       }}
     >
       {children}

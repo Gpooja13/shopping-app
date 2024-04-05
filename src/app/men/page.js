@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { FaFilter } from "react-icons/fa";
+import { BiFilterAlt } from "react-icons/bi";
 import SideBar from "@/components/SideBar";
 import { useGlobalContext } from "@/Context/store";
 
@@ -10,27 +10,21 @@ const Men = () => {
   const [productData, setProductData] = useState({});
   const [allCategory, setAllCategory] = useState([]);
   const [allColor, setAllColor] = useState([]);
-  const { sorting, sort, setSort } = useGlobalContext();
-
-  const uniqueData = (data, property) => {
-    let newVal = Object.keys(data).map((curElem) => {
-      if (property === "category") {
-        return data[curElem].category;
-      }
-      if (property === "color") {
-        return data[curElem].color;
-      }
-      if (property === "brand") {
-        return data[curElem].brand;
-      }
-      if (property === "price") {
-        return data[curElem].price;
-      }
-    });
-    newVal = ["All", ...new Set(newVal)];
-    console.log(newVal);
-    return newVal;
-  };
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  const {
+    sorting,
+    sort,
+    setSort,
+    uniqueData,
+    selectedColor,
+    setSelectedColor,
+    selectedCategory,
+    setSelectedCategory,
+    selectedPrice,
+    setSelectedPrice,
+    filtering,
+  } = useGlobalContext();
 
   async function fetchProductData() {
     const res = await fetch("http://localhost:3000/api/men");
@@ -39,21 +33,36 @@ const Men = () => {
 
     setAllCategory(uniqueData(products, "category"));
     setAllColor(uniqueData(products, "color"));
+    setMinPrice(Math.min(...uniqueData(products, "price")));
+    setMaxPrice(Math.max(...uniqueData(products, "price")));
+
+    if (selectedCategory || selectedColor || selectedPrice) {
+      setProductData(
+        filtering(products, selectedCategory, selectedColor, selectedPrice)
+      );
+    }
   }
 
   useEffect(() => {
     fetchProductData();
-  }, [sort]);
+  }, [sort, selectedCategory, selectedColor, selectedPrice]);
 
   return (
     <section className="text-gray-600 body-font">
-      <SideBar allCategory={allCategory} allColor={allColor} />
+      <SideBar
+        allCategory={allCategory}
+        allColor={allColor}
+        minPrice={minPrice}
+        maxPrice={maxPrice}
+      />
       <div className="container pb-24 pt-12 mx-auto">
         <div className="flex justify-around items-center mb-12">
-          <div className="p-2 border ">
-            <FaFilter title="Filter" />
+          <div className="p-1 border ">
+            <BiFilterAlt title="Filter" className="text-2xl" />
           </div>
-          <span className="text-sm">69 products available</span>
+          <span className="text-sm">
+            {Object.keys(productData).length} products available
+          </span>
 
           <div>
             <label htmlFor="sort" className="text-sm">

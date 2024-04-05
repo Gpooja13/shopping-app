@@ -24,6 +24,7 @@ const Navbar = () => {
   const [progress, setProgress] = useState(0);
   const location = usePathname();
   const {
+    userDetail,
     cart,
     setCart,
     saveCart,
@@ -138,16 +139,16 @@ const Navbar = () => {
             </Link>
           </nav>
           <div className="absolute right-20 md:top-5 top-5 mx-8 z-50">
-            {(
+            {
               <Link href="/wishList">
-              <button>
-                <FaRegHeart
-                  className="text-xl md:text-2xl mx-2 md:mx-4"
-                  title="WishList"
-                />
-              </button>
+                <button>
+                  <FaRegHeart
+                    className="text-xl md:text-2xl mx-2 md:mx-6"
+                    title="WishList"
+                  />
+                </button>
               </Link>
-            )}
+            }
           </div>
           <div className="absolute right-0 md:top-4 top-4 mx-7 z-50">
             <button onClick={toggleCart}>
@@ -168,15 +169,22 @@ const Navbar = () => {
               onMouseLeave={() => setDropDown(false)}
             >
               {dropDown && (
-                <div className="absolute right-[-10px] bg-white top-8 py-2 rounded-md px-5 w-36 cursor-pointer shadow-lg border">
+                <div className="absolute right-[-10px] bg-white top-8 py-2 rounded-md px-5 w-40 cursor-pointer shadow-lg border">
                   <ul>
-                    <Link href={"/account"}>
-                      <li className="py-2 text-sm hover:font-semibold">
-                        My Account
-                      </li>
-                    </Link>
+                    <li className="py-2 text-sm h-14 border-b">
+                      <div>
+                        <p className="font-semibold"> Hi {userDetail?.name}</p>
+                        <span className="text-[12px] text-green-400">
+                          {userDetail?.email}
+                        </span>
+                      </div>
+                    </li>
+
                     <Link href={"/orders"}>
                       <li className="py-2 text-sm hover:font-bold">Orders</li>
+                    </Link>
+                    <Link href={"/about"}>
+                      <li className="py-2 text-sm hover:font-bold">About</li>
                     </Link>
                     <Link href={"/contact"}>
                       <li className="py-2 text-sm hover:font-bold">
@@ -196,7 +204,7 @@ const Navbar = () => {
               {user.value && (
                 <button>
                   <MdAccountCircle
-                    className="text-xl md:text-3xl"
+                    className="text-xl md:text-3xl mx-2 md:mx-1"
                     onMouseOver={() => setDropDown(true)}
                     onMouseLeave={() => setDropDown(false)}
                     title="My Account"
@@ -258,14 +266,14 @@ const Navbar = () => {
                         <CiCirclePlus
                           className="cursor-pointer"
                           onClick={() => {
-                            if(cart[k].qty<cart[k].availableQty){
-                            addToCart(
-                              k,
-                              1,
-                              cart[k].price,
-                              cart[k].size,
-                              cart[k].variant
-                            );
+                            if (cart[k].qty < cart[k].availableQty) {
+                              addToCart(
+                                k,
+                                1,
+                                cart[k].price,
+                                cart[k].size,
+                                cart[k].variant
+                              );
                             }
                           }}
                           title="Add"

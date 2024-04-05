@@ -5,11 +5,16 @@ import { useRouter } from "next/navigation";
 import { useState,useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useGlobalContext } from "@/Context/store";
 
 const login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const {
+    userDetail,
+    setUserDetail,
+  } = useGlobalContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +29,9 @@ const login = () => {
       });
 
       const userData = await res.json();
+
+      console.log(userData.user);
+      setUserDetail(userData.user);
 
       if (userData.res === "success") {
         localStorage.setItem("token", userData.token);
@@ -91,7 +99,7 @@ const login = () => {
         theme="light"
         // transition:Bounce
       />
-      <div className="container h-full px-6 py-10">
+      <div className="container h-full px-6 pb-14">
         <div className="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between">
           <div className="mb-12 md:mb-0 md:w-8/12 lg:w-6/12">
             <img

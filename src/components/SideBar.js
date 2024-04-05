@@ -1,28 +1,48 @@
 import React, { useEffect, useState } from "react";
+import { useGlobalContext } from "@/Context/store";
 
-const SideBar = ({allCategory,allColor }) => {
+const SideBar = ({ allCategory, allColor, minPrice, maxPrice }) => {
+  const {
+    selectedColor,
+    setSelectedColor,
+    selectedCategory,
+    setSelectedCategory,
+    selectedPrice,
+    setSelectedPrice,
+    filtering,
+  } = useGlobalContext();
 
-
-  useEffect(() => {
-  
-  }, []);
+  const clearAllFilter=()=>{
+    setSelectedCategory("");
+    setSelectedColor("");
+    setSelectedPrice("");
+    document.getElementById("category-0").checked = true;
+    document.getElementById("color-0").checked = true;
+    document.getElementById("price-range").value = maxPrice;
+  }
 
   return (
-    <section className="float-left h-[100vh] md:w-[15vw] border-r p-10">
+    <section className="float-left h-[100vh] md:w-[16vw] border-r p-10 items-center">
       <h2 className="font-semibold">FILTER</h2>
-      <div className="mt-6 min-h-[60vh] flex flex-col justify-between">
+      <div className="mt-6 min-h-[70vh] flex flex-col justify-between">
         <div>
           <span className="font-medium">Category</span>
           <div>
             {allCategory.map((elem, index) => (
               <React.Fragment key={index}>
                 <input
-                  type="checkbox"
+                  type="radio"
                   id={`category-${index}`}
                   name="category"
                   value={elem}
+                  className="checked:bg-indigo-500"
+                  onClick={(e) => setSelectedCategory(e.target.value)}
                 />
-                <label htmlFor={`category-${index}`} className="text-sm"> {elem}</label><br/>
+                <label htmlFor={`category-${index}`} className="text-sm mx-1">
+                  {" "}
+                  {elem}
+                </label>
+                <br />
               </React.Fragment>
             ))}
           </div>
@@ -33,8 +53,8 @@ const SideBar = ({allCategory,allColor }) => {
             <select name="brand" id="brand" className="text-sm pr-0">
               {allColor.map((elem) => {
                 return (
-                  <option value={elem} className="text-sm">
-                   {elem}
+                  <option value={elem} className="text-sm" key={elem}>
+                    {elem}
                   </option>
                 );
               })}
@@ -42,16 +62,46 @@ const SideBar = ({allCategory,allColor }) => {
           </div>
         </div>
         <div>
-          <span>Color</span>
-          <div>{
-            allColor.map((elem)=>{
-              return (<button key={elem} className="rounded-full m-1" style={{backgroundColor:elem}}>o</button>)
-            })
-          }</div>
+          <span className="font-medium">Color</span>
+          <div>
+            {allColor.map((elem, index) => {
+              return (
+                <input
+                  type="radio"
+                  id={`color-${index}`}
+                  key={index}
+                  name="color"
+                  value={elem}
+                  style={{ backgroundColor: elem }}
+                  title={elem}
+                  className="m-1 border-gray-500 checked:bg-indigo-500"
+                  onClick={(e) => setSelectedColor(e.target.value)}
+                />
+              );
+            })}
+          </div>
         </div>
         <div>
-          <span>Price</span>
-          <div></div>
+        <div className="flex justify-between items-center">
+          <span className="font-medium">Price</span> <span className="text-sm">{selectedPrice}</span>
+
+        </div>
+          <div>
+            <input
+              type="range"
+              id="price-range"
+              name="price-range"
+              min={minPrice}
+              max={maxPrice+50}
+              title="Price-range"
+              step="50"
+              className="h-1 accent-indigo-500 hover:accent-indigo-600"
+              onChange={(e)=>setSelectedPrice(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="p-2 w-full">
+          <button className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm" title="Clear Filter" onClick={()=>clearAllFilter()}>Clear All</button>
         </div>
       </div>
     </section>
