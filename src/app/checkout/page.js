@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
 import { useGlobalContext } from "../../Context/store";
 import Head from "next/head";
@@ -9,10 +8,9 @@ import BuyProduct from "@/components/razorpay/BuyProduct";
 
 const Checkout = () => {
   const {
+    user,
     cart,
-    setCart,
     subTotal,
-    setSubTotal,
     addToCart,
     removeFromCart,
     clear,
@@ -26,6 +24,7 @@ const Checkout = () => {
   const [state, setState] = useState("");
   const [pincode, setPincode] = useState("");
   const [disabled, setDisabled] = useState(true);
+  const [userId, setUserId] = useState("");
 
   const handleChange = async (e) => {
     if (e.target.name === "name") {
@@ -58,6 +57,7 @@ const Checkout = () => {
         setCity("");
       }
     }
+    setUserId(user?._id);
   };
 
   const linkToItem = (slug) => {
@@ -265,14 +265,14 @@ const Checkout = () => {
                             <CiCirclePlus
                               className="cursor-pointer"
                               onClick={() => {
-                                if(cart[k].qty<cart[k].availableQty){
-                                addToCart(
-                                  k,
-                                  1,
-                                  cart[k].price,
-                                  cart[k].size,
-                                  cart[k].variant
-                                );
+                                if (cart[k].qty < cart[k].availableQty) {
+                                  addToCart(
+                                    k,
+                                    1,
+                                    cart[k].price,
+                                    cart[k].size,
+                                    cart[k].variant
+                                  );
                                 }
                               }}
                               title="Add"
@@ -290,6 +290,7 @@ const Checkout = () => {
                     <span className="font-bold">Subtotal: ₹{subTotal}</span>
 
                     <BuyProduct
+                      userId={userId}
                       totalAmount={subTotal}
                       products={cart}
                       name={name}

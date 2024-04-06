@@ -6,6 +6,7 @@ import Loading from "@/app/loading";
 import { useGlobalContext } from "../../Context/store";
 
 const BuyProduct = ({
+  userId,
   totalAmount,
   products,
   name,
@@ -17,13 +18,6 @@ const BuyProduct = ({
 }) => {
   const router = useRouter();
   const {
-    cart,
-    setCart,
-    subTotal,
-    setSubTotal,
-    addToCart,
-    removeFromCart,
-    buyNow,
     clear,
   } = useGlobalContext();
 
@@ -45,7 +39,6 @@ const BuyProduct = ({
     const {msg, order} = await data.json();
     if(msg==="success"){
     
-    console.log("orderID " + order.id);
     const options = {
       key: key,
       name: "Shoppers",
@@ -56,7 +49,6 @@ const BuyProduct = ({
       // image: logoBase64,
       handler: async function (response) {
         // if (response.length==0) return <Loading/>;
-        console.log("response"+response);
 
         const data = await fetch(
           "http://localhost:3000/api/payment/paymentverify",
@@ -66,7 +58,7 @@ const BuyProduct = ({
             //   // Authorization: 'YOUR_AUTH_HERE'
             // },
             body: JSON.stringify({
-              userId: "abc",
+              userId: userId,
               products: products,
               amount: order.amount,
               status: "Paid",
@@ -85,6 +77,7 @@ const BuyProduct = ({
 
         const res = await data.json();
         console.log("response verify==", res);
+        console.log(userId);
 
         if (res?.message == "success") {
           console.log("redirected.......");

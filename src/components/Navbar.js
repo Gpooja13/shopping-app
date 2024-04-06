@@ -16,7 +16,6 @@ import { usePathname } from "next/navigation";
 import { FaRegHeart } from "react-icons/fa";
 
 const Navbar = () => {
-  const [user, setUser] = useState({ value: null });
   const [key, setKey] = useState(0);
   const [dropDown, setDropDown] = useState(false);
   const ref = useRef();
@@ -24,7 +23,8 @@ const Navbar = () => {
   const [progress, setProgress] = useState(0);
   const location = usePathname();
   const {
-    userDetail,
+    user,
+    setUser,
     cart,
     setCart,
     saveCart,
@@ -49,7 +49,7 @@ const Navbar = () => {
     localStorage.removeItem("token");
     setUser({ value: null });
     setKey(Math.random());
-    router.push("/");
+    router.push("/login");
     toast.success("🦄 Your have been successfully logged out", {
       position: "top-right",
       autoClose: 2000,
@@ -85,9 +85,9 @@ const Navbar = () => {
       console.log(err);
       localStorage.clear();
     }
-    const token = localStorage.getItem("token");
+    const token = JSON.parse(localStorage.getItem("token"));
     if (token) {
-      setUser({ value: token });
+      setUser(token.user);
     }
     setKey(Math.random());
   }, [location]);
@@ -169,19 +169,21 @@ const Navbar = () => {
               onMouseLeave={() => setDropDown(false)}
             >
               {dropDown && (
-                <div className="absolute right-[-10px] bg-white top-8 py-2 rounded-md px-5 w-40 cursor-pointer shadow-lg border">
+                <div className="absolute right-[-10px] bg-white top-8 py-2 mb-1 rounded-md px-5 w-40 cursor-pointer shadow-lg border">
                   <ul>
                     <li className="py-2 text-sm h-14 border-b">
                       <div>
-                        <p className="font-semibold"> Hi {userDetail?.name}</p>
+                        <p className="font-semibold"> Hi {user?.name}</p>
                         <span className="text-[12px] text-green-400">
-                          {userDetail?.email}
+                          {user?.email}
                         </span>
                       </div>
                     </li>
 
                     <Link href={"/orders"}>
-                      <li className="py-2 text-sm hover:font-bold">Orders</li>
+                      <li className="py-2 text-sm hover:font-bold mt-1">
+                        Orders
+                      </li>
                     </Link>
                     <Link href={"/about"}>
                       <li className="py-2 text-sm hover:font-bold">About</li>
@@ -201,7 +203,7 @@ const Navbar = () => {
                   </ul>
                 </div>
               )}
-              {user.value && (
+              {user && (
                 <button>
                   <MdAccountCircle
                     className="text-xl md:text-3xl mx-2 md:mx-1"
@@ -212,7 +214,7 @@ const Navbar = () => {
                 </button>
               )}
             </span>
-            {!user.value && (
+            {!user && (
               <Link href={"/login"}>
                 <button>
                   <MdLogin className="text-xl md:text-3xl" title="Login" />

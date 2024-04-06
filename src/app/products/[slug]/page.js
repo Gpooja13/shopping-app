@@ -286,7 +286,7 @@ const Post = ({ params }) => {
               <button
                 className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm "
                 onClick={() => {
-                  if (cart[slugWord].qty < productOneData.availableQty) {
+                  if (cart[slugWord]?.qty < productOneData.availableQty || !Object.keys(cart).includes(slugWord) ) {
                     addToCart(
                       slugWord,
                       1,
@@ -309,6 +309,9 @@ const Post = ({ params }) => {
                     // transition:Bounce ,
                   });
                   }
+                  // else if(!Object.keys(cart).includes(slugWord)){
+                      
+                  //   }
                   else{
                     toast.error("Stock not available", {
                     position: "bottom-center",
@@ -329,7 +332,8 @@ const Post = ({ params }) => {
               <button
                 className="flex ml-4 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm"
                 onClick={() => {
-                  if (cart[slugWord].qty < productOneData.availableQty) {
+                  if (cart[slugWord]?.qty < productOneData.availableQty || !Object.keys(cart).includes(slugWord)) {
+                    console.log("done")
                   buyNow(
                     slugWord,
                     1,

@@ -5,6 +5,7 @@ import { createContext, useContext, useState } from "react";
 export const GlobalContext = createContext();
 
 export const GlobalContextProvider = ({ children }) => {
+  const [user, setUser] = useState({ value: null });
   const [cart, setCart] = useState({});
   const [subTotal, setSubTotal] = useState(0);
   const [numOfItems, setNumOfItems] = useState(0);
@@ -14,7 +15,6 @@ export const GlobalContextProvider = ({ children }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedPrice, setSelectedPrice] = useState("");
-  const [userDetail, setUserDetail] = useState("");
 
   const saveCart = (myCart) => {
     localStorage.setItem("cart", JSON.stringify(myCart));
@@ -161,8 +161,8 @@ export const GlobalContextProvider = ({ children }) => {
   return (
     <GlobalContext.Provider
       value={{
-        userDetail,
-        setUserDetail,
+        user,
+        setUser,
         cart,
         setCart,
         saveCart,

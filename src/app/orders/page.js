@@ -2,12 +2,21 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useGlobalContext } from "@/Context/store";
 
 const orders = () => {
+  const { user } = useGlobalContext();
   const [orderList, setOrderList] = useState([]);
 
   const fetchOrders = async () => {
-    const response = await fetch("http://localhost:3000/api/order");
+    const token=JSON.parse(localStorage.getItem("token")).token;
+  
+    const response = await fetch("http://localhost:3000/api/order", {
+      headers: {
+        Authorization: "Bearer " + token
+      },
+    });
+    
     const data = await response.json();
     setOrderList(data);
   };
