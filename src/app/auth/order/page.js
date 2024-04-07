@@ -1,23 +1,44 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/navigation";
 
 const Order = () => {
   const [orderData, setOrderData] = useState({ products: {} });
   const searchParams = useSearchParams();
   const orderid = searchParams.get("orderid");
+  const router = useRouter();
 
   const fetchOrderDetail = async () => {
+    const token = JSON.parse(localStorage.getItem("token"))?.token;
     const response = await fetch("http://localhost:3000/api/order", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
       },
       body: JSON.stringify({ id: orderid }),
     });
     const data = await response.json();
-    setOrderData(data);
-    
+    if (data.error) {
+      toast.error(data.error, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        // transition: "Bounce",
+      });
+      return router.push("/");
+    } else {
+      setOrderData(data);
+    }
+
     return data;
   };
 

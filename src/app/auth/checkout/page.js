@@ -2,9 +2,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
-import { useGlobalContext } from "../../Context/store";
+import { useGlobalContext } from "../../../Context/store";
 import Head from "next/head";
 import BuyProduct from "@/components/razorpay/BuyProduct";
+import { useRouter } from "next/navigation";
 
 const Checkout = () => {
   const {
@@ -25,6 +26,7 @@ const Checkout = () => {
   const [pincode, setPincode] = useState("");
   const [disabled, setDisabled] = useState(true);
   const [userId, setUserId] = useState("");
+  const router = useRouter();
 
   const handleChange = async (e) => {
     if (e.target.name === "name") {
@@ -61,7 +63,7 @@ const Checkout = () => {
   };
 
   const linkToItem = (slug) => {
-    let url = `http://localhost:3000/products/${slug}`;
+    let url = `http://localhost:3000/products/product/${slug}`;
     window.location = url;
   };
 
@@ -286,7 +288,7 @@ const Checkout = () => {
                     ))}
                   </ol>
 
-                  <div className="p-2 mt-6 w-full">
+                  {user?<div className="p-2 mt-6 w-full">
                     <span className="font-bold">Subtotal: ₹{subTotal}</span>
 
                     <BuyProduct
@@ -308,7 +310,18 @@ const Checkout = () => {
                       </button>
                     </Link> */}
                     <br />
-                  </div>
+                  </div>:<div>
+              <Link
+                className="mb-3 flex items-center justify-center rounded bg-primary px-7 pb-2.5 pt-3 text-center text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] mr-2 "
+                style={{ backgroundColor: "#3b5998" }}
+                href={"/login"}
+                role="button"
+                data-te-ripple-init
+                data-te-ripple-color="light"
+              >
+                Login In
+              </Link>
+            </div>}
                 </div>
               </div>
             </div>

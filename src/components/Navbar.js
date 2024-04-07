@@ -43,11 +43,12 @@ const Navbar = () => {
       ref.current.classList.remove("translate-x-0");
       ref.current.classList.add("translate-x-full");
     }
+    console.log(user);
   };
 
   const logout = () => {
     localStorage.removeItem("token");
-    setUser({ value: null });
+    setUser("");
     setKey(Math.random());
     router.push("/login");
     toast.success("🦄 Your have been successfully logged out", {
@@ -64,7 +65,7 @@ const Navbar = () => {
   };
 
   const linkToItem = (slug) => {
-    let url = `http://localhost:3000/products/${slug}`;
+    let url = `http://localhost:3000/products/product/${slug}`;
     window.location = url;
   };
 
@@ -125,22 +126,22 @@ const Navbar = () => {
             </Link>
           </div>
           <nav className="md:mr-auto md:ml-6 md:py-1 md:pl-6 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
-            <Link href="/men" className="mr-8 hover:text-gray-900">
+            <Link href="/products/men" className="mr-8 hover:text-gray-900">
               Men
             </Link>
-            <Link href="/hoodie" className="mr-8 hover:text-gray-900">
+            <Link href="/products/hoodie" className="mr-8 hover:text-gray-900">
               Women
             </Link>
-            <Link href="/sticker" className="mr-8 hover:text-gray-900">
+            <Link href="/products/sticker" className="mr-8 hover:text-gray-900">
               Kids
             </Link>
-            <Link href="/mug" className="mr-8 hover:text-gray-900">
+            <Link href="/products/mug" className="mr-8 hover:text-gray-900">
               Accesories
             </Link>
           </nav>
           <div className="absolute right-20 md:top-5 top-5 mx-8 z-50">
             {
-              <Link href="/wishList">
+              <Link href="/auth/wishList">
                 <button>
                   <FaRegHeart
                     className="text-xl md:text-2xl mx-2 md:mx-6"
@@ -156,13 +157,13 @@ const Navbar = () => {
                 className="text-xl md:text-3xl mx-2 md:mx-4"
                 title="Cart"
               />
-              {numOfItems === 0 ? (
+              {user? numOfItems === 0 ? (
                 <></>
               ) : (
                 <span className="rounded-full text-white bg-red-600 absolute bottom-[25px] right-[43px] w-[13px] h-[14px] text-xs font-medium">
                   {numOfItems}
                 </span>
-              )}
+              ):<></>}
             </button>
             <span
               onMouseOver={() => setDropDown(true)}
@@ -180,7 +181,7 @@ const Navbar = () => {
                       </div>
                     </li>
 
-                    <Link href={"/orders"}>
+                    <Link href={"auth/orders"}>
                       <li className="py-2 text-sm hover:font-bold mt-1">
                         Orders
                       </li>
@@ -234,7 +235,7 @@ const Navbar = () => {
             >
               <IoMdClose className="text-2xl" />
             </span>
-            <ol className="list-decimal font-semibold">
+            {user?<ol className="list-decimal font-semibold">
               {Object.keys(cart).length === 0 && (
                 <div className="my-4 font-semibold text-sm ml-[60px] mt-10">
                   Cart is empty!
@@ -285,8 +286,19 @@ const Navbar = () => {
                   </li>
                 );
               })}
-            </ol>
-            {numOfItems ? (
+            </ol>: <div>
+              <Link
+                className="mb-3 flex items-center justify-center rounded bg-primary px-7 pb-2.5 pt-3 text-center text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] mr-2 "
+                style={{ backgroundColor: "#3b5998" }}
+                href={"/login"}
+                role="button"
+                data-te-ripple-init
+                data-te-ripple-color="light"
+              >
+                Login In
+              </Link>
+            </div>}
+            {user && numOfItems ? (
               <div className="flex justify-center font-semibold mt-5">
                 Pay ₹{subTotal}
               </div>
@@ -294,8 +306,8 @@ const Navbar = () => {
               <></>
             )}
 
-            <div className="p-2 mt-6 w-full">
-              <Link href={"/checkout"}>
+            {user?<div className="p-2 mt-6 w-full">
+              <Link href={"auth/checkout"}>
                 {numOfItems ? (
                   <button className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-sm">
                     <BsBagCheckFill className="m-1" />
@@ -318,7 +330,7 @@ const Navbar = () => {
               >
                 Clear Cart
               </button>
-            </div>
+            </div>:<></>}
           </div>
         </div>
       </header>

@@ -81,7 +81,7 @@ const BuyProduct = ({
 
         if (res?.message == "success") {
           console.log("redirected.......");
-          router.push("/order?orderid=" + res._id);
+          router.push("auth/order?orderid=" + res._id);
           clear();
         }
 

@@ -3,22 +3,47 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useGlobalContext } from "@/Context/store";
+import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const orders = () => {
   const { user } = useGlobalContext();
   const [orderList, setOrderList] = useState([]);
+  const router = useRouter();
 
   const fetchOrders = async () => {
-    const token=JSON.parse(localStorage.getItem("token")).token;
-  
-    const response = await fetch("http://localhost:3000/api/order", {
-      headers: {
-        Authorization: "Bearer " + token
-      },
-    });
-    
-    const data = await response.json();
-    setOrderList(data);
+    try {
+      const token = JSON.parse(localStorage.getItem("token"))?.token;
+      if (!token) {
+        return router.push("/");
+      }
+
+      const response = await fetch("http://localhost:3000/api/order", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+      const data = await response.json();
+      if (data.error) {
+        toast.error(data.error, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          // transition: "Bounce",
+        });
+        return router.push("/");
+      } else {
+        setOrderList(data);
+      }
+    } catch (error) {
+      console.log("client side", error);
+    }
   };
 
   useEffect(() => {
@@ -73,7 +98,7 @@ const orders = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {orderList.length !== 0 &&
+                      {orderList?.length !== 0 &&
                         orderList.map((item) => {
                           return (
                             <tr
@@ -81,7 +106,7 @@ const orders = () => {
                               className="border-b border-dashed last:border-b-0"
                             >
                               <td className="p-3 pl-0">
-                                <Link href={"/order?orderid=" + item._id}>
+                                <Link href={"auth/order?orderid=" + item._id}>
                                   <div className="flex items-center">
                                     <div className="relative inline-block shrink-0 rounded-2xl me-3">
                                       <img
@@ -134,7 +159,7 @@ const orders = () => {
                               </td>
 
                               <td className="p-3 pr-0 text-center">
-                                <Link href={"/order?orderid=" + item._id}>
+                                <Link href={"auth/order?orderid=" + item._id}>
                                   <button className="ml-auto relative text-secondary-dark bg-light-dark hover:text-primary flex items-center h-[25px] w-[25px] text-base font-medium leading-normal text-center align-middle cursor-pointer rounded-2xl transition-colors duration-200 ease-in-out shadow-none border-0 justify-center">
                                     <span className="flex items-center justify-center p-0 m-0 leading-none shrink-0 ">
                                       <svg

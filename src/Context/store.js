@@ -5,7 +5,7 @@ import { createContext, useContext, useState } from "react";
 export const GlobalContext = createContext();
 
 export const GlobalContextProvider = ({ children }) => {
-  const [user, setUser] = useState({ value: null });
+  const [user, setUser] = useState("");
   const [cart, setCart] = useState({});
   const [subTotal, setSubTotal] = useState(0);
   const [numOfItems, setNumOfItems] = useState(0);

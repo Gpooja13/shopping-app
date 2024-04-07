@@ -3,11 +3,12 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useGlobalContext } from "../../Context/store";
+import { useGlobalContext } from "../../../Context/store";
 import { RxCross1 } from "react-icons/rx";
 
 const WishList = () => {
-  const { wishItems, setWishItems, addToWishList,included } = useGlobalContext();
+  const { user, wishItems, setWishItems, addToWishList, included } =
+    useGlobalContext();
 
   useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem("wishList"));
@@ -22,7 +23,20 @@ const WishList = () => {
     <section className="text-gray-600 body-font">
       <div className="container px-12 py-24 mx-auto">
         <div className="flex flex-wrap -m-4 justify-center">
-          {wishItems.length === 0 ? (
+          {!user ? (
+            <div>
+              <Link
+                className="mb-3 flex items-center justify-center rounded bg-primary px-7 pb-2.5 pt-3 text-center text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] mr-2 "
+                style={{ backgroundColor: "#3b5998" }}
+                href={"/login"}
+                role="button"
+                data-te-ripple-init
+                data-te-ripple-color="light"
+              >
+                Login In
+              </Link>
+            </div>
+          ) : wishItems.length === 0 ? (
             <p>No items in wishlist right now.</p>
           ) : (
             wishItems.map((item) => {
@@ -36,7 +50,7 @@ const WishList = () => {
                     title="remove"
                     onClick={() => addToWishList(item)}
                   />
-                  <Link href={`/products/${item?.slug}`}>
+                  <Link href={`products/product/${item?.slug}`}>
                     <div className="block relative rounded overflow-hidden">
                       <Image
                         alt="ecommerce"

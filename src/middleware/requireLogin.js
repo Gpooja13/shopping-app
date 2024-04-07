@@ -13,23 +13,30 @@ export default async function requireLogin(request) {
 
   try {
     if (!authorization) {
-      return { error: "Login first" };
+      console.log("!authorization");
+      return NextResponse.json({ error: "Login first" });
     }
     const token = authorization.replace("Bearer ", "");
-
     const payload = jwt.verify(token, jwtSecret);
+
+    if (!payload) {
+      return NextResponse.json({ error: "User not found" });
+    }
 
     const { email } = payload;
     const userData = await User.findOne({ email: email });
 
     if (!userData) {
-      return { error: "User not found" };
+      console.log("!userData");
+      return NextResponse.json({ error: "User not found" });
     }
+    console.log("userData");
     request.userData = userData;
     return NextResponse.next();
-    
   } catch (error) {
     console.error("Error in requireLogin middleware:", error);
-    return { error: "Unauthorized" };
+    // const url = new URL("/",request.nextUrl.origin);
+    //  return NextResponse.redirect(url.toString());
+    return NextResponse.json({ error: "Unauthorized" });
   }
 }
