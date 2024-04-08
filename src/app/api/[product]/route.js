@@ -76,3 +76,20 @@ export async function PUT(request, content) {
 
   return NextResponse.json({ p, res: "success" });
 }
+
+
+export async function PATCH(request) {
+  const products = await request.json();
+  console.log(products);
+
+  for (const item in products) {
+    let p;
+    let num=0;
+    num=products[item].availableQty-products[item].qty;
+     p = await product.findOneAndUpdate({ slug: item },{availableQty:num}, {
+      new: true, //return modified object
+    });
+  }
+
+  return NextResponse.json({ res: "success" });
+}

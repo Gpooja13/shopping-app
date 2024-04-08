@@ -17,18 +17,10 @@ const Post = ({ params }) => {
   const {
     user,
     cart,
-    setCart,
-    subTotal,
-    setSubTotal,
     addToCart,
     addToWishList,
-    removeFromCart,
     buyNow,
-    wishItems,
-    setWishItems,
     included,
-    setIncluded,
-    clear,
   } = useGlobalContext();
 
   async function fetchProductOneData() {

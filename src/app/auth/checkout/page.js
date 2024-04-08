@@ -8,14 +8,8 @@ import BuyProduct from "@/components/razorpay/BuyProduct";
 import { useRouter } from "next/navigation";
 
 const Checkout = () => {
-  const {
-    user,
-    cart,
-    subTotal,
-    addToCart,
-    removeFromCart,
-    clear,
-  } = useGlobalContext();
+  const { user, cart, subTotal, addToCart, removeFromCart, clear } =
+    useGlobalContext();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -235,93 +229,107 @@ const Checkout = () => {
 
                 <div className=" h-full bg-[lavender] py-16 px-8 z-50">
                   <ol className="list-decimal font-semibold">
-                    {Object.keys(cart).length === 0 && (
-                      <div className="my-4 font-semibold text-sm">
-                        Cart is empty!
-                      </div>
+                    {user ? (
+                      Object.keys(cart).length === 0 && (
+                        <div className="my-4 font-semibold text-sm">
+                          Cart is empty!
+                        </div>
+                      )
+                    ) : (
+                      <></>
                     )}
-                    {Object.keys(cart).map((k) => (
-                      <li key={k}>
-                        <div className="item flex">
-                          <div
-                            className="mx-4 font-semibold cursor-pointer"
-                            onClick={() => linkToItem(cart[k])}
-                          >
-                            {cart[k].name} ({cart[k].size} / {cart[k].variant})
-                          </div>
-                          <div className="flex items-center justify-center w-1/3 font-semibold text-lg">
-                            <CiCircleMinus
-                              className="cursor-pointer"
-                              onClick={() => {
-                                removeFromCart(
-                                  k,
-                                  1,
-                                  cart[k].price,
-                                  cart[k].size,
-                                  cart[k].variant
-                                );
-                              }}
-                              title="Sub"
-                            />
-                            <span className="mx-2 text-sm">{cart[k].qty}</span>
-                            <CiCirclePlus
-                              className="cursor-pointer"
-                              onClick={() => {
-                                if (cart[k].qty < cart[k].availableQty) {
-                                  addToCart(
+                    {user ? (
+                      Object.keys(cart).map((k) => (
+                        <li key={k}>
+                          <div className="item flex">
+                            <div
+                              className="mx-4 font-semibold cursor-pointer"
+                              onClick={() => linkToItem(cart[k])}
+                            >
+                              {cart[k].name} ({cart[k].size} / {cart[k].variant}
+                              )
+                            </div>
+                            <div className="flex items-center justify-center w-1/3 font-semibold text-lg">
+                              <CiCircleMinus
+                                className="cursor-pointer"
+                                onClick={() => {
+                                  removeFromCart(
                                     k,
                                     1,
                                     cart[k].price,
                                     cart[k].size,
                                     cart[k].variant
                                   );
-                                }
-                              }}
-                              title="Add"
-                            />
+                                }}
+                                title="Sub"
+                              />
+                              <span className="mx-2 text-sm">
+                                {cart[k].qty}
+                              </span>
+                              <CiCirclePlus
+                                className="cursor-pointer"
+                                onClick={() => {
+                                  if (cart[k].qty < cart[k].availableQty) {
+                                    addToCart(
+                                      k,
+                                      1,
+                                      cart[k].price,
+                                      cart[k].size,
+                                      cart[k].variant
+                                    );
+                                  }
+                                }}
+                                title="Add"
+                              />
+                            </div>
+                            <div className="m-auto">
+                              ₹{cart[k].price * cart[k].qty}
+                            </div>
                           </div>
-                          <div className="m-auto">
-                            ₹{cart[k].price * cart[k].qty}
-                          </div>
-                        </div>
-                      </li>
-                    ))}
+                        </li>
+                      ))
+                    ) : (
+                      <></>
+                    )}
                   </ol>
 
-                  {user?<div className="p-2 mt-6 w-full">
-                    <span className="font-bold">Subtotal: ₹{subTotal}</span>
+                  {user ? (
+                    <div className="p-2 mt-6 w-full">
+                      <span className="font-bold">Subtotal: ₹{subTotal}</span>
 
-                    <BuyProduct
-                      userId={userId}
-                      totalAmount={subTotal}
-                      products={cart}
-                      name={name}
-                      email={email}
-                      phone={phone}
-                      address={address}
-                      pincode={pincode}
-                      disabled={disabled}
-                    />
+                      <BuyProduct
+                        userId={userId}
+                        totalAmount={subTotal}
+                        products={cart}
+                        name={name}
+                        email={email}
+                        phone={phone}
+                        address={address}
+                        pincode={pincode}
+                        disabled={disabled}
+                      />
 
-                    {/* <Link href={"/checkout"}>
+                      {/* <Link href={"/checkout"}>
                       <button className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-sm">
                         <BsBagCheckFill className="m-1" />
                         Pay ₹{subTotal}
                       </button>
                     </Link> */}
-                    <br />
-                  </div>:<div>
-              <Link
-                className="mb-3 flex items-center justify-center rounded bg-primary px-7 pb-2.5 pt-3 text-center text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] mr-2 "
-                style={{ backgroundColor: "#3b5998" }}
-                href={"/login"}
-                role="button"
-                data-te-ripple-init
-                data-te-ripple-color="light"
-              >
-                Login In
-              </Link>
-            </div>}
+                      <br />
+                    </div>
+                  ) : (
+                    <div className="flex justify-center items-center m-4">
+                      <Link
+                        className="mb-3 w-28 flex items-center justify-center rounded bg-indigo-500 px-7 pb-2.5 pt-3 text-center text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-indigo-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-indigo-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-indigo-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] mr-2 "
+                        href={"/login"}
+                        role="button"
+                        data-te-ripple-init
+                        data-te-ripple-color="light"
+                      >
+                        Login In
+                      </Link>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
