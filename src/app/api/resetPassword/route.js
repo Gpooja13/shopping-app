@@ -3,21 +3,24 @@ import user from "../../../models/user";
 import connectdb from "../../../middleware/connectdb";
 var CryptoJS = require("crypto-js");
 import nodemailer from "nodemailer";
+var jwt = require("jsonwebtoken");
 
 export async function POST(request) {
   try {
     const { email } = await request.json();
     let u = await user.findOne({ email: email });
-    let genOTP = Math.floor(Math.random() * 10000);
-    console.log(genOTP);
 
     if (u) {
-      const transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
+      var token = jwt.sign({ email: u.email, name: u.name }, "jwtSecret", {
+        expiresIn: "1d",
+      });
+
+      var transporter = nodemailer.createTransport({
+        host: "sandbox.smtp.mailtrap.io",
+        port: 2525,
         auth: {
-          user: "oren.schmidt4@ethereal.email",
-          pass: "vSNTPYw4AFDxmHM3bx",
+          user: "91a92acf060d12",
+          pass: "0a7517b0b5ee9b",
         },
       });
 
@@ -26,13 +29,13 @@ export async function POST(request) {
         from: '"Shop Me 👻" <maddison53@ethereal.email>', // sender address
         to: email, // list of receivers
         subject: "Reset Password ✔", // Subject line
-        html: `<div><h2>Reset Password</h2><span>Generated OTP: ${genOTP}</span></div>`, // html body
+        html: `<div><h2>Reset Password</h2><span>Generated URL :<a href="http://localhost:3000/forgotPassword/${token}">Click here to reset Password</a> </span></div>`, // html body
       });
 
       console.log("Message sent: %s", info.messageId);
       // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
 
-      return NextResponse.json({ res: "success", user: u, otp: genOTP ,info:info});
+      return NextResponse.json({ res: "success", info: info });
     } else {
       return NextResponse.json({
         res: "failed",
@@ -47,21 +50,37 @@ export async function POST(request) {
   }
 }
 
+
 export async function PATCH(request) {
-  const { email, password } = await request.json();
-  var newPassword = CryptoJS.AES.encrypt(
-    JSON.stringify(password),
-    "secretkey123"
-  ).toString();
-  console.log(newPassword);
+  try {
+    const { token, password } = await request.json();
+    const payload = await jwt.verify(token, "jwtSecret");
+    console.log(payload);
 
-  let u = await user.findOneAndUpdate(
-    { email: email },
-    { password: newPassword },
-    {
-      new: true, //return modified object
+    if (!payload) {
+      return NextResponse.json({
+        res: "failed",
+        error: "Error with token",
+      });
+    } else {
+      var newPassword = CryptoJS.AES.encrypt(
+        JSON.stringify(password),
+        "secretkey123"
+      ).toString();
+
+      let u = await user.findOneAndUpdate(
+        { email: payload.email },
+        { password: newPassword },
+        {
+          new: true, //return modified object
+        }
+      );
+      return NextResponse.json({ res: "success" });
     }
-  );
 
-  return NextResponse.json({ u: u, res: "Password" });
+   
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({res:"failed", error: error });
+  }
 }

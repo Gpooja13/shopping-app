@@ -4,29 +4,32 @@ import { useState } from "react";
 import { Button, Modal } from "flowbite-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useParams } from "next/navigation";
 
-const forgot = () => {
-  const [verifyEmail, setVerifyEmail] = useState("");
-  const [otp, setOTP] = useState("");
-  const [verified, setVerify] = useState(false);
+const reset = ({params}) => {
+  const [disabled, setDisabled] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [matched, setMatched] = useState(0);
+  const token=params.resetPassword;
 
-  const sendVerificationMail = async (email) => {
-    console.log(email);
+  const resetPassword = async (password) => {
+    console.log(password);
     try {
-      if (email) {
+      if (password && token) {
         const res = await fetch("http://localhost:3000/api/resetPassword", {
-          method: "POST",
+          method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            email: email,
+            token:token,
+            password: password,
           }),
         });
-        8;
+        
         const data = await res.json();
         console.log(data);
         if (data.res === "success") {
-          setOpenModal(true);
-          toast.success("Email sent", {
+         
+          toast.success("Password Changed", {
             position: "top-right",
             autoClose: 2000,
             hideProgressBar: false,
@@ -51,7 +54,7 @@ const forgot = () => {
           });
         }
       } else {
-        toast.error("Enter valid email", {
+        toast.error("Something went wrong, try again", {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -81,8 +84,8 @@ const forgot = () => {
 
   return (
     <section className="h-screen ">
-      <div className="container h-full px-16 pt-20 ">
-        <div className="g-6 flex h-full flex-wrap justify-center lg:justify-between">
+      <div className="container h-full px-16 pt-20">
+        <div className="g-6 flex h-full flex-wrap  justify-center lg:justify-between">
           <div className="mb-12 md:mb-0 md:w-8/12 lg:w-6/12">
             <img
               src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
@@ -100,38 +103,69 @@ const forgot = () => {
                 width={80}
                 height={80}
               />
-              <h2 className="font-bold text-3xl">Forgot your password</h2>
+              <h2 className="font-bold text-3xl">Reset your password</h2>
             </div>
 
             <div>
               <div className="relative mb-4" data-te-input-wrapper-init>
                 <label
-                  htmlFor="email"
+                  htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-900"
                 >
-                  Enter your email
+                  New Password
                 </label>
                 <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-indigo-400 focus:border-indigo-600 block w-full p-2.5  "
-                  placeholder="name@company.com"
+                  type="password"
+                  name="password"
+                  id="password"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-indigo-400 focus:border-indigo-600 block w-full p-2.5 mb-3 "
+                  placeholder="*******"
                   required=""
-                  onChange={(e) => setVerifyEmail(e.target.value)}
+                  onChange={(e) => setNewPassword(e.target.value)}
                 />
+                <label
+                  htmlFor="cnfPassword"
+                  className="block mb-2 text-sm font-medium text-gray-900"
+                >
+                  Confirm Password
+                </label>
+                <input
+                  type="password"
+                  name="cnfPassword"
+                  id="cnfPassword"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-indigo-400 focus:border-indigo-600 block w-full p-2.5 mb-3 "
+                  placeholder="*******"
+                  required=""
+                  onChange={(e) => {
+                    e.target.value;
+                    if (newPassword !== e.target.value) {
+                      setMatched(false);
+                    } else if (newPassword === e.target.value) {
+                      setMatched(true);
+                    }
+                  }}
+                />
+                {matched === true ? (
+                  <p className="text-sm text-green-500">Password matched</p>
+                ) : (
+                  <></>
+                )}
               </div>
               <div className="flex justify-between">
                 <button
                   className="inline-block w-full rounded bg-indigo-500 px-7 pb-2.5 pt-3 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-indigo-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-indigo-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] "
+                  style={
+                    !matched
+                      ? { backgroundColor: "rgb(141 162 251)" }
+                      : { backgroundColor: "rgb(104 117 245)" }
+                  }
+                  disabled={!matched}
                   data-te-ripple-init
                   data-te-ripple-color="light"
-                  onClick={() => sendVerificationMail(verifyEmail)}
+                  onClick={() => resetPassword(newPassword)}
                 >
-                  Send email
+                  Submit Password
                 </button>
-
-               
               </div>
             </div>
           </div>
@@ -141,4 +175,4 @@ const forgot = () => {
   );
 };
 
-export default forgot;
+export default reset;

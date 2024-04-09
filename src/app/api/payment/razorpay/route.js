@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import Razorpay from "razorpay";
-import shortid from "shortid";
+import shortid from "shortid"; //deprecated
+import { nanoid } from 'nanoid'
 import product from "../../../../models/product";
 import connectdb from "../../../../middleware/connectdb";
 
@@ -33,7 +34,8 @@ export async function POST(req) {
   const options = {
     amount: amount.toString(),
     currency,
-    receipt: shortid.generate(),
+    // receipt: shortid.generate(),
+    receipt: nanoid(),
     // payment_capture,
     notes: {
       // These notes will be added to your transaction. So you can search it within their dashboard.
