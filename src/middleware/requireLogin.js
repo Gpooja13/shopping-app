@@ -27,10 +27,8 @@ export default async function requireLogin(request) {
     const userData = await User.findOne({ email: email });
 
     if (!userData) {
-      console.log("!userData");
       return NextResponse.json({ error: "User not found" });
     }
-    console.log("userData");
     request.userData = userData;
     return NextResponse.next();
   } catch (error) {

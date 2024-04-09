@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useGlobalContext } from "@/Context/store";
 
-const SideBar = ({ allCategory, allColor, minPrice, maxPrice }) => {
+const SideBar = ({ allCategory, allSize, allColor, minPrice, maxPrice }) => {
   const {
     selectedColor,
     setSelectedColor,
@@ -9,20 +9,23 @@ const SideBar = ({ allCategory, allColor, minPrice, maxPrice }) => {
     setSelectedCategory,
     selectedPrice,
     setSelectedPrice,
+    selectedSize,
+    setSelectedSize,
     filtering,
   } = useGlobalContext();
 
-  const clearAllFilter=()=>{
+  const clearAllFilter = () => {
     setSelectedCategory("");
+    setSelectedSize("");
     setSelectedColor("");
     setSelectedPrice("");
     document.getElementById("category-0").checked = true;
     document.getElementById("color-0").checked = true;
     document.getElementById("price-range").value = maxPrice;
-  }
+  };
 
   return (
-    <section className="float-left h-[100vh] md:w-[16vw] border-r p-10 items-center">
+    <section className="float-left h-[100vh] md:w-[16vw] border-r p-10 items-center sticky top-5 left-0">
       <h2 className="font-semibold">FILTER</h2>
       <div className="mt-6 min-h-[70vh] flex flex-col justify-between">
         <div>
@@ -48,10 +51,10 @@ const SideBar = ({ allCategory, allColor, minPrice, maxPrice }) => {
           </div>
         </div>
         <div>
-          <span className="font-medium">Brand</span>
+          <span className="font-medium">Size</span>
           <div>
-            <select name="brand" id="brand" className="text-sm pr-0">
-              {allColor.map((elem) => {
+            <select name="size" id="size" className="text-sm pr-0" onClick={(e)=>setSelectedSize(e.target.value)} >
+              {allSize.map((elem) => {
                 return (
                   <option value={elem} className="text-sm" key={elem}>
                     {elem}
@@ -82,26 +85,32 @@ const SideBar = ({ allCategory, allColor, minPrice, maxPrice }) => {
           </div>
         </div>
         <div>
-        <div className="flex justify-between items-center">
-          <span className="font-medium">Price</span> <span className="text-sm">{selectedPrice}</span>
-
-        </div>
+          <div className="flex justify-between items-center">
+            <span className="font-medium">Price</span>{" "}
+            <span className="text-sm">{selectedPrice}</span>
+          </div>
           <div>
             <input
               type="range"
               id="price-range"
               name="price-range"
               min={minPrice}
-              max={maxPrice+50}
+              max={maxPrice + 50}
               title="Price-range"
               step="50"
               className="h-1 accent-indigo-500 hover:accent-indigo-600"
-              onChange={(e)=>setSelectedPrice(e.target.value)}
+              onChange={(e) => setSelectedPrice(e.target.value)}
             />
           </div>
         </div>
         <div className="p-2 w-full">
-          <button className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm" title="Clear Filter" onClick={()=>clearAllFilter()}>Clear All</button>
+          <button
+            className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm"
+            title="Clear Filter"
+            onClick={() => clearAllFilter()}
+          >
+            Clear All
+          </button>
         </div>
       </div>
     </section>

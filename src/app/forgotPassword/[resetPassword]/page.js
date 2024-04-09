@@ -1,10 +1,8 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import { Button, Modal } from "flowbite-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useParams } from "next/navigation";
 
 const reset = ({params}) => {
   const [disabled, setDisabled] = useState("");

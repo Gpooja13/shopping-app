@@ -10,6 +10,7 @@ const Men = () => {
   const [productData, setProductData] = useState({});
   const [allCategory, setAllCategory] = useState([]);
   const [allColor, setAllColor] = useState([]);
+  const [allSize, setAllSize] = useState(["All","XS","S","M","L","XL"]);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const {
@@ -23,6 +24,8 @@ const Men = () => {
     setSelectedCategory,
     selectedPrice,
     setSelectedPrice,
+    selectedSize,
+    setSelectedSize,
     filtering,
   } = useGlobalContext();
 
@@ -36,21 +39,28 @@ const Men = () => {
     setMinPrice(Math.min(...uniqueData(products, "price")));
     setMaxPrice(Math.max(...uniqueData(products, "price")));
 
-    if (selectedCategory || selectedColor || selectedPrice) {
+    if (selectedCategory || selectedSize || selectedColor || selectedPrice) {
       setProductData(
-        filtering(products, selectedCategory, selectedColor, selectedPrice)
+        filtering(
+          products,
+          selectedCategory,
+          selectedSize,
+          selectedColor,
+          selectedPrice
+        )
       );
     }
   }
 
   useEffect(() => {
     fetchProductData();
-  }, [sort, selectedCategory, selectedColor, selectedPrice]);
+  }, [sort, selectedCategory, selectedSize, selectedColor, selectedPrice]);
 
   return (
     <section className="text-gray-600 body-font">
       <SideBar
         allCategory={allCategory}
+        allSize={allSize}
         allColor={allColor}
         minPrice={minPrice}
         maxPrice={maxPrice}

@@ -51,7 +51,8 @@ const orders = () => {
   }, []);
 
   return (
-    <div className="container bg-indigo-200 mx-auto">
+    <div className="container  mx-auto"> 
+    {/* bg-indigo-200 */}
       <div className="flex flex-wrap -mx-3 mb-5 justify-center">
         <div className="w-full max-w-full px-3 mb-6  mx-auto">
           <div className="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] bg-white m-5">
@@ -70,7 +71,7 @@ const orders = () => {
                 </div>
               </div>
 
-              <div className="flex-auto block py-8 pt-6 px-9">
+              <div className="flex-auto block py-8 pt-6 px-9 min-h-72">
                 <div className="overflow-x-auto">
                   <table className="w-full my-0 align-middle text-dark border-neutral-200">
                     <thead className="align-bottom bg-[#f9fafb] leading-normal">
@@ -98,7 +99,7 @@ const orders = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {orderList?.length !== 0 &&
+                      {(orderList?.length)!==0 &&
                         orderList.map((item) => {
                           return (
                             <tr
@@ -184,14 +185,16 @@ const orders = () => {
                           );
                         })}
                     </tbody>
+                    
                   </table>
+                  {(orderList.length===0)?<p className="flex justify-center items-center h-full w-full mt-20 text-gray-500 text-sm">No orders placed yet.</p>:<></>}
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mb-5">
-          <div className="w-full max-w-full sm:w-3/4 mx-auto text-center">
+          {/* <div className="w-full max-w-full sm:w-3/4 mx-auto text-center">
             <p className="text-sm text-slate-500 py-1">
               {" "}
               Tailwind CSS Component from{" "}
@@ -212,7 +215,7 @@ const orders = () => {
               </a>
               .{" "}
             </p>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

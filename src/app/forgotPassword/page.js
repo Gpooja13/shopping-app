@@ -1,14 +1,13 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import { Button, Modal } from "flowbite-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/navigation";
 
 const forgot = () => {
   const [verifyEmail, setVerifyEmail] = useState("");
-  const [otp, setOTP] = useState("");
-  const [verified, setVerify] = useState(false);
+  const router=useRouter();
 
   const sendVerificationMail = async (email) => {
     console.log(email);
@@ -25,7 +24,8 @@ const forgot = () => {
         const data = await res.json();
         console.log(data);
         if (data.res === "success") {
-          setOpenModal(true);
+          setVerifyEmail("");
+          router.push("/login")
           toast.success("Email sent", {
             position: "top-right",
             autoClose: 2000,
@@ -115,6 +115,7 @@ const forgot = () => {
                   type="email"
                   name="email"
                   id="email"
+                  value={verifyEmail}
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-indigo-400 focus:border-indigo-600 block w-full p-2.5  "
                   placeholder="name@company.com"
                   required=""
@@ -130,8 +131,6 @@ const forgot = () => {
                 >
                   Send email
                 </button>
-
-               
               </div>
             </div>
           </div>

@@ -77,23 +77,27 @@ const BuyProduct = ({
           console.log(userId);
 
           if (res?.message == "success") {
-            const update = await fetch(
-              "http:http://localhost:3000/api/product",
-              {
-                method: "PATCH",
-                // headers: {
-                //   // Authorization: 'YOUR_AUTH_HERE'
-                // },
-                body: JSON.stringify({
-                  products,
-                }),
-              }
-            );
+            const update = await fetch("http://localhost:3000/api/product", {
+              method: "PATCH",
+              // headers: {
+              //   // Authorization: 'YOUR_AUTH_HERE'
+              // },
+              body: JSON.stringify({
+                products,
+              }),
+            });
             const updateRes = await update.json();
-            console.log(updateRes);
-            console.log("redirected.......");
-            router.push("auth/order?orderid=" + res._id);
-            clear();
+            if (updateRes.res === "success") {
+              console.log(updateRes);
+              console.log("success");
+              console.log("redirected.......");
+              router.push("/auth/order?orderid=" + res._id);
+              clear();
+            } else if (updateRes.res === "failed") {
+              console.log("error in client page",updateRes.error);
+            } else {
+              console.log("error in client page",updateRes.error);
+            }
           }
 
           // Validate payment at server - using webhooks is a better idea.

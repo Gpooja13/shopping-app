@@ -181,7 +181,7 @@ const Navbar = () => {
                       </div>
                     </li>
 
-                    <Link href={"auth/orders"}>
+                    <Link href={"/auth/orders"}>
                       <li className="py-2 text-sm hover:font-bold mt-1">
                         Orders
                       </li>
@@ -306,7 +306,7 @@ const Navbar = () => {
             )}
 
             {user?<div className="p-2 mt-6 w-full">
-              <Link href={"auth/checkout"}>
+              <Link href={"/auth/checkout"}>
                 {numOfItems ? (
                   <button className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-sm">
                     <BsBagCheckFill className="m-1" />

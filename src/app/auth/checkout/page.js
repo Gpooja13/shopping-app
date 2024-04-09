@@ -227,7 +227,7 @@ const Checkout = () => {
               <div className="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
                 <h2 className="font-bold text-lg my-5">2. Review Cart Item</h2>
 
-                <div className=" h-full bg-[lavender] py-16 px-8 z-50">
+                <div className=" h-full bg-[lavender] py-12 px-8 z-50">
                   <ol className="list-decimal font-semibold">
                     {user ? (
                       Object.keys(cart).length === 0 && (
@@ -241,9 +241,9 @@ const Checkout = () => {
                     {user ? (
                       Object.keys(cart).map((k) => (
                         <li key={k}>
-                          <div className="item flex">
+                          <div className="item flex my-3">
                             <div
-                              className="mx-4 font-semibold cursor-pointer"
+                              className="mx-4 font-semibold cursor-pointer w-2/5"
                               onClick={() => linkToItem(cart[k])}
                             >
                               {cart[k].name} ({cart[k].size} / {cart[k].variant}
@@ -295,7 +295,7 @@ const Checkout = () => {
 
                   {user ? (
                     <div className="p-2 mt-6 w-full">
-                      <span className="font-bold">Subtotal: ₹{subTotal}</span>
+                      <span className="font-bold">Total: ₹{subTotal}</span>
 
                       <BuyProduct
                         userId={userId}

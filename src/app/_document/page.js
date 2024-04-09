@@ -12,23 +12,23 @@
 //   )
 // }
 
-import Document, { Html, Head, Main, NextScript } from "next/document";
-import RootLayout from "@/components/RootLayout";
+// import Document, { Html, Head, Main, NextScript } from "next/document";
+// import RootLayout from "@/components/RootLayout";
 
-class MyDocument extends Document {
-  render() {
-    return (
-      <Html >
-        <Head className="overflow-x-hidden"/>
-        <body className="overflow-x-hidden">
-          <RootLayout>
-            <Main />
-            <NextScript />
-          </RootLayout>
-        </body>
-      </Html>
-    );
-  }
-}
+// class MyDocument extends Document {
+//   render() {
+//     return (
+//       <Html >
+//         <Head/>
+//         <body className="overflow-x-hidden">
+//           <RootLayout>
+//             <Main />
+//             <NextScript />
+//           </RootLayout>
+//         </body>
+//       </Html>
+//     );
+//   }
+// }
 
-export default MyDocument;
+// export default MyDocument;

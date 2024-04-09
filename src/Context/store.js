@@ -15,6 +15,7 @@ export const GlobalContextProvider = ({ children }) => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedPrice, setSelectedPrice] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
 
   const saveCart = (myCart) => {
     localStorage.setItem("cart", JSON.stringify(myCart));
@@ -114,11 +115,11 @@ export const GlobalContextProvider = ({ children }) => {
       if (property === "category") {
         return data[curElem].category;
       }
+      // if (property === "size") {
+      //   return data[curElem].size;
+      // }
       if (property === "color") {
         return data[curElem].color;
-      }
-      if (property === "brand") {
-        return data[curElem].brand;
       }
       if (property === "price") {
         return data[curElem].price;
@@ -130,7 +131,7 @@ export const GlobalContextProvider = ({ children }) => {
     return newVal;
   };
 
-  const filtering = (data, category, color, price) => {
+  const filtering = (data, category, size, color, price) => {
     if (category) {
       if (category === "All") {
         return data;
@@ -139,6 +140,14 @@ export const GlobalContextProvider = ({ children }) => {
         Object.entries(data).filter(
           ([key, value]) => value.category === category
         )
+      );
+    }
+    if (size) {
+      if (size === "All") {
+        return data;
+      }
+      data = Object.fromEntries(
+        Object.entries(data).filter(([key, value]) => value.size.includes(size))
       );
     }
     if (color) {
@@ -188,6 +197,8 @@ export const GlobalContextProvider = ({ children }) => {
         setSelectedCategory,
         selectedPrice,
         setSelectedPrice,
+        selectedSize,
+        setSelectedSize,
         filtering,
       }}
     >

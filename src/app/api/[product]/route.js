@@ -4,6 +4,7 @@ import connectdb from "../../../middleware/connectdb";
 
 export async function GET(request, content) {
   const gender = content.params.product;
+
   let products = await product.find({ gender: gender });
 
   let men = {};
@@ -27,8 +28,10 @@ export async function GET(request, content) {
     }
   }
   return NextResponse.json(men);
-  return NextResponse.json(products);
+
 }
+
+
 
 export async function POST(request) {
   const payload = await request.json();
@@ -49,11 +52,12 @@ export async function POST(request) {
   return NextResponse.json({ res: "success" });
 }
 
+
+
 export async function PUT(request, content) {
-  const id = content.params.product;
-  console.log(id);
+  try {
+    const id = content.params.product;
   const changes = await request.json();
-  console.log(changes.title);
 
   let p = await product.findByIdAndUpdate(
     id,
@@ -73,13 +77,22 @@ export async function PUT(request, content) {
       new: true,
     }
   );
-
-  return NextResponse.json({ p, res: "success" });
+  if(p){
+    return NextResponse.json({ p, res: "success" });
+  }
+  else{
+    return NextResponse.json({ res: "failed", error:"Can't fetch" });
+  }
+  } catch (error) {
+    return NextResponse.json({ res: "failed", error:error });
+  }
+  
 }
 
 
+
 export async function PATCH(request) {
-  const products = await request.json();
+  const {products} = await request.json();
   console.log(products);
 
   for (const item in products) {
@@ -91,5 +104,5 @@ export async function PATCH(request) {
     });
   }
 
-  return NextResponse.json({ res: "success" });
+  return NextResponse.json({res: "success" });
 }
