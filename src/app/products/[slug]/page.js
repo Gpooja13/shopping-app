@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useGlobalContext } from "../../../../Context/store";
+import { useGlobalContext } from "../../../context/store";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,14 +14,8 @@ const Post = ({ params }) => {
   const [productOneData, setProductOneData] = useState();
   const [variant, setVariant] = useState();
   const router = useRouter();
-  const {
-    user,
-    cart,
-    addToCart,
-    addToWishList,
-    buyNow,
-    included,
-  } = useGlobalContext();
+  const { user, cart, addToCart, addToWishList, buyNow, included } =
+    useGlobalContext();
 
   async function fetchProductOneData() {
     const res = await fetch(
@@ -49,7 +43,7 @@ const Post = ({ params }) => {
 
   const refreshVariant = (newsize) => {
     let url = `http://localhost:3000/products/product/${variant[newsize].slug}`;
-    window.location = url;
+    router.push(url);
   };
 
   useEffect(() => {
@@ -96,12 +90,12 @@ const Post = ({ params }) => {
             </h2>
 
             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-              {productOneData && productOneData.title} (
-              {productOneData && productOneData.size}/
-              {productOneData && productOneData.color})
+              {productOneData?.title} (
+              {productOneData?.size}/
+              {productOneData?.color})
             </h1>
             <div className="flex mb-4">
-              <span className="flex items-center">
+              {/* <span className="flex items-center">
                 <svg
                   fill="currentColor"
                   stroke="currentColor"
@@ -158,8 +152,8 @@ const Post = ({ params }) => {
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
                 </svg>
                 <span className="text-gray-600 ml-3">4 Reviews</span>
-              </span>
-              <span className="flex ml-5 pl-3 py-2 border-l-2 border-gray-200 space-x-2s">
+              </span> */}
+              {/* <span className="flex ml-5 pl-3 py-2 border-l-2 border-gray-200 space-x-2s">
                 <a className="text-gray-500">
                   <svg
                     fill="currentColor"
@@ -196,10 +190,10 @@ const Post = ({ params }) => {
                     <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
                   </svg>
                 </a>
-              </span>
+              </span> */}
             </div>
             <p className="leading-relaxed">
-              {productOneData && productOneData.desc}
+              {productOneData?.desc}
             </p>
             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
               <div className="flex">
@@ -224,7 +218,8 @@ const Post = ({ params }) => {
 
                 <button className="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6 focus:outline-none"></button> */}
                 <div
-                  className={`border-2 border-gray-300 ml-1 bg-${productOneData?.color}-500 rounded-full w-6 h-6 focus:outline-none`}
+                  className={`border-2 border-gray-300 ml-1 rounded-full w-6 h-6 focus:outline-none`}
+                  style={{ backgroundColor: productOneData?.color }}
                 ></div>
               </div>
               <div className="flex ml-6 items-center">
@@ -273,103 +268,107 @@ const Post = ({ params }) => {
                 </div>
               </div>
             </div>
-            <div className="flex">
-              <span className="title-font font-medium text-2xl text-gray-900 mr-4">
-                ₹{productOneData && productOneData.price}
-              </span>
+            {productOneData?.availableQty === "0" ? (
+              <p className="text-2xl text-red-500 font-semibold">Item sold out!</p>
+            ) : (
+              <div className="flex">
+                <span className="title-font font-medium text-2xl text-gray-900 mr-4">
+                  ₹{productOneData?.price}
+                </span>
 
-              <button
-                className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm "
-                onClick={() => {
-                  if(user){
-                  if (
-                    cart[slugWord]?.qty < productOneData.availableQty ||
-                    !Object.keys(cart).includes(slugWord)
-                  ) {
-                    addToCart(
-                      slugWord,
-                      1,
-                      productOneData.price,
-                      productOneData.title,
-                      productOneData.size,
-                      productOneData.color,
-                      productOneData.availableQty
-                    );
+                <button
+                  className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm "
+                  onClick={() => {
+                    if (user) {
+                      if (
+                        cart[slugWord]?.qty < productOneData.availableQty ||
+                        !Object.keys(cart).includes(slugWord)
+                      ) {
+                        addToCart(
+                          slugWord,
+                          1,
+                          productOneData.price,
+                          productOneData.title,
+                          productOneData.size,
+                          productOneData.color,
+                          productOneData.availableQty
+                        );
 
-                    toast.success("Product added into the cart!", {
-                      position: "bottom-center",
-                      autoClose: 2000,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                      theme: "light",
-                      // transition:Bounce ,
-                    });
-                  }
-                  // else if(!Object.keys(cart).includes(slugWord)){
+                        toast.success("Product added into the cart!", {
+                          position: "bottom-center",
+                          autoClose: 2000,
+                          hideProgressBar: false,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                          draggable: true,
+                          progress: undefined,
+                          theme: "light",
+                          // transition:Bounce ,
+                        });
+                      }
+                      // else if(!Object.keys(cart).includes(slugWord)){
 
-                  //   }
-                  else {
-                    toast.error("Stock not available", {
-                      position: "bottom-center",
-                      autoClose: 2000,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                      theme: "light",
-                      // transition:Bounce ,
-                    });
-                  }
-                  }else{
-                    router.push("/login");
-                  }
-                }}
-              >
-                Add to cart
-              </button>
-              <button
-                className="flex ml-4 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm"
-                onClick={() => {
-                  if (user) {
-                    if (
-                      cart[slugWord]?.qty < productOneData.availableQty ||
-                      !Object.keys(cart).includes(slugWord)
-                    ) {
-                      buyNow(
-                        slugWord,
-                        1,
-                        productOneData.price,
-                        productOneData.title,
-                        productOneData.size,
-                        productOneData.color,
-                        productOneData.availableQty
-                      );
-                      router.push("/checkout");
+                      //   }
+                      else {
+                        toast.error("Stock not available", {
+                          position: "bottom-center",
+                          autoClose: 2000,
+                          hideProgressBar: false,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                          draggable: true,
+                          progress: undefined,
+                          theme: "light",
+                          // transition:Bounce ,
+                        });
+                      }
                     } else {
-                      toast.error("Stock not available", {
-                        position: "bottom-center",
-                        autoClose: 2000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                        // transition:Bounce ,
-                      });
+                      router.push("/login");
                     }
-                  } else {
-                    router.push("/login");
-                  }
-                }}
-              >
-                Buy now
-              </button>
-            </div>
+                  }}
+                >
+                  Add to cart
+                </button>
+                <button
+                  className="flex ml-4 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm"
+                  onClick={() => {
+                    if (user) {
+                      if (
+                        cart[slugWord]?.qty < productOneData.availableQty ||
+                        !Object.keys(cart).includes(slugWord)
+                      ) {
+                        buyNow(
+                          slugWord,
+                          1,
+                          productOneData.price,
+                          productOneData.title,
+                          productOneData.size,
+                          productOneData.color,
+                          productOneData.availableQty
+                        );
+                        router.push("/checkout");
+                      } else {
+                        toast.error("Stock not available", {
+                          position: "bottom-center",
+                          autoClose: 2000,
+                          hideProgressBar: false,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                          draggable: true,
+                          progress: undefined,
+                          theme: "light",
+                          // transition:Bounce ,
+                        });
+                      }
+                    } else {
+                      router.push("/login");
+                    }
+                  }}
+                >
+                  Buy now
+                </button>
+              </div>
+            )}
             <div className="flex flex-col mt-3">
               <div className="mt-6 flex space-x-2 text-sm">
                 <input

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { BiFilterAlt } from "react-icons/bi";
 import SideBar from "@/components/SideBar";
-import { useGlobalContext } from "@/Context/store";
+import { useGlobalContext } from "@/context/store";
 
 const Men = () => {
   const [productData, setProductData] = useState({});
@@ -105,7 +105,7 @@ const Men = () => {
                 key={productData[item]?.slug}
                 className="lg:w-1/5 md:w-1/2 p-4 w-full flex items-center flex-col m-2 shadow-md"
               >
-                <Link href={`/products/product/${productData[item]?.slug}`}>
+                <Link href={`/products/${productData[item]?.slug}`}>
                   <div className="block relative rounded overflow-hidden">
                     <Image
                       alt="ecommerce"

@@ -7,13 +7,14 @@ import { IoMdClose } from "react-icons/io";
 import React, { useRef, useEffect, useState } from "react";
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
 import { BsBagCheckFill } from "react-icons/bs";
-import { useGlobalContext } from "../Context/store";
+import { useGlobalContext } from "../context/store";
 import { MdAccountCircle, MdLogin } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingBar from "react-top-loading-bar";
 import { usePathname } from "next/navigation";
 import { FaRegHeart } from "react-icons/fa";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
 
 const Navbar = () => {
   const [key, setKey] = useState(0);
@@ -43,7 +44,6 @@ const Navbar = () => {
       ref.current.classList.remove("translate-x-0");
       ref.current.classList.add("translate-x-full");
     }
-    console.log(user);
   };
 
   const logout = () => {
@@ -66,7 +66,7 @@ const Navbar = () => {
 
   const linkToItem = (slug) => {
     let url = `http://localhost:3000/products/product/${slug}`;
-    window.location = url;
+    router.push(url);
   };
 
   useEffect(() => {
@@ -139,6 +139,10 @@ const Navbar = () => {
               Accesories
             </Link>
           </nav>
+
+
+
+
           <div className="absolute right-20 md:top-5 top-5 mx-8 z-50">
             {
               <Link href="/auth/wishList">
@@ -171,7 +175,8 @@ const Navbar = () => {
             >
               {dropDown && (
                 <div className="absolute right-[-10px] bg-white top-8 py-2 mb-1 rounded-md px-5 w-40 cursor-pointer shadow-lg border">
-                  <ul>
+
+                 {(user?.admin)? <ul>
                     <li className="py-2 text-sm h-14 border-b">
                       <div>
                         <p className="font-semibold"> Hi {user?.name}</p>
@@ -201,17 +206,57 @@ const Navbar = () => {
                     >
                       Logout
                     </li>
-                  </ul>
+                  </ul>:<ul>
+                    <li className="py-2 text-sm h-14 border-b">
+                      <div>
+                        <p className="font-semibold"> Hi {user?.name}</p>
+                        <span className="text-[12px] text-green-400">
+                          {user?.email}
+                        </span>
+                      </div>
+                    </li>
+
+                    <Link href={"/admin/dashboard"}>
+                      <li className="py-2 text-sm hover:font-bold">Dashboard</li>
+                    </Link>
+                    <Link href={"/admin/addProducts"}>
+                      <li className="py-2 text-sm hover:font-bold mt-1">
+                        Add Products
+                      </li>
+                    </Link>
+                    <Link href={"/admin/viewProducts"}>
+                      <li className="py-2 text-sm hover:font-bold">View Products</li>
+                    </Link> 
+                    <Link href={"/about"}>
+                      <li className="py-2 text-sm hover:font-bold">About</li>
+                    </Link>
+                    <Link href={"/contact"}>
+                      <li className="py-2 text-sm hover:font-bold">
+                        Contact Us
+                      </li>
+                    </Link>
+
+                    <li
+                      onClick={logout}
+                      className="py-2 text-sm hover:font-bold"
+                    >
+                      Logout
+                    </li>
+                  </ul>}
+
                 </div>
               )}
               {user && (
                 <button>
-                  <MdAccountCircle
+                  {user?.admin?<MdAccountCircle
                     className="text-xl md:text-3xl mx-2 md:mx-1"
                     onMouseOver={() => setDropDown(true)}
                     onMouseLeave={() => setDropDown(false)}
                     title="My Account"
-                  />
+                  />:<MdOutlineAdminPanelSettings className="text-xl md:text-3xl mx-2 md:mx-1"
+                    onMouseOver={() => setDropDown(true)}
+                    onMouseLeave={() => setDropDown(false)}
+                    title="Admin Panel"/>}
                 </button>
               )}
             </span>

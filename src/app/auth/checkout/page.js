@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
-import { useGlobalContext } from "../../../Context/store";
+import { useGlobalContext } from "../../../context/store";
 import Head from "next/head";
 import BuyProduct from "@/components/razorpay/BuyProduct";
 import { useRouter } from "next/navigation";
@@ -58,7 +58,7 @@ const Checkout = () => {
 
   const linkToItem = (slug) => {
     let url = `http://localhost:3000/products/product/${slug}`;
-    window.location = url;
+    router.push(url);
   };
 
   useEffect(() => {

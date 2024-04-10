@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useGlobalContext } from "@/Context/store";
+import { useGlobalContext } from "@/context/store";
 
 const SideBar = ({ allCategory, allSize, allColor, minPrice, maxPrice }) => {
   const {

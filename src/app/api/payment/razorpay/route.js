@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import Razorpay from "razorpay";
-import shortid from "shortid"; //deprecated
+// import shortid from "shortid"; //deprecated
 import { nanoid } from 'nanoid'
 import product from "../../../../models/product";
 import connectdb from "../../../../middleware/connectdb";
@@ -20,12 +20,12 @@ export async function POST(req) {
 
     productOne = await product.findOne({ slug: item });
     if (products[item].price !== productOne.price) {
-      return NextResponse.json({ msg: "failed" });
+      return NextResponse.json({ res: "failed", clearCart:true, error:"Price has been changed. Try again!" });
     }
   }
 
   if (sumTotal !== payload.amount) {
-    return NextResponse.json({ msg: "failed" });
+    return NextResponse.json({ res: "failed", clearCart:true ,error:"Price has been changed. Try again!" });
   }
 
   // const payment_capture = 1;
@@ -47,5 +47,5 @@ export async function POST(req) {
   };
 
   const order = await instance.orders.create(options);
-  return NextResponse.json({ msg: "success", order });
+  return NextResponse.json({ res: "success", order:order });
 }

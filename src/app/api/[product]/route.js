@@ -5,29 +5,29 @@ import connectdb from "../../../middleware/connectdb";
 export async function GET(request, content) {
   const gender = content.params.product;
 
-  let products = await product.find({ gender: gender });
+  let products = await product.find({$and: [{ gender: gender },{availableQty: {$not: {$eq: 0}}}]});
 
-  let men = {};
+  let allProduct = {};
   for (let item of products) {
-    if (item.title in men) {
+    if (item.title in allProduct) {
       // if (
       //   !tshirt[item.title].color.includes(item.color) &&
       //   item.availableQty > 0
       // ) {
       //   tshirt[item.title].color.push(item.color);
       // }
-      if (!men[item.title].size.includes(item.size) && item.availableQty > 0) {
-        men[item.title].size.push(item.size);
+      if (!allProduct[item.title].size.includes(item.size) && item.availableQty > 0) {
+        allProduct[item.title].size.push(item.size);
       }
     } else {
-      men[item.title] = JSON.parse(JSON.stringify(item));
+      allProduct[item.title] = JSON.parse(JSON.stringify(item));
       if (item.availableQty > 0) {
         // tshirt[item.title].color = [item.color];
-        men[item.title].size = [item.size];
+        allProduct[item.title].size = [item.size];
       }
     }
   }
-  return NextResponse.json(men);
+  return NextResponse.json(allProduct);
 
 }
 

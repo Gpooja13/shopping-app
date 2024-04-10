@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import Razorpay from "razorpay";
-import shortid from "shortid";
+// import shortid from "shortid";
 import crypto from "crypto";
 import Order from "../../../../models/order";
 import connectdb from "../../../../middleware/connectdb";
@@ -61,7 +61,7 @@ export async function POST(req, res) {
     
     return NextResponse.json(
       {
-        message: "success",
+        res: "success",
         _id:o._id
       },
       {
@@ -71,7 +71,8 @@ export async function POST(req, res) {
   } else {
     return NextResponse.json(
       {
-        message: "fail",
+        res: "failed",
+        error:"Error in server side"
       },
       {
         status: 400,
