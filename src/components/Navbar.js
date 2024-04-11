@@ -220,7 +220,7 @@ const Navbar = () => {
                       <li className="py-2 text-sm hover:font-bold">Dashboard</li>
                     </Link>
                     <Link href={"/admin/addProducts"}>
-                      <li className="py-2 text-sm hover:font-bold mt-1">
+                      <li className="py-2 text-sm hover:font-bold">
                         Add Products
                       </li>
                     </Link>
