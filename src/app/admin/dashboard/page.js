@@ -1,89 +1,79 @@
-"use client"
-import React, { useState, useEffect } from 'react';
-import { Chart } from 'primereact/chart';
+"use client";
+import BarGraph from "@/components/dashboard/BarGraph";
+import DoughnutChart from "@/components/dashboard/Doughnut";
+import ViewOrders from "@/components/dashboard/ViewOrders";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useGlobalContext } from "@/context/store";
+import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import React from "react";
 
-export default function StackedBarDemo() {
-    const [chartData, setChartData] = useState({});
-    const [chartOptions, setChartOptions] = useState({});
+const page = () => {
+  const { user } = useGlobalContext();
+  const [monthSales, setMonthSales] = useState([]);
+  const [categorySales, setCategorySales] = useState([]);
+  const router = useRouter();
+  const [orderList, setOrderList] = useState([]);
 
-    useEffect(() => {
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
-        const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-        const data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September', 'October', 'November', 'December'],
-            datasets: [
-                {
-                    type: 'bar',
-                    label: 'Dataset 1',
-                    backgroundColor: documentStyle.getPropertyValue('--blue-500'),
-                    data: [50, 25, 12, 48, 90, 76, 42,50, 25, 12, 48, 90, 76,]
-                },
-                {
-                    type: 'bar',
-                    label: 'Dataset 2',
-                    backgroundColor: documentStyle.getPropertyValue('--green-500'),
-                    data: [21, 84, 24, 75, 37, 65, 34,84, 24, 75, 37, 65, 34]
-                },
-                {
-                    type: 'bar',
-                    label: 'Dataset 3',
-                    backgroundColor: documentStyle.getPropertyValue('--yellow-500'),
-                    data: [41, 52, 24, 74, 23, 21, 32,41, 52, 24, 74, 23, 21,]
-                }
-                , {
-                  type: 'bar',
-                  label: 'Dataset 4',
-                  backgroundColor: documentStyle.getPropertyValue('--red-500'),
-                  data: [41, 52, 24, 74, 23, 21, 32,41, 52, 24, 74, 23, 21,]
-              }
-            ]
-        };
-        const options = {
-            maintainAspectRatio: false,
-            aspectRatio: 0.8,
-            plugins: {
-                tooltips: {
-                    mode: 'index',
-                    intersect: false
-                },
-                legend: {
-                    labels: {
-                        color: textColor
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    stacked: true,
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        color: surfaceBorder
-                    }
-                },
-                y: {
-                    stacked: true,
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        color: surfaceBorder
-                    }
-                }
-            }
-        };
 
-        setChartData(data);
-        setChartOptions(options);
-    }, []);
+  const fetchOrders = async () => {
+    try {
+      const token = JSON.parse(localStorage.getItem("token"))?.token;
+      if (!token) {
+        return router.push("/login");
+      }
 
-    return (
-        <div className="card m-32">
-            <Chart type="bar" data={chartData} options={chartOptions} />
-        </div>
-    )
-}
-        
+      const response = await fetch("http://localhost:3000/api/admin/viewOrders", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+      const data = await response.json();
+      if (data.error) {
+        toast.error(data.error, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          // transition: "Bounce",
+        });
+        return router.push("/");
+      } else {
+        setOrderList(data.o);
+        setMonthSales(data.ordersByMonth);
+        setCategorySales(data.ordersByGender);
+      }
+    } catch (error) {
+      console.log("client side", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  return (
+    <div className="flex flex-col my-12">
+    <h2 className="m-auto">MONTHLY REPORT</h2>
+      <div className="flex justify-around items-center container mx-auto p-12">
+        <section>
+          <DoughnutChart categorySales={categorySales} />
+        </section>
+        <section>
+          <BarGraph monthSales={monthSales}/>
+        </section>
+      </div>
+      <div className="max-h-[60vh] overflow-y-auto">
+        <ViewOrders orderList={orderList} />
+      </div>
+    </div>
+  );
+};
+
+export default page;

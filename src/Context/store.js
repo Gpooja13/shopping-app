@@ -45,7 +45,7 @@ export const GlobalContextProvider = ({ children }) => {
     if (itemCode in myCart) {
       myCart[itemCode].qty += qty;
     } else {
-      myCart[itemCode] = { qty: 1, price, name, size, variant, availableQty };
+      myCart[itemCode] = { qty: 1, price, name, size, variant, availableQty,category,gender };
     }
     setCart(myCart);
     saveCart(myCart);

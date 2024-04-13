@@ -45,6 +45,7 @@ const orders = () => {
           theme: "light",
           // transition: "Bounce",
         });
+        return router.push("/");
       } else {
         setProductList(data);
       }

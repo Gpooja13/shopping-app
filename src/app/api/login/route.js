@@ -12,8 +12,16 @@ export async function POST(request) {
     var decryptedPassword = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 
     if (payload.email === u.email && payload.password === decryptedPassword) {
+      if (u.admin === "true") {
+        var token = jwt.sign({ email: u.email, name: u.name}, "jwtSecret");
+        return NextResponse.json({
+          res: "success",
+          user: u,
+          token: token,
+          admin: true,
+        });
+      }
       var token = jwt.sign({ email: u.email, name: u.name }, "jwtSecret");
-
       return NextResponse.json({ res: "success", user: u, token: token });
     } else {
       return NextResponse.json({ res: "failed", error: "Invalid Credentials" });

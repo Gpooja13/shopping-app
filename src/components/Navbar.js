@@ -176,7 +176,7 @@ const Navbar = () => {
               {dropDown && (
                 <div className="absolute right-[-10px] bg-white top-8 py-2 mb-1 rounded-md px-5 w-40 cursor-pointer shadow-lg border">
 
-                 {(user?.admin)? <ul>
+                 {(!user?.admin)? <ul>
                     <li className="py-2 text-sm h-14 border-b">
                       <div>
                         <p className="font-semibold"> Hi {user?.name}</p>
@@ -248,7 +248,7 @@ const Navbar = () => {
               )}
               {user && (
                 <button>
-                  {user?.admin?<MdAccountCircle
+                  {!user?.admin?<MdAccountCircle
                     className="text-xl md:text-3xl mx-2 md:mx-1"
                     onMouseOver={() => setDropDown(true)}
                     onMouseLeave={() => setDropDown(false)}
