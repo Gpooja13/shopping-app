@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaHeart } from "react-icons/fa";
 import Image from "next/image";
+import { BiPin } from "react-icons/bi";
 
 const Post = ({ params }) => {
   const slugWord = params.slug;
@@ -27,18 +28,61 @@ const Post = ({ params }) => {
   }
 
   const checkServiceability = async () => {
-    const fetchApi = await fetch("http://localhost:3000/api/pincode");
-    const data = await fetchApi.json();
-
-    if (Object.keys(data).includes(pin)) {
-      setServiceable(true);
+    if (pin.length < 6 ) {
+      toast.error("Please enter valid pincode", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        // transition: "Bounce",
+      });
     } else {
-      setServiceable(false);
+      const fetchApi = await fetch("http://localhost:3000/api/pincode");
+      const data = await fetchApi.json();
+
+      if (Object.keys(data).includes(pin)) {
+        setServiceable(true);
+      } else {
+        setServiceable(false);
+      }
     }
   };
 
   const onchange = (e) => {
-    setPin(e.target.value);
+    const pattern = new RegExp(/^[0-9]{6,6}$/g);
+    if (e.target.value.length === 6) {
+      if (!pattern.test(e.target.value)) {
+        toast.error("Please enter valid pincode", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          // transition: "Bounce",
+        });
+      } else {
+        setPin(e.target.value);
+      }
+    } else if (e.target.value.length > 6) {
+      toast.error("Please enter valid pincode", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        // transition: "Bounce",
+      });
+    }
   };
 
   const refreshVariant = (newsize) => {
@@ -90,8 +134,7 @@ const Post = ({ params }) => {
             </h2>
 
             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-              {productOneData?.title} (
-              {productOneData?.size}/
+              {productOneData?.title} ({productOneData?.size}/
               {productOneData?.color})
             </h1>
             <div className="flex mb-4">
@@ -192,31 +235,11 @@ const Post = ({ params }) => {
                 </a>
               </span> */}
             </div>
-            <p className="leading-relaxed">
-              {productOneData?.desc}
-            </p>
+            <p className="leading-relaxed">{productOneData?.desc}</p>
             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
               <div className="flex">
                 <span className="mr-3">Color</span>
-                {/* {variant &&
-                  Object.keys(variant).includes("red") &&
-                  Object.keys(variant)["red"].includes("size") && (
-                    <button
-                      className={`border-2 bg-red-300 rounded-full w-6 h-6 focus:outline-none ${
-                        color === "red" ? "border-black" : "border-grey-300"
-                      }`}
-                    ></button>
-                  )}
-                {variant && Object.keys(variant).includes("pink") && (
-                  <button className="border-2 border-pink-300 rounded-full w-6 h-6 focus:outline-none"></button>
-                )}
-                {variant &&
-                  Object.keys(variant).includes("blue") &&
-                  Object.keys(variant)["red"].includes(size) && (
-                    <button className="border-2 border-blue-300 rounded-full w-6 h-6 focus:outline-none"></button>
-                  )}
 
-                <button className="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6 focus:outline-none"></button> */}
                 <div
                   className={`border-2 border-gray-300 ml-1 rounded-full w-6 h-6 focus:outline-none`}
                   style={{ backgroundColor: productOneData?.color }}
@@ -269,7 +292,9 @@ const Post = ({ params }) => {
               </div>
             </div>
             {productOneData?.availableQty === "0" ? (
-              <p className="text-2xl text-red-500 font-semibold">Item sold out!</p>
+              <p className="text-2xl text-red-500 font-semibold">
+                Item sold out!
+              </p>
             ) : (
               <div className="flex">
                 <span className="title-font font-medium text-2xl text-gray-900 mr-4">
@@ -291,7 +316,8 @@ const Post = ({ params }) => {
                           productOneData.title,
                           productOneData.size,
                           productOneData.color,
-                          productOneData.availableQty
+                          productOneData.availableQty,
+                          productOneData.gender,
                         );
 
                         toast.success("Product added into the cart!", {
@@ -344,7 +370,8 @@ const Post = ({ params }) => {
                           productOneData.title,
                           productOneData.size,
                           productOneData.color,
-                          productOneData.availableQty
+                          productOneData.availableQty,
+                          productOneData.gender,
                         );
                         router.push("/checkout");
                       } else {

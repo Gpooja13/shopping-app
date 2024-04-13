@@ -5,19 +5,58 @@ import Link from "next/link";
 import { useGlobalContext } from "@/context/store";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
+import { IoSearchOutline } from "react-icons/io5";
 import "react-toastify/dist/ReactToastify.css";
+import { TextInput } from "flowbite-react";
 
-const ViewOrders = ({orderList}) => {
-    
+const ViewOrders = ({ orderList, setSearch, search, filterOrders }) => {
+  const searchChange = (e) => {
+    const pattern = new RegExp(/^[\da-f]{24}$/);
+    if (e.target.value.match(pattern)) {
+      setSearch(e.target.value);
+    }
+  };
+
   return (
-    <div className="container  mx-auto"> 
-    {/* bg-indigo-200 */}
+    <div className="container  mx-auto">
+      {/* bg-indigo-200 */}
       <div className="flex flex-wrap -mx-3 mb-5 justify-center">
         <div className="w-full max-w-full px-3 mb-6  mx-auto">
           <div className="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] bg-white m-5">
             <div className="relative flex flex-col min-w-0 break-words border border-dashed bg-clip-border rounded-2xl border-stone-200 bg-light/30">
               <div className="px-9 pt-5 flex justify-center items-stretch flex-wrap min-h-[70px] pb-0 bg-transparent ">
-                <h3 className="flex flex-col items-start justify-center m-2 ml-0 font-medium text-xl/tight text-dark">RECENT ORDERS
+                <div>
+                  <TextInput
+                    className="absolute w-[42vh] left-[35px]"
+                    id="search"
+                    type="text"
+                    sizing="sm"
+                    onChange={(e) => searchChange(e)}
+                  />
+                  <IoSearchOutline
+                    className="absolute text-xl left-[280px] top-[27px]"
+                    onClick={() => {
+                      if (search) {
+                        filterOrders(search);
+                      } else {
+                        toast.error("Enter valid Id", {
+                          position: "top-right",
+                          autoClose: 2000,
+                          hideProgressBar: false,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                          draggable: true,
+                          progress: undefined,
+                          theme: "light",
+                          // transition: "Bounce",
+                        });
+                      }
+                    }}
+                  />
+                </div>
+
+                <h3 className="flex flex-col items-start justify-center m-2 ml-0 font-medium text-xl/tight text-dark">
+                  RECENT ORDERS
                 </h3>
                 <div className="relative flex flex-wrap items-center my-2">
                   {/* empty space */}
@@ -38,7 +77,7 @@ const ViewOrders = ({orderList}) => {
                         <th className="pb-3 text-center min-w-[100px] text-sm">
                           STATUS
                         </th>
-                       
+
                         <th className="pb-3 text-center min-w-[100px] text-sm">
                           ADDRESS
                         </th>
@@ -52,17 +91,15 @@ const ViewOrders = ({orderList}) => {
                       </tr>
                     </thead>
                     <tbody>
-                      {(orderList?.length)!==0 &&
+                      {orderList?.length !== 0 &&
                         orderList.map((item) => {
                           return (
-                          
                             <tr
                               key={item._id}
                               className="border-b border-dashed last:border-b-0"
                             >
-                             
                               <td className="p-3 pl-0">
-                              <Link href={"auth/order?orderid=" + item._id}>
+                                <Link href={"auth/order?orderid=" + item._id}>
                                   <div className="flex items-center">
                                     <div className="relative inline-block shrink-0 rounded-2xl me-3">
                                       <img
@@ -81,7 +118,7 @@ const ViewOrders = ({orderList}) => {
                                       </div>
                                     </div>
                                   </div>
-                                  </Link>
+                                </Link>
                               </td>
 
                               <td className="text-sm p-3 pr-0 text-center">
@@ -94,7 +131,7 @@ const ViewOrders = ({orderList}) => {
                                   </span>
                                 </span>
                               </td>
-                             
+
                               <td className="p-3 text-center">
                                 <div className="text-sm text-gray-900">
                                   {item.address}
@@ -137,13 +174,18 @@ const ViewOrders = ({orderList}) => {
                                   </button>
                                 </Link>
                               </td>
-                            </tr> 
+                            </tr>
                           );
                         })}
                     </tbody>
-                    
                   </table>
-                  {(orderList.length===0)?<p className="flex justify-center items-center h-full w-full mt-20 text-gray-500 text-sm">No orders placed yet.</p>:<></>}
+                  {orderList.length === 0 ? (
+                    <p className="flex justify-center items-center h-full w-full mt-20 text-gray-500 text-sm">
+                      No orders yet.
+                    </p>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </div>
             </div>

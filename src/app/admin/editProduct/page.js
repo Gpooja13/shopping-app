@@ -4,6 +4,7 @@ import { Label, Select, TextInput, Textarea, FileInput } from "flowbite-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useGlobalContext } from "@/context/store";
 
 const page = () => {
   const [title, setTitle] = useState("");
@@ -19,16 +20,23 @@ const page = () => {
   const id=p.get("id");
   const slug=p.get("slug");
   const router=useRouter();
+  const { user } = useGlobalContext();
 
   const submitData = async () => {
-    console.log("pressed");
+
     if ((title, category, size, color, price, desc, quantity, image, gender,id)) {
+      const token = JSON.parse(localStorage.getItem("token"))?.token;
+      if (!token) {
+        return router.push("/login");
+      }
+
       const fetchApi = await fetch(
         `http://localhost:3000/api/admin/${id}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
           },
           body: JSON.stringify({
             title: title,
@@ -59,7 +67,7 @@ const page = () => {
           // transition:"Bounce"
         });
         router.push("/admin/viewProducts");
-      } else if (data.res === "failure") {
+      } else if (data.res === "failed") {
         toast.success(data.error, {
           position: "top-right",
           autoClose: 2000,
@@ -88,6 +96,15 @@ const page = () => {
   };
 
   useEffect(() => {
+    const token = JSON.parse(localStorage.getItem("token"))?.token;
+    if (!token) {
+      return router.push("/login");
+    }
+
+    if (!user?.admin) {
+      router.push("/");
+    }
+
     setTitle(p.get("title"));
     setGender(p.get("gender"));
     setCategory(p.get("category"));

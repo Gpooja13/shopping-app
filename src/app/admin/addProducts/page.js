@@ -1,8 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Label, Select, TextInput, Textarea, FileInput } from "flowbite-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/navigation";
+import { useGlobalContext } from "@/context/store";
 
 const page = () => {
   const [title, setTitle] = useState("");
@@ -14,55 +16,63 @@ const page = () => {
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
   const [image, setImage] = useState("");
+  const router = useRouter();
+  const { user } = useGlobalContext();
 
   const submitData = async () => {
-    if (title, category, size, color, price, desc, quantity, image, gender) {
-      const fetchApi = await fetch("http://localhost:3000/api/admin/viewProduct", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: title,
-          desc: desc,
-          image: image,
-          category: category,
-          gender: gender,
-          size: size,
-          color: color,
-          price: price,
-          availableQty: quantity,
-        }),
-      });
+    if ((title, category, size, color, price, desc, quantity, image, gender)) {
+      const token = JSON.parse(localStorage.getItem("token"))?.token;
+      if (!token) {
+        return router.push("/login");
+      }
+      const fetchApi = await fetch(
+        "http://localhost:3000/api/admin/viewProduct",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify({
+            title: title,
+            desc: desc,
+            image: image,
+            category: category,
+            gender: gender,
+            size: size,
+            color: color,
+            price: price,
+            availableQty: quantity,
+          }),
+        }
+      );
       const data = await fetchApi.json();
-     if(data.res==="success"){
-      toast.success("Product has been added", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        // transition:"Bounce" 
-      });
-     }
-     else if(data.res==="failure"){
-      toast.success(data.error, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        // transition:"Bounce" 
-      });
-     }
-    }
-    else{
+      if (data.res === "success") {
+        toast.success("Product has been added", {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          // transition:"Bounce"
+        });
+      } else if (data.res === "failed") {
+        toast.success(data.error, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          // transition:"Bounce"
+        });
+      }
+    } else {
       toast.error("Fill all the details", {
         position: "top-right",
         autoClose: 2000,
@@ -72,10 +82,21 @@ const page = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
-        // transition:"Bounce" 
+        // transition:"Bounce"
       });
     }
   };
+
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem("token"))?.token;
+    if (!token) {
+      return router.push("/login");
+    }
+
+    if (!user?.admin) {
+      router.push("/");
+    }
+  }, []);
 
   return (
     <section className="text-gray-600 body-font relative">
@@ -103,7 +124,7 @@ const page = () => {
                   type="text"
                   sizing="md"
                   required
-                  onChange={(e)=>setTitle(e.target.value)}
+                  onChange={(e) => setTitle(e.target.value)}
                 />
               </div>
             </div>
@@ -118,7 +139,7 @@ const page = () => {
                   type="text"
                   sizing="md"
                   required
-                  onChange={(e)=>setCategory(e.target.value)}
+                  onChange={(e) => setCategory(e.target.value)}
                 />
               </div>
             </div>
@@ -127,7 +148,12 @@ const page = () => {
                 <div className="mb-2 block">
                   <Label htmlFor="gender" value="Type" />
                 </div>
-                <Select id="gender" required name="gender" onChange={(e)=>setGender(e.target.value)}>
+                <Select
+                  id="gender"
+                  required
+                  name="gender"
+                  onChange={(e) => setGender(e.target.value)}
+                >
                   <option>Men</option>
                   <option>Women</option>
                   <option>Kids</option>
@@ -140,7 +166,12 @@ const page = () => {
                 <div className="mb-2 block">
                   <Label htmlFor="size" value="Size" />
                 </div>
-                <Select id="size" required name="size" onChange={(e)=>setSize(e.target.value)}>
+                <Select
+                  id="size"
+                  required
+                  name="size"
+                  onChange={(e) => setSize(e.target.value)}
+                >
                   <option>XS</option>
                   <option>S</option>
                   <option>M</option>
@@ -159,7 +190,7 @@ const page = () => {
                   required
                   rows={3}
                   name="description"
-                  onChange={(e)=>setDesc(e.target.value)}
+                  onChange={(e) => setDesc(e.target.value)}
                 />
               </div>
             </div>
@@ -174,7 +205,7 @@ const page = () => {
                   sizing="md"
                   name="color"
                   required
-                  onChange={(e)=>setColor(e.target.value)}
+                  onChange={(e) => setColor(e.target.value)}
                 />
               </div>
             </div>
@@ -189,7 +220,7 @@ const page = () => {
                   sizing="md"
                   name="quantity"
                   required
-                  onChange={(e)=>setQuantity(e.target.value)}
+                  onChange={(e) => setQuantity(e.target.value)}
                 />
               </div>
             </div>
@@ -203,7 +234,7 @@ const page = () => {
                   helperText="Upload Picture of 64base"
                   name="image"
                   required
-                  onChange={(e)=>setImage(e.target.value)}
+                  onChange={(e) => setImage(e.target.value)}
                 />
               </div>
             </div>
@@ -218,13 +249,16 @@ const page = () => {
                   sizing="md"
                   name="price"
                   required
-                  onChange={(e)=>setPrice(e.target.value)}
+                  onChange={(e) => setPrice(e.target.value)}
                 />
               </div>
             </div>
           </div>
           <div className="p-2 w-full">
-            <button className="flex mx-auto my-6 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-md" onClick={()=>submitData()}>
+            <button
+              className="flex mx-auto my-6 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-md"
+              onClick={() => submitData()}
+            >
               Upload
             </button>
           </div>

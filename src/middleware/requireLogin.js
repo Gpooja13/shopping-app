@@ -29,11 +29,8 @@ export default async function requireLogin(request) {
     if (!userData) {
       return NextResponse.json({ error: "User not found" });
     }
-    console.log(userData);
-    console.log("type",typeof(userData.admin) );
-    console.log(userData.admin==="true");
+ 
     if (userData.admin==="true") {
-     
       request.adminData = userData;
       return NextResponse.next();
     }

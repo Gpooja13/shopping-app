@@ -32,7 +32,7 @@ const orders = () => {
         }
       );
       const data = await response.json();
-      
+
       if (data.error) {
         toast.error(data.error, {
           position: "top-right",
@@ -55,7 +55,11 @@ const orders = () => {
   }
 
   useEffect(() => {
-    fetchProductData();
+    if (!user?.admin) {
+      router.push("/");
+    } else {
+      fetchProductData();
+    }
   }, [activeTab]);
 
   return (
@@ -219,7 +223,7 @@ const orders = () => {
                                   href={`/admin/editProduct?id=${item?._id}&title=${item?.title}&slug=${item?.slug}&gender=${item?.gender}&category=${item?.category}&size=${item?.size}&color=${item?.color}&price=${item?.price}&availableQty=${item?.availableQty}&image=${item?.image}&desc=${item?.desc}`}
                                 >
                                   <button className="ml-auto relative text-secondary-dark bg-light-dark hover:text-primary flex items-center h-[25px] w-[25px] text-base font-medium leading-normal text-center align-middle cursor-pointer rounded-2xl transition-colors duration-200 ease-in-out shadow-none border-0 justify-center">
-                                  <AiOutlineEdit title="Edit" /> 
+                                    <AiOutlineEdit title="Edit" />
                                     {/* <span className="flex items-center justify-center p-0 m-0 leading-none shrink-0 ">
                                       <svg
                                         xmlns="http://www.w3.org/2000/svg"

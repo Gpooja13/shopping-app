@@ -1,12 +1,14 @@
 import { NextResponse } from "next/server";
 import product from "../../../models/product";
-import { nanoid } from 'nanoid'
 import connectdb from "../../../middleware/connectdb";
 
 export async function GET(request, content) {
   const gender = content.params.product;
 
   let products = await product.find({$and: [{ gender: gender },{availableQty: {$not: {$eq: 0}}}]});
+  if(!products){
+    return NextResponse.json({res: "failed",error:"Can't fetch" }); 
+  }
 
   let allProduct = {};
   for (let item of products) {

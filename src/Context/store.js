@@ -39,13 +39,22 @@ export const GlobalContextProvider = ({ children }) => {
     name,
     size,
     variant,
-    availableQty
+    availableQty,
+    gender
   ) => {
     let myCart = { ...cart };
     if (itemCode in myCart) {
       myCart[itemCode].qty += qty;
     } else {
-      myCart[itemCode] = { qty: 1, price, name, size, variant, availableQty,category,gender };
+      myCart[itemCode] = {
+        qty: 1,
+        price,
+        name,
+        size,
+        variant,
+        availableQty,
+        gender,
+      };
     }
     setCart(myCart);
     saveCart(myCart);
@@ -63,9 +72,26 @@ export const GlobalContextProvider = ({ children }) => {
     saveCart(myCart);
   };
 
-  const buyNow = (itemCode, qty, price, name, size, variant, availableQty) => {
+  const buyNow = (
+    itemCode,
+    qty,
+    price,
+    name,
+    size,
+    variant,
+    availableQty,
+    gender
+  ) => {
     let myCart = {};
-    myCart[itemCode] = { qty: 1, price, name, size, variant, availableQty };
+    myCart[itemCode] = {
+      qty: 1,
+      price,
+      name,
+      size,
+      variant,
+      availableQty,
+      gender,
+    };
 
     setCart(myCart);
     saveCart(myCart);

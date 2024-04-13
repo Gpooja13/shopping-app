@@ -6,6 +6,8 @@ import { useGlobalContext } from "../../../context/store";
 import Head from "next/head";
 import BuyProduct from "@/components/razorpay/BuyProduct";
 import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Checkout = () => {
   const { user, cart, subTotal, addToCart, removeFromCart, clear } =
@@ -27,17 +29,25 @@ const Checkout = () => {
       setName(e.target.value);
     }
     if (e.target.name === "email") {
-      setEmail(e.target.value);
+      let pattern = new RegExp(/^[a-zA-Z0-9]+@[a-z]+\.[a-z]{2,3}$/);
+      if (e.target.value.match(pattern)) {
+        setEmail(e.target.value);
+      }
     }
     if (e.target.name === "address") {
       setAddress(e.target.value);
     }
     if (e.target.name === "phone") {
-      setPhone(e.target.value);
+      let pattern = new RegExp(/^[0-9]{10,12}$/);
+      if (e.target.value.match(pattern)) {
+        setPhone(e.target.value);
+      }
     }
     if (e.target.name === "pincode") {
-      setPincode(e.target.value);
-      if (e.target.value.length == 6) {
+      let pattern = new RegExp(/^[0-9]{6,6}$/g);
+      if (e.target.value.match(pattern)) {
+        setPincode(e.target.value);
+
         const fetchApi = await fetch("http://localhost:3000/api/pincode");
         const data = await fetchApi.json();
 
@@ -45,6 +55,17 @@ const Checkout = () => {
           setState(data[e.target.value][1]);
           setCity(data[e.target.value][0]);
         } else {
+          toast.error("Pincode not serviceable", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            // transition: "Bounce",
+          });
           setState("");
           setCity("");
         }
@@ -65,7 +86,7 @@ const Checkout = () => {
     if (
       name.length > 3 &&
       email.length > 3 &&
-      phone.length > 10 &&
+      phone.length > 9 &&
       address.length > 10 &&
       pincode.length > 5
     ) {

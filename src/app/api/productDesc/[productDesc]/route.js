@@ -8,24 +8,10 @@ export async function GET(request, content) {
   let variants = await product.find({
     title: productOne?.title,
     category: productOne?.category,
-  // const titleID = content.params.productDesc;
-  // let productOne = await product.findOne({ title:titleID });
-  // let variants = await product.find({
-  //   title: productOne.title,
-  //   category: productOne.category,
 
   });
 
   let sizeSlug = {}; //{title:{s:{slug:'wearTshirt'},{m:{slug:'xyz'}}}}   //{red:{xl:{slug:'wear-tshirt'}}}
-
-  // for (let item of variants) {
-  //   if (Object.keys(colorSizeSlug)?.includes(item.color)) {
-  //     colorSizeSlug[item.color][item.size] = { slug: item.slug };
-  //   } else {
-  //     colorSizeSlug[item.color] = {};
-  //     colorSizeSlug[item.color][item.size] = { slug: item.slug };
-  //   }
-  // }
 
   for (let item of variants) {
     if (Object.keys(sizeSlug).includes(item.size)) {
