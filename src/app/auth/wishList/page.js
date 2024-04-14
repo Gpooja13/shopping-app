@@ -10,13 +10,40 @@ const WishList = () => {
   const { user, wishItems, setWishItems, addToWishList, included } =
     useGlobalContext();
 
-  useEffect(() => {
-    const storedItems = JSON.parse(localStorage.getItem("wishList"));
-    if (Array.isArray(storedItems)) {
-      setWishItems(storedItems);
-    } else {
-      setWishItems([]); // Set an empty array if there are no items or if storedItems is not an array
+  const fetchWishList = async () => {
+    try {
+      const token = JSON.parse(localStorage.getItem("token"))?.token;
+
+      const response = await fetch("http://localhost:3000/api/wishList/wish", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+      const data = await response.json();
+      if (data.error) {
+        toast.error(data.error, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          // transition: "Bounce",
+        });
+        return router.push("/");
+      } else {
+        setWishItems(data.wish);
+        console.log(data.wish);
+      }
+    } catch (error) {
+      console.log("client side", error);
     }
+  };
+
+  useEffect(() => {
+    fetchWishList();
   }, [included]);
 
   return (
@@ -49,7 +76,7 @@ const WishList = () => {
                     title="remove"
                     onClick={() => addToWishList(item)}
                   />
-                  <Link href={`products/product/${item?.slug}`}>
+                  <Link href={`/products/${item?.slug}`}>
                     <div className="block relative rounded overflow-hidden">
                       <Image
                         alt="ecommerce"

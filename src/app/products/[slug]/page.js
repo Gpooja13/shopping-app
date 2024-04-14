@@ -6,7 +6,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaHeart } from "react-icons/fa";
 import Image from "next/image";
-import { BiPin } from "react-icons/bi";
 
 const Post = ({ params }) => {
   const slugWord = params.slug;
@@ -15,8 +14,16 @@ const Post = ({ params }) => {
   const [productOneData, setProductOneData] = useState();
   const [variant, setVariant] = useState();
   const router = useRouter();
-  const { user, cart, addToCart, addToWishList, buyNow, included } =
-    useGlobalContext();
+  const {
+    user,
+    cart,
+    addToCart,
+    wishItems,
+    setWishItems,
+    buyNow,
+    included,
+    setIncluded,
+  } = useGlobalContext();
 
   async function fetchProductOneData() {
     const res = await fetch(
@@ -28,7 +35,7 @@ const Post = ({ params }) => {
   }
 
   const checkServiceability = async () => {
-    if (pin.length < 6 ) {
+    if (pin.length < 6) {
       toast.error("Please enter valid pincode", {
         position: "top-right",
         autoClose: 2000,
@@ -49,6 +56,89 @@ const Post = ({ params }) => {
       } else {
         setServiceable(false);
       }
+    }
+  };
+
+  const fetchWishList = async () => {
+    try {
+      const token = JSON.parse(localStorage.getItem("token"))?.token;
+
+      const response = await fetch("http://localhost:3000/api/wishList/wish", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+      const data = await response.json();
+      if (data.error) {
+        toast.error(data.error, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          // transition: "Bounce",
+        });
+        return router.push("/");
+      } else {
+       
+        setWishItems(data.wish);
+        console.log(data.wish);
+      }
+    } catch (error) {
+      console.log("client side", error);
+    }
+  };
+
+  const addToWishList = async (productID) => {
+    try {
+      const token = JSON.parse(localStorage.getItem("token"))?.token;
+
+      const exists = wishItems.some((elem) => elem._id === productID);
+      console.log(exists);
+      if (exists) {
+        var response = await fetch("http://localhost:3000/api/wishList/sub", {
+          method: "PUT",
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify({ _id: productID }),
+        });
+        setIncluded(false);
+        console.log("remove");
+      } else {
+        var response = await fetch("http://localhost:3000/api/wishList/add", {
+          method: "PUT",
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify({ _id: productID }),
+        });
+        setIncluded(true);
+        console.log("added");
+      }
+
+      const data = await response.json();
+      if (data.error) {
+        toast.error(data.error, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          // transition: "Bounce",
+        });
+        return router.push("/");
+      } else {
+        setWishItems(data.updatedList);
+      }
+    } catch (error) {
+      console.log("client side", error);
     }
   };
 
@@ -92,7 +182,16 @@ const Post = ({ params }) => {
 
   useEffect(() => {
     fetchProductOneData();
-  }, []);
+    fetchWishList();
+  }, [included]);
+
+  useEffect(() => {
+    if (wishItems.some((item) => item._id === productOneData._id)) {
+      setIncluded(true);
+    } else {
+      setIncluded(false);
+    }
+  }, [wishItems]);
 
   return (
     <section className="text-gray-600 body-font overflow-hidden">
@@ -123,7 +222,9 @@ const Post = ({ params }) => {
               <button
                 className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-3"
                 onClick={() => {
-                  user ? addToWishList(productOneData) : router.push("/login");
+                  user
+                    ? addToWishList(productOneData._id)
+                    : router.push("/login");
                 }}
               >
                 {included ? <FaHeart className="text-red-600" /> : <FaHeart />}
@@ -317,7 +418,7 @@ const Post = ({ params }) => {
                           productOneData.size,
                           productOneData.color,
                           productOneData.availableQty,
-                          productOneData.gender,
+                          productOneData.gender
                         );
 
                         toast.success("Product added into the cart!", {
@@ -371,7 +472,7 @@ const Post = ({ params }) => {
                           productOneData.size,
                           productOneData.color,
                           productOneData.availableQty,
-                          productOneData.gender,
+                          productOneData.gender
                         );
                         router.push("/checkout");
                       } else {

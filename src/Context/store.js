@@ -1,5 +1,4 @@
 "use client";
-import WishList from "@/app/auth/wishList/page";
 import { createContext, useContext, useState } from "react";
 // import { useRouter } from 'next/navigation'
 
@@ -19,7 +18,6 @@ export const GlobalContextProvider = ({ children }) => {
   const [selectedSize, setSelectedSize] = useState("");
 
   const saveCart = (myCart) => {
-    // const shopMe={user:user,cart:myCart,wishList:wishItems}
     localStorage.setItem("cart", JSON.stringify(myCart));
     let subt = 0;
     let num = 0;
@@ -102,22 +100,6 @@ export const GlobalContextProvider = ({ children }) => {
   const clear = () => {
     setCart({});
     saveCart({});
-  };
-
-  const addToWishList = (product) => {
-    const exists = wishItems.some((elem) => elem.title === product.title);
-    if (exists) {
-      const newArray = wishItems.filter((item) => item !== product);
-      localStorage.setItem("wishList", JSON.stringify(newArray));
-      setWishItems(newArray);
-      setIncluded(false);
-      console.log("remove");
-    } else {
-      wishItems.push(product);
-      localStorage.setItem("wishList", JSON.stringify(wishItems));
-      setIncluded(true);
-      console.log("added");
-    }
   };
 
   const sorting = (data, sortType) => {
@@ -206,7 +188,6 @@ export const GlobalContextProvider = ({ children }) => {
         subTotal,
         numOfItems,
         wishItems,
-        addToWishList,
         included,
         setIncluded,
         setWishItems,
