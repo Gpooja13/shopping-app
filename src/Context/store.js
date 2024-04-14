@@ -1,4 +1,5 @@
 "use client";
+import WishList from "@/app/auth/wishList/page";
 import { createContext, useContext, useState } from "react";
 // import { useRouter } from 'next/navigation'
 
@@ -18,6 +19,7 @@ export const GlobalContextProvider = ({ children }) => {
   const [selectedSize, setSelectedSize] = useState("");
 
   const saveCart = (myCart) => {
+    // const shopMe={user:user,cart:myCart,wishList:wishItems}
     localStorage.setItem("cart", JSON.stringify(myCart));
     let subt = 0;
     let num = 0;

@@ -20,7 +20,7 @@ const page = () => {
   const { user } = useGlobalContext();
 
   const submitData = async () => {
-    if ((title, category, size, color, price, desc, quantity, image, gender)) {
+    if (title && category && size && color && price && desc && quantity && image && gender) {
       const token = JSON.parse(localStorage.getItem("token"))?.token;
       if (!token) {
         return router.push("/login");
@@ -220,7 +220,12 @@ const page = () => {
                   sizing="md"
                   name="quantity"
                   required
-                  onChange={(e) => setQuantity(e.target.value)}
+                  onChange={(e) => {
+                    const pattern = new RegExp(/^\d+$/);
+                    if (e.target.value.match(pattern)) {
+                      setQuantity(e.target.value);
+                    }
+                  }}
                 />
               </div>
             </div>
@@ -249,7 +254,13 @@ const page = () => {
                   sizing="md"
                   name="price"
                   required
-                  onChange={(e) => setPrice(e.target.value)}
+                  onChange={(e) => {
+                    const pattern = new RegExp(/^\d+$/);
+                    if (e.target.value.match(pattern)) {
+                      setPrice(e.target.value);
+                    }
+                    
+                  }}
                 />
               </div>
             </div>

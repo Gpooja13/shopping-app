@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import product from "../../../../models/product";
 import requireLogin from "@/middleware/requireLogin";
 import connectdb from "../../../../middleware/connectdb";
+import { nanoid } from "nanoid";
 
 export async function GET(request, content) {
   const response = await requireLogin(request);

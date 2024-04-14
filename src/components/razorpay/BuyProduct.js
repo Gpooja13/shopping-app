@@ -25,12 +25,18 @@ const BuyProduct = ({
     try {
       const key = process.env.RAZORPAY_API_KEY;
       console.log(key);
+
+      const token = JSON.parse(localStorage.getItem("token"))?.token;
   
       const data = await fetch("http://localhost:3000/api/payment/razorpay", {
         method: "POST",
         // headers: {
       //   // Authorization: 'YOUR_AUTH_HERE'
       // },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
         body: JSON.stringify({
           amount: totalAmount,
           products: products,
@@ -54,6 +60,10 @@ const BuyProduct = ({
                  // headers: {
               //   // Authorization: 'YOUR_AUTH_HERE'
               // },
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + token,
+              },
                 body: JSON.stringify({
                   userId: userId,
                   products: products,
