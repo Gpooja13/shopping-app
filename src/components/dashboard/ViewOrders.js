@@ -24,17 +24,17 @@ const ViewOrders = ({ orderList, setSearch, search, filterOrders }) => {
         <div className="w-full max-w-full px-3 mb-6  mx-auto">
           <div className="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] bg-white m-5">
             <div className="relative flex flex-col min-w-0 break-words border border-dashed bg-clip-border rounded-2xl border-stone-200 bg-light/30">
-              <div className="px-9 pt-5 flex justify-center items-stretch flex-wrap min-h-[70px] pb-0 bg-transparent ">
-                <div>
+              <div className="px-9 pt-5 flex md:flex-row flex-col justify-center items-stretch flex-wrap min-h-[70px] pb-0 bg-transparent ">
+                <div >
                   <TextInput
-                    className="absolute w-[42vh] left-[35px]"
+                    className="md:absolute md:w-[42vh] md:left-[35px] "
                     id="search"
                     type="text"
                     sizing="sm"
                     onChange={(e) => searchChange(e)}
                   />
                   <IoSearchOutline
-                    className="absolute text-xl left-[280px] top-[27px]"
+                    className="absolute text-xl left-[280px] md:top-[27px] top-[32px]"
                     onClick={() => {
                       if (search) {
                         filterOrders(search);
@@ -55,15 +55,12 @@ const ViewOrders = ({ orderList, setSearch, search, filterOrders }) => {
                   />
                 </div>
 
-                <h3 className="flex flex-col items-start justify-center m-2 ml-0 font-medium text-xl/tight text-dark">
+                <h3 className="md:flex md:items-start md:justify-center absolute top-20 m-2  ml-0 font-medium md:text-xl/tight text-lg text-dark">
                   RECENT ORDERS
                 </h3>
-                <div className="relative flex flex-wrap items-center my-2">
-                  {/* empty space */}
-                </div>
               </div>
 
-              <div className="flex-auto block py-8 pt-6 px-9 min-h-72">
+              <div className="flex-auto block py-8 md:pt-6 pt-16 px-9 min-h-72">
                 <div className="overflow-x-auto">
                   <table className="w-full my-0 align-middle text-dark border-neutral-200">
                     <thead className="align-bottom bg-[#f9fafb] leading-normal">
@@ -99,7 +96,7 @@ const ViewOrders = ({ orderList, setSearch, search, filterOrders }) => {
                               className="border-b border-dashed last:border-b-0"
                             >
                               <td className="p-3 pl-0">
-                                <Link href={"auth/order?orderid=" + item._id}>
+                                <Link href={"/auth/order?orderid=" + item._id}>
                                   <div className="flex items-center">
                                     <div className="relative inline-block shrink-0 rounded-2xl me-3">
                                       <img

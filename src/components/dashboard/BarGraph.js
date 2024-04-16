@@ -85,7 +85,16 @@ export default function BarGraph({monthSales}) {
   }, [orderArray,salesArray]);
 
   return (
-    <div className="chart-container" style={{ position: "relative", height: "50vh", width: "50vw" }}>
+    <div className="chart-container" style={{
+      position: "relative",
+      height: "50vh",
+      width: "50vw",
+      "@media only screen and (max-width: 768px)": {
+        height: "30vh",
+        width: "80vw"
+      }
+    }}
+    >
       <canvas id="chart"></canvas>
     </div>
   );

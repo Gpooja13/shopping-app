@@ -186,7 +186,7 @@ const Post = ({ params }) => {
   }, [included]);
 
   useEffect(() => {
-    if (wishItems.some((item) => item._id === productOneData._id)) {
+    if (wishItems.some((item) => item?._id === productOneData?._id)) {
       setIncluded(true);
     } else {
       setIncluded(false);

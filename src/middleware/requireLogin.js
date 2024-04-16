@@ -40,8 +40,7 @@ export default async function requireLogin(request) {
 
   } catch (error) {
     console.error("Error in requireLogin middleware:", error);
-    // const url = new URL("/",request.nextUrl.origin);
-    //  return NextResponse.redirect(url.toString());
+
     return NextResponse.json({ error: "Unauthorized" });
   }
 }

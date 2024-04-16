@@ -50,30 +50,30 @@ const Order = () => {
 
   return (
     <section className="text-gray-600 body-font overflow-hidden">
-      <div className="container px-5 pb-24 pt-16 mx-auto">
+      <div className="container md:px-5 px-10 pb-24 pt-16 mx-auto">
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
           <div className="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
             <h2 className="text-sm title-font text-gray-500 tracking-widest">
               BRAND NAME
             </h2>
-            <h1 className="text-gray-900 text-2xl title-font font-medium mb-4">
+            <h1 className="text-gray-900 md:text-2xl text-xl title-font font-medium mb-4">
               Order Id: {orderid}
             </h1>
-            <p className="leading-relaxed mb-4">
-              Your order has been successfully placed
+            <p className="leading-relaxed mb-4 ">
+              Your order has been successfully placed.
             </p>
             <p className="leading-relaxed mb-4">
               Your payment status is: {orderData.status}
             </p>
 
             <div className="flex mb-4">
-              <a className="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1">
+              <a className="flex-grow border-b-2 border-gray-300 py-2 md:text-lg  px-1">
                 Item Description
               </a>
-              <a className="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1">
+              <a className="flex-grow border-b-2 border-gray-300 py-2 md:text-lg px-1">
                 Quantity
               </a>
-              <a className="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1 text-right">
+              <a className="flex-grow border-b-2 border-gray-300 py-2 md:text-lg px-1 text-right">
                 Item Total
               </a>
             </div>

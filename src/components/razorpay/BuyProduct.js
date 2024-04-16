@@ -19,6 +19,7 @@ const BuyProduct = ({
   disabled,
 }) => {
   const router = useRouter();
+  
   const { clear } = useGlobalContext();
 
   const makePayment = async ({ products }) => {
@@ -27,16 +28,16 @@ const BuyProduct = ({
       console.log(key);
 
       const token = JSON.parse(localStorage.getItem("token"))?.token;
-  
+
       const data = await fetch("http://localhost:3000/api/payment/razorpay", {
         method: "POST",
         // headers: {
-      //   // Authorization: 'YOUR_AUTH_HERE'
-      // },
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
+        //   // Authorization: 'YOUR_AUTH_HERE'
+        // },
+        // headers: {
+        //   "Content-Type": "application/json",
+        //   Authorization: "Bearer " + token,
+        // },
         body: JSON.stringify({
           amount: totalAmount,
           products: products,
@@ -51,19 +52,19 @@ const BuyProduct = ({
           amount: order.amount,
           order_id: order.id,
           description: "Shoppers-Payment Portal",
-           // image: logoBase64,
+          // image: logoBase64,
           handler: async function (response) {
             const data = await fetch(
               "http://localhost:3000/api/payment/paymentverify",
               {
                 method: "POST",
-                 // headers: {
-              //   // Authorization: 'YOUR_AUTH_HERE'
-              // },
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + token,
-              },
+                // headers: {
+                //   // Authorization: 'YOUR_AUTH_HERE'
+                // },
+                // headers: {
+                //   "Content-Type": "application/json",
+                //   Authorization: "Bearer " + token,
+                // },
                 body: JSON.stringify({
                   userId: userId,
                   products: products,
@@ -80,11 +81,11 @@ const BuyProduct = ({
                 }),
               }
             );
-  
+
             const res = await data.json();
             console.log("response verify==", res);
             console.log(userId);
-  
+
             if (res?.res == "success") {
               try {
                 const update = await fetch(
@@ -92,8 +93,8 @@ const BuyProduct = ({
                   {
                     method: "PATCH",
                     // headers: {
-              //   // Authorization: 'YOUR_AUTH_HERE'
-              // },
+                    //   // Authorization: 'YOUR_AUTH_HERE'
+                    // },
                     body: JSON.stringify({
                       products,
                     }),
@@ -134,8 +135,7 @@ const BuyProduct = ({
               } catch (error) {
                 console.log("Can't upadate database", error);
               }
-            }
-            else if(res?.res == "failed"){
+            } else if (res?.res == "failed") {
               toast.error(res.error, {
                 position: "top-right",
                 autoClose: 2000,
@@ -146,8 +146,7 @@ const BuyProduct = ({
                 progress: undefined,
                 theme: "light",
               });
-            }
-            else{
+            } else {
               toast.error("Some error happened, Try Again!", {
                 position: "top-right",
                 autoClose: 2000,
@@ -166,17 +165,15 @@ const BuyProduct = ({
             contact: "8299552682",
           },
         };
-  
+
         const paymentObject = new window.Razorpay(options);
         paymentObject.open();
-  
+
         paymentObject.on("payment.failed", function (response) {
-          alert(
-            "Payment failed. Please try again. Contact support for help"
-          );
+          alert("Payment failed. Please try again. Contact support for help");
         });
       }
-      if (res === "failed"){
+      if (res === "failed") {
         toast.error("Price has been changed. Try again!", {
           position: "top-right",
           autoClose: 2000,
@@ -203,8 +200,6 @@ const BuyProduct = ({
       console.log("Client side error", error);
     }
   };
-  
-  
 
   return (
     <>

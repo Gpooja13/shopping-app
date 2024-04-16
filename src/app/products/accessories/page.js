@@ -1,11 +1,11 @@
 import Products from '@/components/Products'
 import React from 'react'
 
-const Men = () => {
-  const type="men";
+const Accessories = () => {
+  const type="accessories";
   return (
     <Products groupType={type}/>
   )
 }
 
-export default Men
+export default Accessories

@@ -2,8 +2,8 @@ import React from "react";
 
 const Contact = () => {
   return (
-    <section className="text-gray-600 body-font relative mx-20">
-      <div className="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap">
+    <section className="text-gray-600 body-font relative md:mx-20 mx-4">
+      <div className="container px-5 md:py-24 py-10 mx-auto flex sm:flex-nowrap flex-wrap">
         <div className="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3560.979465468186!2d81.0101357745785!3d26.808782464550905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399bfb177ba59213%3A0xfd12dad33afbc85d!2sPhoenix%20Palassio!5e0!3m2!1sen!2sin!4v1711887235432!5m2!1sen!2sin"

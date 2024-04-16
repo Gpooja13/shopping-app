@@ -3,7 +3,7 @@ import React from 'react'
 const PageSection3 = () => {
   return (
     <section className="text-gray-600 body-font">
-  <div className="container px-5 py-14 mx-auto">
+  <div className="container px-5 pt-10 pb-5 mx-auto">
     <div className="text-center mb-20">
       <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">Raw Denim Heirloom Man Braid</h1>
       <p className="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine, ramps microdosing banh mi pug.</p>

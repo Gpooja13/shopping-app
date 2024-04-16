@@ -1,11 +1,11 @@
 import Products from '@/components/Products'
 import React from 'react'
 
-const Men = () => {
-  const type="men";
+const Kids = () => {
+  const type="kids";
   return (
     <Products groupType={type}/>
   )
 }
 
-export default Men
+export default Kids

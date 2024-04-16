@@ -109,7 +109,7 @@ const orders = () => {
                             >
                              
                               <td className="p-3 pl-0">
-                              <Link href={"auth/order?orderid=" + item._id}>
+                              <Link href={"/auth/order?orderid=" + item._id}>
                                   <div className="flex items-center">
                                     <div className="relative inline-block shrink-0 rounded-2xl me-3">
                                       <img

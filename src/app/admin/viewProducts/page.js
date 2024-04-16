@@ -83,7 +83,7 @@ const orders = () => {
         <div className="w-full max-w-full px-3 mb-6  mx-auto">
           <div className="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] bg-white m-5">
             <div className="relative flex flex-col min-w-0 break-words border border-dashed bg-clip-border rounded-2xl border-stone-200 bg-light/30">
-              <div className="px-9 pt-5 flex flex-col items-center justify-center flex-wrap min-h-[70px] pb-0 bg-transparent ">
+              <div className="md:px-9 pt-5 flex flex-col items-center justify-center flex-wrap min-h-[70px] pb-0 bg-transparent ">
                 <h3 className="flex flex-col items-start justify-center m-2 ml-0 font-medium text-xl/tight text-dark">
                   <span className="mr-3 font-semibold text-dark">
                     Product List
@@ -92,8 +92,8 @@ const orders = () => {
                       All projects from the Loopple team
                     </span> */}
                 </h3>
-                <div className="relative flex flex-wrap items-center my-2">
-                  <Button.Group>
+                <div className="md:relative md:flex md:flex-wrap md:items-center md:my-2 absolute" >
+                  <Button.Group className="scale-[0.8] md:scale-100">
                     <Button color="gray" onClick={() => setActiveTab("men")}>
                       Men
                     </Button>
@@ -113,7 +113,7 @@ const orders = () => {
                       color="gray"
                       onClick={() => setActiveTab("outofStock")}
                     >
-                      Out of Stock
+                      Sold-out
                     </Button>
                   </Button.Group>
                 </div>
@@ -124,7 +124,7 @@ const orders = () => {
                   <table className="w-full my-0 align-middle text-dark border-neutral-200">
                     <thead className="align-bottom bg-[#f9fafb] leading-normal">
                       <tr className="font-semibold text-[0.95rem] text-secondary-dark ">
-                        <th className="pb-3 text-start min-w-[160px] text-sm pl-4">
+                        <th className="pb-3 text-start min-w-[280px] text-sm pl-4">
                           ProductID/Title
                         </th>
                         <th className="pb-3 text-center min-w-[50px] text-sm">
@@ -145,7 +145,7 @@ const orders = () => {
                         <th className="pb-3 text-center min-w-[100px] text-sm">
                           Available Qty
                         </th>
-                        <th className="pb-3 text-center min-w-[100px]  overflow-auto text-sm">
+                        <th className="pb-3 text-center min-w-[100px] overflow-auto text-sm">
                           Description
                         </th>
                         <th className="pb-3 text-end min-w-[100px] text-sm">

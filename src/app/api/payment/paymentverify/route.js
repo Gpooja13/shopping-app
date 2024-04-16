@@ -5,7 +5,7 @@ import crypto from "crypto";
 import Order from "../../../../models/order";
 import connectdb from "../../../../middleware/connectdb";
 // import Payment from "../../../database/model/Payment"
-import dbConnect from '../../../database/database'
+// import dbConnect from '../../../database/database'
 import requireLogin from "@/middleware/requireLogin";
 const instance = new Razorpay({
   key_id: process.env.RAZORPAY_API_KEY,
@@ -13,8 +13,8 @@ const instance = new Razorpay({
 });
 
 export async function POST(req, res) {
-  const response = await requireLogin(request);
-  if (request.userData) {
+  // const response = await requireLogin(request);
+  // if (request.userData) {
     const {
       userId,
       products,
@@ -81,7 +81,8 @@ export async function POST(req, res) {
         }
       );
     }
-  } else {
-    return response;
-  }
+  // } 
+  // else {
+  //   return response;
+  // }
 }

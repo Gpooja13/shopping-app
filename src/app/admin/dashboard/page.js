@@ -101,7 +101,7 @@ const page = () => {
   return (
     <div className="flex flex-col my-12">
       <h2 className="m-auto">MONTHLY REPORT</h2>
-      <div className="flex justify-around items-center container mx-auto p-12">
+      <div className="flex md:flex-row flex-col justify-around items-center container mx-auto p-12">
         <section>
           <DoughnutChart categorySales={categorySales} />
         </section>

@@ -62,10 +62,10 @@ const WishList = () => {
                 Login In
               </Link>
             </div>
-          ) : wishItems.length === 0 ? (
+          ) : wishItems?.length === 0 ? (
             <p>No items in wishlist right now.</p>
           ) : (
-            wishItems.map((item) => {
+            wishItems?.map((item) => {
               return (
                 <div
                   key={item?.slug}

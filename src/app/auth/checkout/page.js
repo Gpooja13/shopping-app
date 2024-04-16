@@ -38,7 +38,7 @@ const Checkout = () => {
       setAddress(e.target.value);
     }
     if (e.target.name === "phone") {
-      let pattern = new RegExp(/^[0-9]{10,12}$/);
+      let pattern = new RegExp(/^(?:\+?\d{2})?\d{10}$/);
       if (e.target.value.match(pattern)) {
         setPhone(e.target.value);
       }

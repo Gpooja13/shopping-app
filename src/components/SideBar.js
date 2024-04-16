@@ -33,6 +33,14 @@ const SideBar = ({
     document.getElementById("price-range").value = maxPrice;
   };
 
+  useEffect(() => {
+    setTimeout(()=>{
+      document.getElementById("category-0").checked = true;
+      document.getElementById("color-0").checked = true;
+      document.getElementById("price-range").value = maxPrice;
+    },5000)
+  }, [filter]);
+
   return (
     <section
       className="float-left h-[100vh] md:w-[16vw] w-full border-r p-10 items-center sticky top-5 left-0"

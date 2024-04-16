@@ -1,8 +1,8 @@
 const About = () => {
   return (
     <section class="text-gray-600 body-font">
-      <div class="container px-5 py-16 mx-auto flex flex-col">
-        <h2 className="text-gray-900 text-2xl font-medium title-font flex justify-center mb-10">
+      <div class="container px-5 md:py-16 py-5 mx-auto flex flex-col">
+        <h2 className="text-gray-900 md:text-2xl text-xl font-medium title-font flex justify-center md:mb-10 mb-5">
           ABOUT US
         </h2>
         <div class="lg:w-4/6 mx-auto">
@@ -10,7 +10,7 @@ const About = () => {
             <img
               alt="content"
               class="object-cover object-center h-full w-full"
-              src="https://dummyimage.com/1200x500"
+              src="https://source.unsplash.com/featured/1200x500/?clothing store"
             />
           </div>
           <div class="flex flex-col sm:flex-row mt-10">

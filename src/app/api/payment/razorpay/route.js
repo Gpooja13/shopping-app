@@ -12,8 +12,8 @@ const instance = new Razorpay({
 });
 
 export async function POST(req) {
-  const response = await requireLogin(request);
-  if (request.userData) {
+  // const response = await requireLogin(request);
+  // if (request.userData) {
     const payload = await req.json();
     const { products } = payload;
     let sumTotal = 0;
@@ -59,7 +59,7 @@ export async function POST(req) {
 
     const order = await instance.orders.create(options);
     return NextResponse.json({ res: "success", order: order });
-  } else {
-    return response;
-  }
+  // } else {
+  //   return response;
+  // }
 }

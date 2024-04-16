@@ -62,6 +62,7 @@ const Navbar = () => {
       theme: "light",
       // transition: "Bounce",
     });
+    setDropDown(false);
   };
 
   const linkToItem = (slug) => {
@@ -129,13 +130,13 @@ const Navbar = () => {
             <Link href="/products/men" className="mr-8 hover:text-gray-900">
               Men
             </Link>
-            <Link href="/products/hoodie" className="mr-8 hover:text-gray-900">
+            <Link href="/products/women" className="mr-8 hover:text-gray-900">
               Women
             </Link>
-            <Link href="/products/sticker" className="mr-8 hover:text-gray-900">
+            <Link href="/products/kids" className="mr-8 hover:text-gray-900">
               Kids
             </Link>
-            <Link href="/products/mug" className="mr-8 hover:text-gray-900">
+            <Link href="/products/accessories" className="mr-8 hover:text-gray-900">
               Accessories
             </Link>
           </nav>
@@ -144,7 +145,7 @@ const Navbar = () => {
 
 
           <div className="absolute md:right-20 right-[340px] md:top-5 top-6 md:mx-8 z-50">
-            {
+            {(!user?.admin) &&
               <Link href="/auth/wishList">
                 <button>
                   <FaRegHeart

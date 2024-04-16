@@ -63,6 +63,15 @@ export async function GET(request) {
       } else {
         return NextResponse.json({ res: "failed", error: error });
       }
+    }else if(request.adminData){
+      const { _id } = request.userData;
+      console.log(_id);
+      const wish = (await user.findById(_id).sort({ createdAt: -1 }).populate("wishList")).wishList;
+      if (wish) {
+        return NextResponse.json({ res: "success", wish: wish });
+      } else {
+        return NextResponse.json({ res: "failed", error: error });
+      }
     } else {
       return response;
     }

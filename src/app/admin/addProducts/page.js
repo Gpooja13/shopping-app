@@ -27,7 +27,7 @@ const page = () => {
       data.append("file", image);
       data.append("upload_preset", "shopMe");
       data.append("cloud-name", "cloudtrial");
-    
+
       const response = await fetch(
         "https://api.cloudinary.com/v1_1/cloudtrial/image/upload",
         {
@@ -37,7 +37,6 @@ const page = () => {
       );
       const res = await response.json();
       setUrl(res.url);
-      
     } else {
       console.log("Image not there");
     }
@@ -192,7 +191,7 @@ const page = () => {
                   id="gender"
                   required
                   name="gender"
-                  onChange={(e) => setGender(e.target.value)}
+                  onChange={(e) => setGender((e.target.value).toLocaleLowerCase())}
                 >
                   <option>Men</option>
                   <option>Women</option>
@@ -272,23 +271,21 @@ const page = () => {
             <div className="p-2 w-1/2">
               <div id="fileUpload" className="max-w-md">
                 <div className="mb-2 block">
-                  <Label htmlFor="file" value="Upload file" />
+                  <Label htmlFor="file" value="Upload Photo" />
                 </div>
-                <input
-        
-          type="file"
-          accept="image/*"
-          required
-          onChange={(e) => setImage(e.target.files[0])}
-        
-        />
-                {/* <FileInput
+                {/* <input
+                  type="file"
+                  accept="image/*"
+                  required
+                  onChange={(e) => setImage(e.target.files[0])}
+                /> */}
+                <FileInput
                   id="file"
-                  helperText="Upload Picture of 64base"
+                  // helperText="Upload Picture of 64base"
                   name="image"
                   required
-                  onChange={(e) => setImage(e.target.value[0])}
-                /> */}
+                  onChange={(e) => setImage(e.target.files[0])}
+                />
               </div>
             </div>
             <div className="p-2 w-1/2">
