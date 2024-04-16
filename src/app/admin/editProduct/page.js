@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useGlobalContext } from "@/context/store";
+import DelModal from "@/components/DelModal";
 
 const page = () => {
   const [title, setTitle] = useState("");
@@ -16,44 +17,63 @@ const page = () => {
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
   const [image, setImage] = useState("");
+  const [openModal, setOpenModal] = useState(false);
   const p = useSearchParams();
-  const id=p.get("id");
-  const slug=p.get("slug");
-  const router=useRouter();
+  const id = p.get("id");
+  const slug = p.get("slug");
+  const router = useRouter();
   const { user } = useGlobalContext();
 
-  const submitData = async () => {
+  const postDetails = async (img) => {
+    if (img) {
+      const data = new FormData();
+      data.append("file", img);
+      data.append("upload_preset", "shopMe");
+      data.append("cloud-name", "cloudtrial");
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/cloudtrial/image/upload",
+        {
+          method: "post",
+          body: data,
+        }
+      );
+      const res = await response.json();
+      setImage(res.url);
+      console.log(res.url);
+    } else {
+      console.log("Image not there");
+    }
+  };
 
-    if ((title, category, size, color, price, desc, quantity, image, gender,id)) {
+  const submitData = async () => {
+    if (
+      (title, category, size, color, price, desc, quantity, image, gender, id)
+    ) {
       const token = JSON.parse(localStorage.getItem("token"))?.token;
       if (!token) {
         return router.push("/login");
       }
-
-      const fetchApi = await fetch(
-        `http://localhost:3000/api/admin/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({
-            title: title,
-            slug:slug,
-            desc: desc,
-            image: image,
-            category: category,
-            gender: gender,
-            size: size,
-            color: color,
-            price: price,
-            availableQty: quantity,
-          }),
-        }
-      );
+      const fetchApi = await fetch(`http://localhost:3000/api/admin/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({
+          title: title,
+          slug: slug,
+          desc: desc,
+          image: image,
+          category: category,
+          gender: gender,
+          size: size,
+          color: color,
+          price: price,
+          availableQty: quantity,
+        }),
+      });
       const data = await fetchApi.json();
-   
+
       if (data.res === "success") {
         toast.success("Product has been added", {
           position: "top-right",
@@ -95,6 +115,48 @@ const page = () => {
     }
   };
 
+  const deleteData = async () => {
+    const token = JSON.parse(localStorage.getItem("token"))?.token;
+    if (!token) {
+      return router.push("/login");
+    }
+    const fetchApi = await fetch(`http://localhost:3000/api/admin/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+    const data = await fetchApi.json();
+
+    if (data.res === "success") {
+      toast.success("Product has been deleted", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: "",
+        theme: "light",
+        // transition:"Bounce"
+      });
+      router.push("/admin/viewProducts");
+    } else if (data.res === "failed") {
+      toast.success(data.error, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: "",
+        theme: "light",
+        // transition:"Bounce"
+      });
+    }
+  };
+
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"))?.token;
     if (!token) {
@@ -123,7 +185,6 @@ const page = () => {
           <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
             Edit Products
           </h1>
-         
         </div>
         <div className="lg:w-1/2 md:w-2/3 mx-auto">
           <div className="flex flex-wrap -m-2">
@@ -252,11 +313,14 @@ const page = () => {
                 </div>
                 <FileInput
                   id="file"
-                  helperText="Upload Picture of 64base"
+                  helperText=""
                   name="image"
                   required
-                //   value={image}
-                  onChange={(e) => setImage(e.target.value)}
+                  files={image}
+                  onChange={(e) => {
+                    setImage(e.target.files[0]);
+                    postDetails(e.target.files[0]);
+                  }}
                 />
               </div>
             </div>
@@ -277,13 +341,17 @@ const page = () => {
               </div>
             </div>
           </div>
-          <div className="p-2 w-full">
-            <button
-              className="flex mx-auto my-6 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-md"
-              onClick={() => submitData()}
-            >
-              Update
-            </button>
+          <div className="p-2 w-full ">
+            <div className="flex items-center justify-center mt-6">
+              <button
+                className="flex mx-auto my-6 text-white bg-indigo-500 border-0 py-3 px-11 focus:outline-none hover:bg-indigo-600 rounded text-sm"
+                onClick={() => submitData()}
+              >
+                Update
+              </button>
+             
+              <DelModal setOpenModal={setOpenModal} openModal={openModal} deleteData={deleteData}/>
+            </div>
           </div>
         </div>
       </div>

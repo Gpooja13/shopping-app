@@ -51,10 +51,12 @@ export async function PUT(request, content) {
 
 
 export async function GET(request) {
+  console.log("worked");
   try {
     const response = await requireLogin(request);
     if (request.userData) {
       const { _id } = request.userData;
+      console.log(_id);
       const wish = (await user.findById(_id).sort({ createdAt: -1 }).populate("wishList")).wishList;
       if (wish) {
         return NextResponse.json({ res: "success", wish: wish });

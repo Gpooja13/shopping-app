@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useGlobalContext } from "@/context/store";
@@ -8,13 +8,24 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { Button } from "flowbite-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Pagination } from "flowbite-react";
 
 const orders = () => {
   const { user } = useGlobalContext();
   const [productList, setProductList] = useState([]);
   const router = useRouter();
-  // const tabsRef = useRef(null);
   const [activeTab, setActiveTab] = useState("men");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState("");
+  const [limit, setLimit] = useState(5);
+  const [skip, setSkip] = useState(0);
+
+  const onPageChange = (page) => {
+    setLimit(page*5);
+    setSkip(5*(page-1));
+    console.log("page",page, "limit",limit,"skip",skip);
+    setCurrentPage(page);
+  };
 
   async function fetchProductData() {
     try {
@@ -24,7 +35,7 @@ const orders = () => {
       }
 
       const response = await fetch(
-        `http://localhost:3000/api/admin/${activeTab}`,
+        `http://localhost:3000/api/admin/${activeTab}?limit=${limit}&skip=${skip}`,
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -47,7 +58,8 @@ const orders = () => {
         });
         return router.push("/");
       } else {
-        setProductList(data);
+        setProductList(data.products);
+        setTotalPages(Math.ceil(data.num / 5));
       }
     } catch (error) {
       console.log("client side", error);
@@ -58,9 +70,11 @@ const orders = () => {
     if (!user?.admin) {
       router.push("/");
     } else {
+      console.log(currentPage,limit,skip);
       fetchProductData();
+      console.log("fetched");
     }
-  }, [activeTab]);
+  }, [activeTab,currentPage]);
 
   return (
     <div className="container  mx-auto">
@@ -110,7 +124,7 @@ const orders = () => {
                   <table className="w-full my-0 align-middle text-dark border-neutral-200">
                     <thead className="align-bottom bg-[#f9fafb] leading-normal">
                       <tr className="font-semibold text-[0.95rem] text-secondary-dark ">
-                        <th className="pb-3 text-start min-w-[140px] text-sm pl-4">
+                        <th className="pb-3 text-start min-w-[160px] text-sm pl-4">
                           ProductID/Title
                         </th>
                         <th className="pb-3 text-center min-w-[50px] text-sm">
@@ -261,6 +275,15 @@ const orders = () => {
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mb-5">
+          <div className="flex overflow-x-auto sm:justify-center">
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={onPageChange}
+              showIcons
+            />
+          </div>
+
           {/* <div className="w-full max-w-full sm:w-3/4 mx-auto text-center">
             <p className="text-sm text-slate-500 py-1">
               {" "}

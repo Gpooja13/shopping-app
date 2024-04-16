@@ -8,7 +8,7 @@ import { useGlobalContext } from "@/context/store";
 
 const page = () => {
   const [title, setTitle] = useState("");
-  const [gender, setGender] = useState("Men");
+  const [gender, setGender] = useState("men");
   const [category, setCategory] = useState("");
   const [desc, setDesc] = useState("");
   const [size, setSize] = useState("XS");
@@ -16,15 +16,51 @@ const page = () => {
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
   const [image, setImage] = useState("");
+  const [url, setUrl] = useState("");
   const router = useRouter();
   const { user } = useGlobalContext();
 
+  const postDetails = async () => {
+    if (image) {
+      console.log(image);
+      const data = new FormData();
+      data.append("file", image);
+      data.append("upload_preset", "shopMe");
+      data.append("cloud-name", "cloudtrial");
+    
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/cloudtrial/image/upload",
+        {
+          method: "post",
+          body: data,
+        }
+      );
+      const res = await response.json();
+      setUrl(res.url);
+      
+    } else {
+      console.log("Image not there");
+    }
+  };
+
   const submitData = async () => {
-    if (title && category && size && color && price && desc && quantity && image && gender) {
+    if (
+      title &&
+      category &&
+      size &&
+      color &&
+      price &&
+      desc &&
+      quantity &&
+      image &&
+      gender
+    ) {
       const token = JSON.parse(localStorage.getItem("token"))?.token;
       if (!token) {
         return router.push("/login");
       }
+      await postDetails();
+      console.log("url", url);
       const fetchApi = await fetch(
         "http://localhost:3000/api/admin/viewProduct",
         {
@@ -36,7 +72,7 @@ const page = () => {
           body: JSON.stringify({
             title: title,
             desc: desc,
-            image: image,
+            image: url,
             category: category,
             gender: gender,
             size: size,
@@ -97,6 +133,10 @@ const page = () => {
       router.push("/");
     }
   }, []);
+
+  useEffect(() => {
+    postDetails();
+  }, [image]);
 
   return (
     <section className="text-gray-600 body-font relative">
@@ -183,7 +223,7 @@ const page = () => {
             <div className="p-2 w-full">
               <div className="max-w-full">
                 <div className="mb-2 block">
-                  <Label htmlFor="description" value="Your message" />
+                  <Label htmlFor="description" value="Description" />
                 </div>
                 <Textarea
                   id="description"
@@ -234,13 +274,21 @@ const page = () => {
                 <div className="mb-2 block">
                   <Label htmlFor="file" value="Upload file" />
                 </div>
-                <FileInput
+                <input
+        
+          type="file"
+          accept="image/*"
+          required
+          onChange={(e) => setImage(e.target.files[0])}
+        
+        />
+                {/* <FileInput
                   id="file"
                   helperText="Upload Picture of 64base"
                   name="image"
                   required
-                  onChange={(e) => setImage(e.target.value)}
-                />
+                  onChange={(e) => setImage(e.target.value[0])}
+                /> */}
               </div>
             </div>
             <div className="p-2 w-1/2">
@@ -259,7 +307,6 @@ const page = () => {
                     if (e.target.value.match(pattern)) {
                       setPrice(e.target.value);
                     }
-                    
                   }}
                 />
               </div>

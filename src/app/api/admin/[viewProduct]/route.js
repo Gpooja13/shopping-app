@@ -8,8 +8,30 @@ export async function GET(request, content) {
   const response = await requireLogin(request);
   if (request.adminData) {
     const gender = content.params.viewProduct;
-    let products = await product.find({ gender: gender });
-    return NextResponse.json(products);
+    const searchParams = request.nextUrl.searchParams;
+    const limit = searchParams.get("limit");
+    const skip = searchParams.get("skip");
+    console.log(limit, skip);
+    console.log(searchParams, limit, skip);
+    if (gender === "outofStock") {
+      var num = await product.find({ availableQty: "0" }).count();
+      var products = await product
+        .find({ availableQty: "0" })
+        .skip(parseInt(skip))
+        .limit(parseInt(limit));
+    } else {
+      var num = await product.find({ gender: gender }).count();
+      var products = await product
+        .find({ gender: gender })
+        .skip(parseInt(skip))
+        .limit(parseInt(limit));
+    }
+    console.log(products);
+    if (products) {
+      return NextResponse.json({ products, num });
+    } else {
+      return NextResponse.json({ error: "error" });
+    }
   } else {
     return response;
   }
@@ -74,6 +96,26 @@ export async function PUT(request, content) {
         return NextResponse.json({ p, res: "success" });
       } else {
         return NextResponse.json({ res: "failed", error: "Can't fetch" });
+      }
+    } else {
+      return response;
+    }
+  } catch (error) {
+    return NextResponse.json({ res: "failed", error: error });
+  }
+}
+
+export async function DELETE(request, content) {
+  try {
+    const response = await requireLogin(request);
+    if (request.adminData) {
+      const id = content.params.viewProduct;
+
+      let p = await product.deleteOne({_id: id });
+      if (p) {
+        return NextResponse.json({ res: "success" });
+      } else {
+        return NextResponse.json({ res: "failed", error: "Can't delete" });
       }
     } else {
       return response;

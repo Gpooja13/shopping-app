@@ -10,9 +10,10 @@ const Men = () => {
   const [productData, setProductData] = useState({});
   const [allCategory, setAllCategory] = useState([]);
   const [allColor, setAllColor] = useState([]);
-  const [allSize, setAllSize] = useState(["All","XS","S","M","L","XL"]);
+  const [allSize, setAllSize] = useState(["All", "XS", "S", "M", "L", "XL"]);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+  const [filter, setFilter] = useState(true);
   const {
     sorting,
     sort,
@@ -59,18 +60,24 @@ const Men = () => {
   return (
     <section className="text-gray-600 body-font">
       <SideBar
+        filter={filter}
+        setFilter={setFilter}
         allCategory={allCategory}
         allSize={allSize}
         allColor={allColor}
         minPrice={minPrice}
         maxPrice={maxPrice}
       />
-      <div className="container pb-24 pt-12 mx-auto">
+      <div className="container md:pb-24 py-10 md:pt-12 mx-auto">
         <div className="flex justify-around items-center mb-12">
           <div className="p-1 border ">
-            <BiFilterAlt title="Filter" className="text-2xl" />
+            <BiFilterAlt
+              title="Filter"
+              className="text-2xl"
+              onClick={() => setFilter(!filter)}
+            />
           </div>
-          <span className="text-sm">
+          <span className="text-sm hidden md:block">
             {Object.keys(productData).length} products available
           </span>
 
@@ -103,7 +110,7 @@ const Men = () => {
             return (
               <div
                 key={productData[item]?.slug}
-                className="lg:w-1/5 md:w-1/2 p-4 w-full flex items-center flex-col m-2 shadow-md"
+                className="lg:w-1/5 md:w-1/2 md:p-4 p-12 w-full flex items-center flex-col m-2 shadow-md"
               >
                 <Link href={`/products/${productData[item]?.slug}`}>
                   <div className="block relative rounded overflow-hidden">

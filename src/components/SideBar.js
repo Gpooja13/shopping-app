@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useGlobalContext } from "@/context/store";
+import { RxCross1 } from "react-icons/rx";
 
-const SideBar = ({ allCategory, allSize, allColor, minPrice, maxPrice }) => {
+const SideBar = ({
+  allCategory,
+  allSize,
+  allColor,
+  minPrice,
+  maxPrice,
+  filter,
+  setFilter,
+}) => {
   const {
     selectedColor,
     setSelectedColor,
@@ -25,9 +34,22 @@ const SideBar = ({ allCategory, allSize, allColor, minPrice, maxPrice }) => {
   };
 
   return (
-    <section className="float-left h-[100vh] md:w-[16vw] border-r p-10 items-center sticky top-5 left-0">
-      <h2 className="font-semibold">FILTER</h2>
-      <div className="mt-6 min-h-[70vh] flex flex-col justify-between">
+    <section
+      className="float-left h-[100vh] md:w-[16vw] w-full border-r p-10 items-center sticky top-5 left-0"
+      style={filter ? { display: "block" } : { display: "none" }}
+    >
+      <div className="flex items-center justify-between">
+        <h2 className="font-semibold">FILTER</h2>{" "}
+        <span>
+          <RxCross1
+            className="ml-auto cursor-pointer"
+            title="Close"
+            onClick={() => setFilter(!filter)}
+          />
+        </span>
+      </div>
+
+      <div className="mt-6 md:min-h-[70vh] min-h-[60vh] flex flex-col justify-between">
         <div>
           <span className="font-medium">Category</span>
           <div>
@@ -53,7 +75,12 @@ const SideBar = ({ allCategory, allSize, allColor, minPrice, maxPrice }) => {
         <div>
           <span className="font-medium">Size</span>
           <div>
-            <select name="size" id="size" className="text-sm pr-0" onClick={(e)=>setSelectedSize(e.target.value)} >
+            <select
+              name="size"
+              id="size"
+              className="text-sm pr-0"
+              onClick={(e) => setSelectedSize(e.target.value)}
+            >
               {allSize.map((elem) => {
                 return (
                   <option value={elem} className="text-sm" key={elem}>

@@ -136,19 +136,19 @@ const Navbar = () => {
               Kids
             </Link>
             <Link href="/products/mug" className="mr-8 hover:text-gray-900">
-              Accesories
+              Accessories
             </Link>
           </nav>
 
 
 
 
-          <div className="absolute right-20 md:top-5 top-5 mx-8 z-50">
+          <div className="absolute md:right-20 right-[340px] md:top-5 top-6 md:mx-8 z-50">
             {
               <Link href="/auth/wishList">
                 <button>
                   <FaRegHeart
-                    className="text-xl md:text-2xl mx-2 md:mx-6"
+                    className="text-md md:text-2xl mx-2 md:mx-6"
                     title="WishList"
                   />
                 </button>
@@ -164,7 +164,7 @@ const Navbar = () => {
               {user? numOfItems === 0 ? (
                 <></>
               ) : (
-                <span className="rounded-full text-white bg-red-600 absolute bottom-[25px] right-[43px] w-[13px] h-[14px] text-xs font-medium">
+                <span className="rounded-full text-white bg-red-600 absolute md:bottom-[25px] bottom-[20px] md:right-[43px] right-[40px] md:w-[13px] md:h-[14px] w-[11px] h-[11px] text-[9px] md:text-xs font-medium">
                   {numOfItems}
                 </span>
               ):<></>}
@@ -249,11 +249,11 @@ const Navbar = () => {
               {user && (
                 <button>
                   {!user?.admin?<MdAccountCircle
-                    className="text-xl md:text-3xl mx-2 md:mx-1"
+                    className="text-xl md:text-3xl md:mx-1 "
                     onMouseOver={() => setDropDown(true)}
                     onMouseLeave={() => setDropDown(false)}
                     title="My Account"
-                  />:<MdOutlineAdminPanelSettings className="text-xl md:text-3xl mx-2 md:mx-1"
+                  />:<MdOutlineAdminPanelSettings className="text-xl md:text-3xl md:mx-1 "
                     onMouseOver={() => setDropDown(true)}
                     onMouseLeave={() => setDropDown(false)}
                     title="Admin Panel"/>}

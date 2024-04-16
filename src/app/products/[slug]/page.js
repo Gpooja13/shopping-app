@@ -230,11 +230,11 @@ const Post = ({ params }) => {
                 {included ? <FaHeart className="text-red-600" /> : <FaHeart />}
               </button>
             </div>
-            <h2 className="text-sm title-font text-gray-500 tracking-widest">
+            <h2 className="md:text-sm text-xs title-font text-gray-500 tracking-widest">
               BRAND NAME
             </h2>
 
-            <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
+            <h1 className="text-gray-900 md:text-3xl text-xl title-font font-medium mb-1">
               {productOneData?.title} ({productOneData?.size}/
               {productOneData?.color})
             </h1>
@@ -339,7 +339,7 @@ const Post = ({ params }) => {
             <p className="leading-relaxed">{productOneData?.desc}</p>
             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
               <div className="flex">
-                <span className="mr-3">Color</span>
+                <span className="mr-3 md:text-[16px] text-sm ">Color</span>
 
                 <div
                   className={`border-2 border-gray-300 ml-1 rounded-full w-6 h-6 focus:outline-none`}
@@ -347,7 +347,7 @@ const Post = ({ params }) => {
                 ></div>
               </div>
               <div className="flex ml-6 items-center">
-                <span className="mr-3">Size</span>
+                <span className="mr-3 md:text-[16px] text-sm">Size</span>
                 <div className="relative">
                   <select
                     className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10"
@@ -398,12 +398,12 @@ const Post = ({ params }) => {
               </p>
             ) : (
               <div className="flex">
-                <span className="title-font font-medium text-2xl text-gray-900 mr-4">
+                <span className="title-font font-medium md:text-2xl text-xl text-gray-900 mr-4">
                   ₹{productOneData?.price}
                 </span>
 
                 <button
-                  className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-sm "
+                  className="flex ml-auto text-white bg-indigo-500 border-0 py-1 md:px-6 px-4 focus:outline-none hover:bg-indigo-600 rounded text-sm items-center "
                   onClick={() => {
                     if (user) {
                       if (
