@@ -95,10 +95,10 @@ const Order = () => {
                               </tr>
                             </thead>
                             <tbody>
-                              {Object.keys(orderProducts).map((item) => {
+                              {Object.keys(orderProducts).map((item,index) => {
                                 return (
                                   <tr
-                                    key={item._id}
+                                    key={index}
                                     className="border-b border-dashed last:border-b-0"
                                   >
                                     <td className="p-3 pl-0">

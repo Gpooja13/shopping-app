@@ -83,7 +83,6 @@ const Post = ({ params }) => {
         });
         return router.push("/");
       } else {
-       
         setWishItems(data.wish);
         console.log(data.wish);
       }
@@ -186,10 +185,12 @@ const Post = ({ params }) => {
   }, [included]);
 
   useEffect(() => {
-    if (wishItems.some((item) => item?._id === productOneData?._id)) {
-      setIncluded(true);
-    } else {
-      setIncluded(false);
+    if (!user.admin) {
+      if (wishItems.some((item) => item?._id === productOneData?._id)) {
+        setIncluded(true);
+      } else {
+        setIncluded(false);
+      }
     }
   }, [wishItems]);
 
@@ -214,20 +215,25 @@ const Post = ({ params }) => {
             alt="ecommerce"
             className="lg:w-1/2 w-full lg:h-auto object-cover object-top px-20 rounded"
             src={productOneData?.image}
-            
           />
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
             <div className="float-right">
-              <button
-                className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-3"
-                onClick={() => {
-                  user
-                    ? addToWishList(productOneData._id)
-                    : router.push("/login");
-                }}
-              >
-                {included ? <FaHeart className="text-red-600" /> : <FaHeart />}
-              </button>
+              {!user.admin && (
+                <button
+                  className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-3"
+                  onClick={() => {
+                    user
+                      ? addToWishList(productOneData._id)
+                      : router.push("/login");
+                  }}
+                >
+                  {included ? (
+                    <FaHeart className="text-red-600" />
+                  ) : (
+                    <FaHeart />
+                  )}
+                </button>
+              )}
             </div>
             <h2 className="md:text-sm text-xs title-font text-gray-500 tracking-widest">
               BRAND NAME
@@ -417,7 +423,7 @@ const Post = ({ params }) => {
                           productOneData.color,
                           productOneData.availableQty,
                           productOneData.gender,
-                          productOneData.image,
+                          productOneData.image
                         );
 
                         toast.success("Product added into the cart!", {
@@ -472,7 +478,7 @@ const Post = ({ params }) => {
                           productOneData.color,
                           productOneData.availableQty,
                           productOneData.gender,
-                          productOneData.image,
+                          productOneData.image
                         );
                         router.push("/checkout");
                       } else {
