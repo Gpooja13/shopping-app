@@ -40,7 +40,8 @@ export const GlobalContextProvider = ({ children }) => {
     size,
     variant,
     availableQty,
-    gender
+    gender,
+    image,
   ) => {
     let myCart = { ...cart };
     if (itemCode in myCart) {
@@ -54,6 +55,7 @@ export const GlobalContextProvider = ({ children }) => {
         variant,
         availableQty,
         gender,
+        image,
       };
     }
     setCart(myCart);
@@ -80,7 +82,8 @@ export const GlobalContextProvider = ({ children }) => {
     size,
     variant,
     availableQty,
-    gender
+    gender,
+    image,
   ) => {
     let myCart = {};
     myCart[itemCode] = {
@@ -91,6 +94,7 @@ export const GlobalContextProvider = ({ children }) => {
       variant,
       availableQty,
       gender,
+      image,
     };
 
     setCart(myCart);

@@ -76,8 +76,8 @@ const orders = () => {
                   <table className="w-full my-0 align-middle text-dark border-neutral-200">
                     <thead className="align-bottom bg-[#f9fafb] leading-normal">
                       <tr className="font-semibold text-[0.95rem] text-secondary-dark ">
-                        <th className="pb-3 text-start min-w-[150px] text-sm pl-4">
-                          NAME
+                        <th className="pb-3 text-start min-w-[110px] text-sm pl-4">
+                          ID/NAME
                         </th>
                         <th className="pb-3 text-center min-w-[100px] text-sm">
                           AMOUNT
@@ -86,14 +86,14 @@ const orders = () => {
                           STATUS
                         </th>
 
-                        <th className="pb-3 text-center min-w-[100px] text-sm">
+                        <th className="pb-3 text-center min-w-[130px] text-sm">
                           ADDRESS
                         </th>
-                        <th className="pb-3 text-center min-w-[100px] text-sm">
+                        <th className="pb-3 text-center min-w-[110px] text-sm">
                           CONTACT
                         </th>
                         <th className="pb-3 text-center min-w-[50px] text-sm">
-                          CREATED AT
+                          DATE
                         </th>
                         <th className="pb-3 text-end min-w-[50px] text-sm"></th>
                       </tr>
@@ -112,11 +112,11 @@ const orders = () => {
                               <Link href={"/auth/order?orderid=" + item._id}>
                                   <div className="flex items-center">
                                     <div className="relative inline-block shrink-0 rounded-2xl me-3">
-                                      <img
-                                        src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/img-49-new.jpg"
+                                      {/* <img
+                                        src={item?.image}
                                         className="w-[50px] h-[50px] inline-block shrink-0 rounded-2xl"
                                         alt=""
-                                      />
+                                      /> */}
                                     </div>
 
                                     <div className="flex flex-col justify-start">

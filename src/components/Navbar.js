@@ -321,7 +321,7 @@ const Navbar = () => {
                                 1,
                                 cart[k].price,
                                 cart[k].size,
-                                cart[k].variant
+                                cart[k].variant,
                               );
                             }
                           }}

@@ -1,0 +1,42 @@
+ <div className="flex my-4 justify-between border-b-2 border-gray-300 ">
+              <a className="py-2 md:text-lg  px-1">Item Description</a>
+              <a className="py-2 md:text-lg px-1">Quantity</a>
+              <a className="py-2 md:text-lg px-1 text-right">Size/Color</a>
+              <a className="py-2 md:text-lg px-1 text-right">Item Total</a>
+            </div>
+            
+            {Object.keys(orderProducts).map((item) => {
+              return (
+                <Link href={`/products/${item}`}>
+                  <div
+                    key={item}
+                    className="flex border-b border-gray-200 py-2 justify-between items-center"
+                  >
+                    <span className="text-gray-500">
+                      <div className="flex items-center">
+                        <img
+                          src={orderData.products[item].image}
+                          alt="image"
+                          className="w-16 h-16 rounded-full mx-3"
+                        />
+                        {orderData.products[item].name}
+                      </div>
+                    </span>
+                    {/* <span className="text-gray-500">
+                      {orderData.products[item].name}
+                    </span> */}
+
+                    <span className=" text-gray-900 ">
+                      {orderData.products[item].qty}N
+                    </span>
+                    <span className=" text-gray-900">
+                      {orderData.products[item].size}/
+                      {orderData.products[item].variant}
+                    </span>
+                    <span className=" text-gray-900">
+                      ₹{orderData.products[item].price}
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}

@@ -213,9 +213,8 @@ const Post = ({ params }) => {
           <img
             alt="ecommerce"
             className="lg:w-1/2 w-full lg:h-auto object-cover object-top px-20 rounded"
-            src="/tshirt.jpg"
-            // src="https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGhvdG98ZW58MHx8MHx8fDA%3D"
-            // width={40} height={60}
+            src={productOneData?.image}
+            
           />
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
             <div className="float-right">
@@ -235,8 +234,7 @@ const Post = ({ params }) => {
             </h2>
 
             <h1 className="text-gray-900 md:text-3xl text-xl title-font font-medium mb-1">
-              {productOneData?.title} ({productOneData?.size}/
-              {productOneData?.color})
+              {productOneData?.title} ({productOneData?.size})
             </h1>
             <div className="flex mb-4">
               {/* <span className="flex items-center">
@@ -418,7 +416,8 @@ const Post = ({ params }) => {
                           productOneData.size,
                           productOneData.color,
                           productOneData.availableQty,
-                          productOneData.gender
+                          productOneData.gender,
+                          productOneData.image,
                         );
 
                         toast.success("Product added into the cart!", {
@@ -472,7 +471,8 @@ const Post = ({ params }) => {
                           productOneData.size,
                           productOneData.color,
                           productOneData.availableQty,
-                          productOneData.gender
+                          productOneData.gender,
+                          productOneData.image,
                         );
                         router.push("/checkout");
                       } else {

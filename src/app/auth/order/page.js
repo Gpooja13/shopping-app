@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Order = () => {
   const [orderData, setOrderData] = useState({ products: {} });
@@ -50,9 +51,9 @@ const Order = () => {
 
   return (
     <section className="text-gray-600 body-font overflow-hidden">
-      <div className="container md:px-5 px-10 pb-24 pt-16 mx-auto">
+      <div className="container mx-5 pb-12 pt-16 mx-auto">
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
-          <div className="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
+          <div className=" w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
             <h2 className="text-sm title-font text-gray-500 tracking-widest">
               BRAND NAME
             </h2>
@@ -62,55 +63,123 @@ const Order = () => {
             <p className="leading-relaxed mb-4 ">
               Your order has been successfully placed.
             </p>
-            <p className="leading-relaxed mb-4">
+            <p className="leading-relaxed pb-6">
               Your payment status is: {orderData.status}
             </p>
 
-            <div className="flex mb-4">
-              <a className="flex-grow border-b-2 border-gray-300 py-2 md:text-lg  px-1">
-                Item Description
-              </a>
-              <a className="flex-grow border-b-2 border-gray-300 py-2 md:text-lg px-1">
-                Quantity
-              </a>
-              <a className="flex-grow border-b-2 border-gray-300 py-2 md:text-lg px-1 text-right">
-                Item Total
-              </a>
-            </div>
+            <div className="container  mx-auto">
+              {/* bg-indigo-200 */}
+              <div className="flex flex-wrap -mx-3 mb-5 justify-center">
+                <div className="w-full max-w-full  mx-auto">
+                  <div className="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] bg-white md:m-5 lg:m-5">
+                    <div className="relative flex flex-col min-w-0 break-words border border-dashed bg-clip-border rounded-2xl border-stone-200 bg-light/30">
+                      <div className="flex-auto block py-8 pt-6 md:px-9 px-4 min-h-72">
+                        <div className="overflow-x-auto">
+                          <table className="w-full my-0 align-middle text-dark border-neutral-200">
+                            <thead className="align-bottom bg-[#f9fafb] leading-normal">
+                              <tr className="font-semibold text-[0.95rem] text-secondary-dark ">
+                                <th className="pb-3 text-center min-w-[300px] text-sm pl-4">
+                                  DESCRIPTION
+                                </th>
 
-            {Object.keys(orderProducts).map((item) => {
-              return (
-                <div
-                  key={item}
-                  className="flex border-b border-gray-200 py-2 justify-between"
-                >
-                  <span className="text-gray-500">
-                    {orderData.products[item].name}
-                  </span>
-                  <span className=" text-gray-900">
-                    {orderData.products[item].qty}
-                  </span>
-                  <span className=" text-gray-900">
-                    {orderData.products[item].price}
-                  </span>
+                                <th className="pb-3 text-center min-w-[100px] text-sm">
+                                  QUANTITY
+                                </th>
+                                <th className="pb-3 text-center min-w-[140px] text-sm">
+                                  SIZE/COLOR
+                                </th>
+
+                                <th className="pb-3 text-center min-w-[100px] text-sm">
+                                  SUBTOTAL
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {Object.keys(orderProducts).map((item) => {
+                                return (
+                                  <tr
+                                    key={item._id}
+                                    className="border-b border-dashed last:border-b-0"
+                                  >
+                                    <td className="p-3 pl-0">
+                                      <Link href={`/products/${item}`}>
+                                        <div className="flex items-center">
+                                          <div className="relative inline-block shrink-0 rounded-2xl me-3">
+                                            <img
+                                              src={
+                                                orderData.products[item].image
+                                              }
+                                              alt="image"
+                                              className="w-16 h-16 rounded-full mx-3"
+                                            />
+                                          </div>
+
+                                          <div className="flex flex-col justify-start">
+                                            <div className=" ">
+                                              {orderData.products[item].name}
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </Link>
+                                    </td>
+
+                                    <td className=" p-3 pr-0 text-center">
+                                      {orderData.products[item].qty}N
+                                    </td>
+
+                                    <td className=" p-3 pr-0 text-center">
+                                      {orderData.products[item].size}/
+                                      {orderData.products[item].variant}
+                                    </td>
+
+                                    <td className=" p-3 pr-0 text-center">
+                                      ₹{orderData.products[item].price}
+                                    </td>
+                                  </tr>
+                                );
+                              })}
+                            </tbody>
+                          </table>
+                          <div className="flex justify-between w-[90%] m-5">
+                            <button className="flex  text-white bg-indigo-300 border-0 py-2 px-6 focus:outline-none  rounded">
+                              Track order
+                            </button>
+                            <span className="title-font font-medium text-xl text-gray-900">
+                              Total amount: ₹{orderData.amount}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              );
-            })}
-
-            <div className="flex justify-between my-5">
-              <button className="flex  text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                Track order
-              </button>
-              <span className="title-font font-medium text-xl text-gray-900">
-                Subtotal: ₹{orderData.amount}
-              </span>
+                <div className="flex flex-wrap -mx-3 mb-5">
+                  {/* <div className="w-full max-w-full sm:w-3/4 mx-auto text-center">
+            <p className="text-sm text-slate-500 py-1">
+              {" "}
+              Tailwind CSS Component from{" "}
+              <a
+                href="https://www.loopple.com/theme/riva-dashboard-tailwind?ref=tailwindcomponents"
+                className="text-slate-700 hover:text-slate-900"
+                target="_blank"
+              >
+                Riva Dashboard
+              </a>{" "}
+              by{" "}
+              <a
+                href="https://www.loopple.com"
+                className="text-slate-700 hover:text-slate-900"
+                target="_blank"
+              >
+                Loopple Builder
+              </a>
+              .{" "}
+            </p>
+          </div> */}
+                </div>
+              </div>
             </div>
           </div>
-          <img
-            alt="ecommerce"
-            className="lg:w-1/6 w-full lg:h-36 h-64 object-cover object-center rounded"
-            src="https://dummyimage.com/400x400"
-          />
         </div>
       </div>
     </section>
