@@ -55,7 +55,7 @@ const ViewOrders = ({ orderList, setSearch, search, filterOrders }) => {
                   />
                 </div>
 
-                <h3 className="md:flex md:items-start md:justify-center absolute top-20 m-2  ml-0 font-medium md:text-xl/tight text-lg text-dark">
+                <h3 className="md:flex md:items-start md:justify-center absolute top-20 md:top-5 m-2  ml-0 font-medium md:text-xl/tight text-lg text-dark">
                   RECENT ORDERS
                 </h3>
               </div>

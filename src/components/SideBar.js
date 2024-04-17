@@ -38,7 +38,7 @@ const SideBar = ({
       document.getElementById("category-0").checked = true;
       document.getElementById("color-0").checked = true;
       document.getElementById("price-range").value = maxPrice;
-    },6000);
+    },3000);
   }, [filter]);
 
   return (

@@ -272,7 +272,7 @@ const Navbar = () => {
 
           <div
             ref={ref}
-            className="absolute w-72 h-full top-0 right-0 bg-[lavender] py-10 px-8 transition-transform transform translate-x-full z-50 overflow-y-auto"
+            className="absolute w-80 h-full top-0 right-0 bg-[lavender] py-10 px-8 transition-transform transform translate-x-full z-50 overflow-y-auto"
           >
             <h2 className="font-w-6 text-xl text-center mb-6">Shopping cart</h2>
             <span
@@ -283,7 +283,7 @@ const Navbar = () => {
             </span>
             {user?<ol className="list-decimal font-semibold">
               {Object.keys(cart).length === 0 && (
-                <div className="my-4 font-semibold text-sm ml-[60px] mt-10">
+                <div className="my-4 font-semibold text-sm ml-[78px] mt-10">
                   Cart is empty!
                 </div>
               )}
@@ -295,7 +295,7 @@ const Navbar = () => {
                         className="w-2/3 font-semibold cursor-pointer"
                         onClick={() => linkToItem(cart[k])}
                       >
-                        {cart[k].name} ({cart[k].size} / {cart[k].variant})
+                        {cart[k].name} ({cart[k].size})
                       </div>
                       <div className="flex items-center justify-center w-1/3 font-semibold text-lg">
                         <CiCircleMinus

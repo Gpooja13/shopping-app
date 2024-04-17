@@ -503,7 +503,7 @@ const Post = ({ params }) => {
                 </button>
               </div>
             )}
-            <div className="flex flex-col mt-3">
+            <div className="flex flex-col mt-5">
               <div className="mt-6 flex space-x-2 text-sm">
                 <input
                   type="text"
