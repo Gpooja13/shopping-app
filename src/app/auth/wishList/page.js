@@ -14,7 +14,7 @@ const WishList = () => {
     try {
       const token = JSON.parse(localStorage.getItem("token"))?.token;
 
-      const response = await fetch("http://localhost:3000/api/wishList/wish", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/wishList/wish`, {
         headers: {
           Authorization: "Bearer " + token,
         },

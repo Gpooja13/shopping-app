@@ -66,7 +66,7 @@ const Navbar = () => {
   };
 
   const linkToItem = (slug) => {
-    let url = `http://localhost:3000/products/product/${slug}`;
+    let url = `${process.env.NEXT_PUBLIC_HOST}/products/product/${slug}`;
     router.push(url);
   };
 

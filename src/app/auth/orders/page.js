@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useGlobalContext } from "@/context/store";
 import { useRouter } from "next/navigation";
@@ -19,7 +18,7 @@ const orders = () => {
         return router.push("/");
       }
 
-      const response = await fetch("http://localhost:3000/api/order", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/order`, {
         headers: {
           Authorization: "Bearer " + token,
         },

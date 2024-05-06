@@ -14,7 +14,7 @@ const signUp = () => {
     e.preventDefault();
     const data={name,email,password}
     try {
-      const res = await fetch("http://localhost:3000/api/signUp", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/signUp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -22,11 +22,11 @@ const signUp = () => {
         body: JSON.stringify(data),
       });
       const userData = await res.json();
-      console.log(userData)
+     
       setName("");
       setEmail("");
       setPassword("");
-      toast.success("🦄 Your account has been created", {
+      toast.success("Your account has been created", {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
@@ -102,6 +102,7 @@ const signUp = () => {
                   type="text"
                   name="name"
                   id="name"
+                  value={name}
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-indigo-400 focus:border-indigo-600 block w-full p-2.5  "
                   placeholder="Joe Bank"
                   required=""
@@ -119,6 +120,7 @@ const signUp = () => {
                   type="email"
                   name="email"
                   id="email"
+                  value={email}
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-indigo-400 focus:border-indigo-600 block w-full p-2.5  "
                   placeholder="name@company.com"
                   required=""
@@ -139,6 +141,7 @@ const signUp = () => {
                   type="password"
                   name="password"
                   id="password"
+                  value={password}
                   placeholder="••••••••"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-indigo-400 focus:border-indigo-600 block w-full p-2.5  "
                   required=""
@@ -161,7 +164,7 @@ const signUp = () => {
               </div>
               <div className="flex">
                 <Link
-                  className="mb-3 flex w-1/2 items-center justify-center rounded bg-primary px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] mr-2 "
+                  className="mb-3 flex w-1/2 items-center justify-center rounded bg-primary px-7 pb-2.5 pt-3 text-center text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] mr-2 "
                   style={{ backgroundColor: "#3b5998" }}
                   href={"/login"}
                   role="button"
@@ -171,7 +174,7 @@ const signUp = () => {
                   Sign In
                 </Link>
                 <a
-                  className="mb-3 flex w-1/2 items-center justify-center rounded bg-primary px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] ml-2 "
+                  className="mb-3 flex w-1/2 items-center justify-center rounded bg-primary px-7 pb-2.5 pt-3 text-center text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] ml-2 "
                   style={{ backgroundColor: "#3b5998" }}
                   href="#!"
                   role="button"

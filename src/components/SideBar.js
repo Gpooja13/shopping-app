@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import { useGlobalContext } from "@/context/store";
 import { RxCross1 } from "react-icons/rx";
 
@@ -34,11 +34,15 @@ const SideBar = ({
   };
 
   useEffect(() => {
-    setTimeout(()=>{
-      document.getElementById("category-0").checked = true;
-      document.getElementById("color-0").checked = true;
-      document.getElementById("price-range").value = maxPrice;
-    },3000);
+    try {
+      setTimeout(() => {
+        document.getElementById("category-0").checked = true;
+        document.getElementById("color-0").checked = true;
+        document.getElementById("price-range").value = maxPrice;
+      }, 3000);
+    } catch (error) {
+      console.log(error);
+    }
   }, [filter]);
 
   return (

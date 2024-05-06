@@ -13,7 +13,7 @@ const forgot = () => {
     console.log(email);
     try {
       if (email) {
-        const res = await fetch("http://localhost:3000/api/resetPassword", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/resetPassword`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

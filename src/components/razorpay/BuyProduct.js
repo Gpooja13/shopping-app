@@ -25,11 +25,10 @@ const BuyProduct = ({
   const makePayment = async ({ products }) => {
     try {
       const key = process.env.RAZORPAY_API_KEY;
-      console.log(key);
 
       const token = JSON.parse(localStorage.getItem("token"))?.token;
 
-      const data = await fetch("http://localhost:3000/api/payment/razorpay", {
+      const data = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/payment/razorpay`, {
         method: "POST",
         // headers: {
         //   // Authorization: 'YOUR_AUTH_HERE'
@@ -55,7 +54,7 @@ const BuyProduct = ({
           // image: logoBase64,
           handler: async function (response) {
             const data = await fetch(
-              "http://localhost:3000/api/payment/paymentverify",
+              `${process.env.NEXT_PUBLIC_HOST}/api/payment/paymentverify`,
               {
                 method: "POST",
                 // headers: {
@@ -84,12 +83,12 @@ const BuyProduct = ({
 
             const res = await data.json();
             console.log("response verify==", res);
-            console.log(userId);
+          
 
             if (res?.res == "success") {
               try {
                 const update = await fetch(
-                  "http://localhost:3000/api/product",
+                  `${process.env.NEXT_PUBLIC_HOST}/api/product`,
                   {
                     method: "PATCH",
                     // headers: {
@@ -112,7 +111,7 @@ const BuyProduct = ({
                     progress: undefined,
                     theme: "light",
                   });
-                  console.log(updateRes);
+                 
                   console.log("success");
                   console.log("redirected.......");
                   router.push("/auth/order?orderid=" + res._id);
@@ -160,9 +159,9 @@ const BuyProduct = ({
             }
           },
           prefill: {
-            name: "Pooja Gupta",
-            email: "believix13@gmail.com",
-            contact: "8299552682",
+            name: process.env.NAME,
+            email: process.env.EMAIL,
+            contact: process.env.MOB,
           },
         };
 

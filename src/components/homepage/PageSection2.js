@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 
 const PageSection2 = () => {
   return (
@@ -6,12 +7,12 @@ const PageSection2 = () => {
   <div className="container px-5 py-24 mx-auto">
     <div className="flex flex-wrap -m-4">
       <div className="lg:w-1/4 md:w-1/2 p-4 w-full transform transition duration-300 hover:scale-105 ">
-        <a className="block relative h-48 rounded overflow-hidden">
+        <Link href="/products/women" className="block relative h-48 rounded overflow-hidden">
           <img alt="ecommerce" className="object-cover object-center w-full h-full block" 
           // src="https://dummyimage.com/420x260"
           src='https://source.unsplash.com/featured/450x300/?t-shirt'
           />
-        </a>
+        </Link>
         <div className="mt-4">
           <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
           <h2 className="text-gray-900 title-font text-lg font-medium">T-shirt</h2>
@@ -19,9 +20,9 @@ const PageSection2 = () => {
         </div>
       </div>
       <div className="lg:w-1/4 md:w-1/2 p-4 w-full transform transition duration-300 hover:scale-105">
-        <a className="block relative h-48 rounded overflow-hidden">
+        <Link href="/products/women" className="block relative h-48 rounded overflow-hidden">
           <img alt="ecommerce" className="object-cover object-center w-full h-full block" src='https://source.unsplash.com/featured/450x300/?shirt'/>
-        </a>
+        </Link>
         <div className="mt-4">
           <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
           <h2 className="text-gray-900 title-font text-lg font-medium">Shirt</h2>
@@ -29,9 +30,9 @@ const PageSection2 = () => {
         </div>
       </div>
       <div className="lg:w-1/4 md:w-1/2 p-4 w-full transform transition duration-300 hover:scale-105">
-        <a className="block relative h-48 rounded overflow-hidden">
+        <Link href="/products/women" className="block relative h-48 rounded overflow-hidden">
           <img alt="ecommerce" className="object-cover object-center w-full h-full block" src='https://source.unsplash.com/featured/450x300/?dress'/>
-        </a>
+        </Link>
         <div className="mt-4">
           <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
           <h2 className="text-gray-900 title-font text-lg font-medium">Dress</h2>
@@ -39,9 +40,9 @@ const PageSection2 = () => {
         </div>
       </div>
       <div className="lg:w-1/4 md:w-1/2 p-4 w-full transform transition duration-300 hover:scale-105">
-        <a className="block relative h-48 rounded overflow-hidden">
+        <Link href="/products/women" className="block relative h-48 rounded overflow-hidden">
           <img alt="ecommerce" className="object-cover object-center w-full h-full block" src='https://source.unsplash.com/featured/450x300/?sweatshirt'/>
-        </a>
+        </Link>
         <div className="mt-4">
           <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
           <h2 className="text-gray-900 title-font text-lg font-medium">Sweatshirt</h2>
@@ -49,9 +50,9 @@ const PageSection2 = () => {
         </div>
       </div>
       <div className="lg:w-1/4 md:w-1/2 p-4 w-full transform transition duration-300 hover:scale-105">
-        <a className="block relative h-48 rounded overflow-hidden">
+        <Link href="/products/women" className="block relative h-48 rounded overflow-hidden">
           <img alt="ecommerce" className="object-cover object-center w-full h-full block" src='https://source.unsplash.com/featured/450x300/?cup'/>
-        </a>
+        </Link>
         <div className="mt-4">
           <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
           <h2 className="text-gray-900 title-font text-lg font-medium">Cup</h2>
@@ -59,9 +60,9 @@ const PageSection2 = () => {
         </div>
       </div>
       <div className="lg:w-1/4 md:w-1/2 p-4 w-full transform transition duration-300 hover:scale-105">
-        <a className="block relative h-48 rounded overflow-hidden">
+        <Link href="/products/women" className="block relative h-48 rounded overflow-hidden">
           <img alt="ecommerce" className="object-cover object-center w-full h-full block" src='https://source.unsplash.com/featured/450x300/?fashion accessories'/>
-        </a>
+        </Link>
         <div className="mt-4">
           <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
           <h2 className="text-gray-900 title-font text-lg font-medium">Accessories</h2>
@@ -69,9 +70,9 @@ const PageSection2 = () => {
         </div>
       </div>
       <div className="lg:w-1/4 md:w-1/2 p-4 w-full transform transition duration-300 hover:scale-105">
-        <a className="block relative h-48 rounded overflow-hidden">
+        <Link href="/products/women" className="block relative h-48 rounded overflow-hidden">
           <img alt="ecommerce" className="object-cover object-center w-full h-full block" src='https://source.unsplash.com/featured/450x300/?blouse'/>
-        </a>
+        </Link>
         <div className="mt-4">
           <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
           <h2 className="text-gray-900 title-font text-lg font-medium">TopWear</h2>
@@ -79,9 +80,9 @@ const PageSection2 = () => {
         </div>
       </div>
       <div className="lg:w-1/4 md:w-1/2 p-4 w-full transform transition duration-300 hover:scale-105">
-        <a className="block relative h-48 rounded overflow-hidden">
+        <Link href="/products/women" className="block relative h-48 rounded overflow-hidden">
           <img alt="ecommerce" className="object-cover object-center w-full h-full block" src='https://source.unsplash.com/featured/450x300/?jeans'/>
-        </a>
+        </Link>
         <div className="mt-4">
           <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
           <h2 className="text-gray-900 title-font text-lg font-medium">Denims</h2>

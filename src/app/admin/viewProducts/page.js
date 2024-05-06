@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useGlobalContext } from "@/context/store";
 import { useRouter } from "next/navigation";
@@ -21,9 +20,9 @@ const orders = () => {
   const [skip, setSkip] = useState(0);
 
   const onPageChange = (page) => {
-    setLimit(page*5);
-    setSkip(5*(page-1));
-    console.log("page",page, "limit",limit,"skip",skip);
+    setLimit(page * 5);
+    setSkip(5 * (page - 1));
+
     setCurrentPage(page);
   };
 
@@ -35,7 +34,7 @@ const orders = () => {
       }
 
       const response = await fetch(
-        `http://localhost:3000/api/admin/${activeTab}?limit=${limit}&skip=${skip}`,
+        `${process.env.NEXT_PUBLIC_HOST}/api/admin/${activeTab}?limit=${limit}&skip=${skip}`,
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -70,11 +69,9 @@ const orders = () => {
     if (!user?.admin) {
       router.push("/");
     } else {
-      console.log(currentPage,limit,skip);
       fetchProductData();
-      console.log("fetched");
     }
-  }, [activeTab,currentPage]);
+  }, [activeTab, currentPage]);
 
   return (
     <div className="container  mx-auto">
@@ -92,7 +89,7 @@ const orders = () => {
                       All projects from the Loopple team
                     </span> */}
                 </h3>
-                <div className="md:relative md:flex md:flex-wrap md:items-center md:my-2 absolute" >
+                <div className="md:relative md:flex md:flex-wrap md:items-center md:my-2 absolute">
                   <Button.Group className="scale-[0.8] md:scale-100">
                     <Button color="gray" onClick={() => setActiveTab("men")}>
                       Men

@@ -29,7 +29,7 @@ export async function POST(request) {
         from: '"Shop Me 👻" <maddison53@ethereal.email>', // sender address
         to: email, // list of receivers
         subject: "Reset Password ✔", // Subject line
-        html: `<div><h2>Reset Password</h2><span>Generated URL :<a href="http://localhost:3000/forgotPassword/${token}">Click here to reset Password</a> </span></div>`, // html body
+        html: `<div><h2>Reset Password</h2><span>Generated URL :<a href="${process.env.NEXT_PUBLIC_HOST}/forgotPassword/${token}">Click here to reset Password</a> </span></div>`, // html body
       });
 
       console.log("Message sent: %s", info.messageId);

@@ -3,10 +3,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { BiFilterAlt } from "react-icons/bi";
+import { LiaArrowCircleUpSolid } from "react-icons/lia";
 import SideBar from "./SideBar";
 import { useGlobalContext } from "../context/store";
 
-const Products = ({groupType}) => {
+const Products = ({ groupType }) => {
   const [productData, setProductData] = useState({});
   const [allCategory, setAllCategory] = useState([]);
   const [allColor, setAllColor] = useState([]);
@@ -14,6 +15,7 @@ const Products = ({groupType}) => {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [filter, setFilter] = useState(false);
+  const [scrollDown, setScrollDown] = useState(false);
   const {
     sorting,
     sort,
@@ -31,7 +33,7 @@ const Products = ({groupType}) => {
   } = useGlobalContext();
 
   async function fetchProductData() {
-    const res = await fetch(`http://localhost:3000/api/${groupType}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/${groupType}`);
     const products = await res.json();
     setProductData(sorting(products, sort));
 
@@ -53,9 +55,30 @@ const Products = ({groupType}) => {
     }
   }
 
+  const onTop = () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
+
   useEffect(() => {
     fetchProductData();
   }, [sort, selectedCategory, selectedSize, selectedColor, selectedPrice]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolledToTop = window.scrollY === 0;
+      setScrollDown(!isScrolledToTop);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <section className="text-gray-600 body-font">
@@ -118,8 +141,8 @@ const Products = ({groupType}) => {
                       alt="ecommerce"
                       className=" block"
                       // src="/tshirt.jpg"
-                      // src={productData[item.image]}
-                      src="https://m.media-amazon.com/images/I/51uGECebmZL._AC_UY1100_.jpg"
+                      src={productData[item].image}
+                      // src="https://m.media-amazon.com/images/I/51uGECebmZL._AC_UY1100_.jpg"
                       width={800}
                       height={1500}
                     />
@@ -166,6 +189,11 @@ const Products = ({groupType}) => {
           })}
         </div>
       </div>
+      {scrollDown && (
+        <button className="sticky bottom-10 left-[1250px]" onClick={onTop}>
+          <LiaArrowCircleUpSolid className="text-4xl md:text-[2.5rem] md:mx-1" />
+        </button>
+      )}
     </section>
   );
 };

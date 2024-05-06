@@ -3,8 +3,6 @@ import BarGraph from "@/components/dashboard/BarGraph";
 import DoughnutChart from "@/components/dashboard/Doughnut";
 import ViewOrders from "@/components/dashboard/ViewOrders";
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import { useGlobalContext } from "@/context/store";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
@@ -26,7 +24,7 @@ const page = () => {
       }
 
       var response = await fetch(
-        `http://localhost:3000/api/admin/viewOrders/${search}`,
+        `${process.env.NEXT_PUBLIC_HOST}/api/admin/viewOrders/${search}`,
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -65,7 +63,7 @@ const page = () => {
     }
     if (id) {
       const response = await fetch(
-        `http://localhost:3000/api/admin/viewOrders/${id}`,
+        `${process.env.NEXT_PUBLIC_HOST}/api/admin/viewOrders/${id}`,
         {
           headers: {
             Authorization: "Bearer " + token,

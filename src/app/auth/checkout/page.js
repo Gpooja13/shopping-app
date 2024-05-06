@@ -48,7 +48,7 @@ const Checkout = () => {
       if (e.target.value.match(pattern)) {
         setPincode(e.target.value);
 
-        const fetchApi = await fetch("http://localhost:3000/api/pincode");
+        const fetchApi = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`);
         const data = await fetchApi.json();
 
         if (Object.keys(data).includes(e.target.value)) {
@@ -78,7 +78,7 @@ const Checkout = () => {
   };
 
   const linkToItem = (slug) => {
-    let url = `http://localhost:3000/products/product/${slug}`;
+    let url = `${process.env.NEXT_PUBLIC_HOST}/products/product/${slug}`;
     router.push(url);
   };
 

@@ -30,7 +30,7 @@ export async function PUT(request, content) {
         )
         .populate("wishList");
       }
-      console.log(updatedWishList);
+     
       if (updatedWishList) {
         const updatedList=updatedWishList.wishList;
         return NextResponse.json({ updatedList, res: "success" });

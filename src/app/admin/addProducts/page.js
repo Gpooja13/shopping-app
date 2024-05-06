@@ -22,7 +22,7 @@ const page = () => {
 
   const postDetails = async () => {
     if (image) {
-      console.log(image);
+    
       const data = new FormData();
       data.append("file", image);
       data.append("upload_preset", "shopMe");
@@ -59,9 +59,9 @@ const page = () => {
         return router.push("/login");
       }
       await postDetails();
-      console.log("url", url);
+     
       const fetchApi = await fetch(
-        "http://localhost:3000/api/admin/viewProduct",
+        `${process.env.NEXT_PUBLIC_HOST}/api/admin/viewProduct`,
         {
           method: "POST",
           headers: {
@@ -94,6 +94,17 @@ const page = () => {
           theme: "light",
           // transition:"Bounce"
         });
+        setTitle("");
+        setGender("men");
+        setCategory("");
+        setDesc("");
+        setSize("XS");
+        setColor("");
+        setPrice("");
+        setQuantity("");
+        setPrice("");
+        setImage("");
+        setUrl("");
       } else if (data.res === "failed") {
         toast.success(data.error, {
           position: "top-right",
@@ -191,7 +202,9 @@ const page = () => {
                   id="gender"
                   required
                   name="gender"
-                  onChange={(e) => setGender((e.target.value).toLocaleLowerCase())}
+                  onChange={(e) =>
+                    setGender(e.target.value.toLocaleLowerCase())
+                  }
                 >
                   <option>Men</option>
                   <option>Women</option>

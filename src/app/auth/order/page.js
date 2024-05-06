@@ -14,7 +14,7 @@ const Order = () => {
 
   const fetchOrderDetail = async () => {
     const token = JSON.parse(localStorage.getItem("token"))?.token;
-    const response = await fetch("http://localhost:3000/api/order", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/order`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

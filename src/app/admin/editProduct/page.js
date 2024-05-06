@@ -39,7 +39,7 @@ const page = () => {
       );
       const res = await response.json();
       setImage(res.url);
-      console.log(res.url);
+    
     } else {
       console.log("Image not there");
     }
@@ -53,7 +53,7 @@ const page = () => {
       if (!token) {
         return router.push("/login");
       }
-      const fetchApi = await fetch(`http://localhost:3000/api/admin/${id}`, {
+      const fetchApi = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/admin/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -120,7 +120,7 @@ const page = () => {
     if (!token) {
       return router.push("/login");
     }
-    const fetchApi = await fetch(`http://localhost:3000/api/admin/${id}`, {
+    const fetchApi = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/admin/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
