@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import { useGlobalContext } from "../../../context/store";
 
-const page = () => {
+const AddProducts = () => {
   const [title, setTitle] = useState("");
   const [gender, setGender] = useState("men");
   const [category, setCategory] = useState("");
@@ -336,4 +336,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default AddProducts;

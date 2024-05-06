@@ -7,7 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useGlobalContext } from "../../../context/store";
 import DelModal from "@/components/DelModal";
 
-const page = () => {
+const EditProduct = () => {
   const [title, setTitle] = useState("");
   const [gender, setGender] = useState("");
   const [category, setCategory] = useState("");
@@ -359,4 +359,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default EditProduct;

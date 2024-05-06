@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Pagination } from "flowbite-react";
 
-const orders = () => {
+const ViewProducts = () => {
   const { user } = useGlobalContext();
   const [productList, setProductList] = useState([]);
   const router = useRouter();
@@ -309,4 +309,4 @@ const orders = () => {
   );
 };
 
-export default orders;
+export default ViewProducts;

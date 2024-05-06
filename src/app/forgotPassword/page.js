@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 
-const forgot = () => {
+const Forgot = () => {
   const [verifyEmail, setVerifyEmail] = useState("");
   const router=useRouter();
 
@@ -140,4 +140,4 @@ const forgot = () => {
   );
 };
 
-export default forgot;
+export default Forgot;

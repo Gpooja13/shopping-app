@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import React from "react";
 
-const page = () => {
+const Dashboard = () => {
   const { user } = useGlobalContext();
   const [monthSales, setMonthSales] = useState([]);
   const [categorySales, setCategorySales] = useState([]);
@@ -119,4 +119,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Dashboard;

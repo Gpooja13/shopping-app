@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const orders = () => {
+const Orders = () => {
   const { user } = useGlobalContext();
   const [orderList, setOrderList] = useState([]);
   const router = useRouter();
@@ -225,4 +225,4 @@ const orders = () => {
   );
 };
 
-export default orders;
+export default Orders;

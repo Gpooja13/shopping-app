@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const reset = ({params}) => {
+const Reset = ({params}) => {
   const [disabled, setDisabled] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [matched, setMatched] = useState(0);
@@ -173,4 +173,4 @@ const reset = ({params}) => {
   );
 };
 
-export default reset;
+export default Reset;
