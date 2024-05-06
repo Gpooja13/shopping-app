@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useGlobalContext } from "@/context/store";
+import { useGlobalContext } from "../../../context/store";
 import { useRouter } from "next/navigation";
 import { AiOutlineEdit } from "react-icons/ai";
 import { Button } from "flowbite-react";

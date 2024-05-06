@@ -4,7 +4,7 @@ import { Label, Select, TextInput, Textarea, FileInput } from "flowbite-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useGlobalContext } from "@/context/store";
+import { useGlobalContext } from "../../../context/store";
 import DelModal from "@/components/DelModal";
 
 const page = () => {

@@ -3,7 +3,7 @@ import BarGraph from "@/components/dashboard/BarGraph";
 import DoughnutChart from "@/components/dashboard/Doughnut";
 import ViewOrders from "@/components/dashboard/ViewOrders";
 import { useEffect, useState } from "react";
-import { useGlobalContext } from "@/context/store";
+import { useGlobalContext } from "../../../context/store";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import React from "react";
