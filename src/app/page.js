@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useGlobalContext } from "../context/store";
+import { useGlobalContext } from "../Context/store";
 import ImageCarausel from "../components/homepage/ImageCarousel";
 import PageSection from "../components/homepage/PageSection";
 import PageSection2 from "../components/homepage/PageSection2";

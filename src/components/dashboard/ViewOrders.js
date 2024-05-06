@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useGlobalContext } from "@/context/store";
+import { useGlobalContext } from "@/Context/store";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import { IoSearchOutline } from "react-icons/io5";

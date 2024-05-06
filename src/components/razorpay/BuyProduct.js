@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import Buy from "./Buy";
 import { useRouter } from "next/navigation";
 import Loading from "@/app/loading";
-import { useGlobalContext } from "../../context/store";
+import { useGlobalContext } from "../../Context/store";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 

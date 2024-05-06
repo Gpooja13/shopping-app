@@ -3,7 +3,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useGlobalContext } from "../../../context/store";
+import { useGlobalContext } from "../../../Context/store";
 import { RxCross1 } from "react-icons/rx";
 
 const WishList = () => {

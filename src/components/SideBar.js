@@ -1,5 +1,5 @@
 import React, { useEffect} from "react";
-import { useGlobalContext } from "@/context/store";
+import { useGlobalContext } from "@/Context/store";
 import { RxCross1 } from "react-icons/rx";
 
 const SideBar = ({

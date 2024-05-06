@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { BiFilterAlt } from "react-icons/bi";
 import { LiaArrowCircleUpSolid } from "react-icons/lia";
 import SideBar from "./SideBar";
-import { useGlobalContext } from "../context/store";
+import { useGlobalContext } from "../Context/store";
 
 const Products = ({ groupType }) => {
   const [productData, setProductData] = useState({});

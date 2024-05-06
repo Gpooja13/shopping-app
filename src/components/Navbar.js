@@ -7,7 +7,7 @@ import { IoMdClose } from "react-icons/io";
 import React, { useRef, useEffect, useState } from "react";
 import { CiCirclePlus, CiCircleMinus } from "react-icons/ci";
 import { BsBagCheckFill } from "react-icons/bs";
-import { useGlobalContext } from "../context/store";
+import { useGlobalContext } from "../Context/store";
 import { MdAccountCircle, MdLogin } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
