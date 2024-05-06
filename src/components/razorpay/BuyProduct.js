@@ -159,9 +159,9 @@ const BuyProduct = ({
             }
           },
           prefill: {
-            name: process.env.NAME,
-            email: process.env.EMAIL,
-            contact: process.env.MOB,
+            name: process.env.NEXT_PUBLIC_NAME,
+            email: process.env.NEXT_PUBLIC_EMAIL,
+            contact: process.env.NEXT_PUBLIC_MOB,
           },
         };
 
