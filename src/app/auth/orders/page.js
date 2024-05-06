@@ -18,7 +18,7 @@ const Orders = () => {
         return router.push("/");
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/order`, {
+      const response = await fetch(`/api/order`, {
         headers: {
           Authorization: "Bearer " + token,
         },

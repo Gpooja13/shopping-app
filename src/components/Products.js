@@ -33,7 +33,7 @@ const Products = ({ groupType }) => {
   } = useGlobalContext();
 
   async function fetchProductData() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/${groupType}`);
+    const res = await fetch(`/api/${groupType}`);
     const products = await res.json();
     setProductData(sorting(products, sort));
 

@@ -24,7 +24,7 @@ const Dashboard = () => {
       }
 
       var response = await fetch(
-        `${process.env.NEXT_PUBLIC_HOST}/api/admin/viewOrders/${search}`,
+        `/api/admin/viewOrders/${search}`,
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -63,7 +63,7 @@ const Dashboard = () => {
     }
     if (id) {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_HOST}/api/admin/viewOrders/${id}`,
+        `/api/admin/viewOrders/${id}`,
         {
           headers: {
             Authorization: "Bearer " + token,

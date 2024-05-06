@@ -53,7 +53,7 @@ const EditProduct = () => {
       if (!token) {
         return router.push("/login");
       }
-      const fetchApi = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/admin/${id}`, {
+      const fetchApi = await fetch(`/api/admin/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -120,7 +120,7 @@ const EditProduct = () => {
     if (!token) {
       return router.push("/login");
     }
-    const fetchApi = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/admin/${id}`, {
+    const fetchApi = await fetch(`/api/admin/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

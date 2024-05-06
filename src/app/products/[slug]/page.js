@@ -26,7 +26,7 @@ const Post = ({ params }) => {
 
   async function fetchProductOneData() {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/api/productDesc/${slugWord}`
+      `/api/productDesc/${slugWord}`
     );
     const productOne = await res.json();
     setProductOneData(productOne.productOne);
@@ -47,7 +47,7 @@ const Post = ({ params }) => {
         // transition: "Bounce",
       });
     } else {
-      const fetchApi = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`);
+      const fetchApi = await fetch(`/api/pincode`);
       const data = await fetchApi.json();
 
       if (Object.keys(data).includes(pin)) {
@@ -62,7 +62,7 @@ const Post = ({ params }) => {
     try {
       const token = JSON.parse(localStorage.getItem("token"))?.token;
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/wishList/wish`, {
+      const response = await fetch(`/api/wishList/wish`, {
         headers: {
           Authorization: "Bearer " + token,
         },
@@ -97,7 +97,7 @@ const Post = ({ params }) => {
       const exists = wishItems.some((elem) => elem._id === productID);
       console.log(exists);
       if (exists) {
-        var response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/wishList/sub`, {
+        var response = await fetch(`/api/wishList/sub`, {
           method: "PUT",
           headers: {
             Authorization: "Bearer " + token,
@@ -107,7 +107,7 @@ const Post = ({ params }) => {
         setIncluded(false);
         console.log("remove");
       } else {
-        var response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/wishList/add`, {
+        var response = await fetch(`/api/wishList/add`, {
           method: "PUT",
           headers: {
             Authorization: "Bearer " + token,

@@ -14,7 +14,7 @@ const Reset = ({params}) => {
     console.log(password);
     try {
       if (password && token) {
-        const res = await fetch("http://localhost:3000/api/resetPassword", {
+        const res = await fetch("/api/resetPassword", {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

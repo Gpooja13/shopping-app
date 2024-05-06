@@ -61,7 +61,7 @@ const AddProducts = () => {
       await postDetails();
      
       const fetchApi = await fetch(
-        `${process.env.NEXT_PUBLIC_HOST}/api/admin/viewProduct`,
+        `/api/admin/viewProduct`,
         {
           method: "POST",
           headers: {

@@ -34,7 +34,7 @@ const ViewProducts = () => {
       }
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_HOST}/api/admin/${activeTab}?limit=${limit}&skip=${skip}`,
+        `/api/admin/${activeTab}?limit=${limit}&skip=${skip}`,
         {
           headers: {
             Authorization: "Bearer " + token,
