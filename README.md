@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+![Logo]("/logo-readme.png")
+
+
+
+# E-commerce Project - ShopMe
+
+This project is a demonstration of an e-commerce website built using the MERN stack, showcasing the integration of [Next.js](https://nextjs.org/) as react framework for building server-side rendered and statically generated web applications.
+
+In this project, users can browse products fetched from a MongoDB database, filter them by category, and view detailed information such as description, size, and price. Additionally, Admin panel is also there to add/edit products and review placed orders.
+
+
+
+
+
+
+
+
+
+## Features
+
+- Server-side rendering (SSR) for improved SEO and performance
+- Statically generated pages for fast loading times
+- Responsive design for mobile and desktop devices
+- User authentication and authorization
+- Checkout process with secure payment gateway integration
+- Product filtering on basis of category, color, size and price
+- Admin Dashboard: Manage products, user accounts, orders, and reports from a centralized dashboard.
+- Dynamic routing for product pages
+- Shopping Cart: Add and remove items, view cart contents, and proceed to checkout securely.
+- User Accounts: Create and manage user accounts, with with personalized wishlist and order history.
+
+
+
+
+
+## Demo
+
+The E-commerce demo can be viewed online here:
+https://shopping-hyo8rc365-gpooja13s-projects.vercel.app/
+
+
+## Screenshots
+
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+
+
+## Tech Stack
+
+- Next.js - (React framework for server-rendered and statically generated pages)
+- React - (JavaScript library for building user interfaces)
+- Tailwind CSS - (Utility-first CSS framework)
+- MongoDB - (A database solution for storing data)
+- RazorPay - (A payment gateway integration )
+
+
+
+## Prerequisites
+
+Before running the project, make sure you have the following installed:
+
+- Node.js
+- npm (Node Package Manager): Should be installed with Node.js
 ## Getting Started
 
-First, run the development server:
-
+1. Clone the repository: 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+ git clone https://github.com/Gpooja13/shopping-app.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies: 
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+3. Set up environment variables: Create a .env.local file in the root of your project and add the following environment variables.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+`MONGO_URI`
+`NEXT_PUBLIC_HOST`
+`RAZORPAY_API_KEY`
+`RAZORPAY_API_SECRET`
+`NEXT_PUBLIC_NAME`
+`NEXT_PUBLIC_EMAIL`
+`NEXT_PUBLIC_MOB`
 
-## Learn More
+4. Run the development server: 
+```bash
+ npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+5. Open your browser and navigate to http://localhost:3000 to see the project running.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Contact
 
-## Deploy on Vercel
+For any questions or feedback, please contact: gpooja750@yahoo.com.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
