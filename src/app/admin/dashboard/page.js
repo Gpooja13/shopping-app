@@ -44,6 +44,7 @@ const Dashboard = () => {
         });
         return router.push("/");
       } else {
+        console.log("data",data.o);
         setOrderList(data.o);
         setMonthSales(data.ordersByMonth);
         setCategorySales(data.ordersByGender);
