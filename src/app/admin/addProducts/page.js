@@ -94,17 +94,7 @@ const AddProducts = () => {
           theme: "light",
           // transition:"Bounce"
         });
-        setTitle("");
-        setGender("men");
-        setCategory("");
-        setDesc("");
-        setSize("XS");
-        setColor("");
-        setPrice("");
-        setQuantity("");
-        setPrice("");
-        setImage("");
-        setUrl("");
+       
       } else if (data.res === "failed") {
         toast.success(data.error, {
           position: "top-right",
