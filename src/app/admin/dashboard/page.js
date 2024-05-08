@@ -108,12 +108,12 @@ const Dashboard = () => {
         </section>
       </div>
       <div className="max-h-[60vh] overflow-y-auto">
-        <ViewOrders
+       {orderList?.length!==0 && <ViewOrders
           orderList={orderList}
           setSearch={setSearch}
           search={search}
           filterOrders={filterOrders}
-        />
+        />}
       </div>
     </div>
   );
