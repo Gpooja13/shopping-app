@@ -82,8 +82,8 @@ const WishList = () => {
                         alt="ecommerce"
                         className=" block"
                         // src="/tshirt.jpg"
-                        // src={productData[item.image]}
-                        src="https://m.media-amazon.com/images/I/51uGECebmZL._AC_UY1100_.jpg"
+                        src={item.image}
+                        // src="https://m.media-amazon.com/images/I/51uGECebmZL._AC_UY1100_.jpg"
                         width={800}
                         height={1500}
                       />
