@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { TextInput } from "flowbite-react";
 
 const ViewOrders = ({ orderList, setSearch, search, filterOrders }) => {
+  console.log("order",orderList);
   const searchChange = (e) => {
     const pattern = new RegExp(/^[\da-f]{24}$/);
     if (e.target.value.match(pattern)) {
