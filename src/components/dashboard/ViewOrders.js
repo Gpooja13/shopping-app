@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { TextInput } from "flowbite-react";
 
 const ViewOrders = ({ orderList, setSearch, search, filterOrders }) => {
-
   const searchChange = (e) => {
     const pattern = new RegExp(/^[\da-f]{24}$/);
     if (e.target.value.match(pattern)) {
@@ -22,7 +21,7 @@ const ViewOrders = ({ orderList, setSearch, search, filterOrders }) => {
           <div className="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] bg-white m-5">
             <div className="relative flex flex-col min-w-0 break-words border border-dashed bg-clip-border rounded-2xl border-stone-200 bg-light/30">
               <div className="px-9 pt-5 flex md:flex-row flex-col justify-center items-stretch flex-wrap min-h-[70px] pb-0 bg-transparent ">
-                <div >
+                <div>
                   <TextInput
                     className="md:absolute md:w-[42vh] md:left-[35px] "
                     id="search"
@@ -85,7 +84,9 @@ const ViewOrders = ({ orderList, setSearch, search, filterOrders }) => {
                       </tr>
                     </thead>
                     <tbody>
-                      {orderList?.length !== 0 &&
+                    
+                      {orderList ? (
+                        orderList?.length !== 0 &&
                         orderList?.map((item) => {
                           return (
                             <tr
@@ -170,9 +171,13 @@ const ViewOrders = ({ orderList, setSearch, search, filterOrders }) => {
                               </td>
                             </tr>
                           );
-                        })}
+                        })
+                      ) : (
+                        <p>Loading orders...</p>
+                      )}
                     </tbody>
                   </table>
+
                   {orderList?.length === 0 ? (
                     <p className="flex justify-center items-center h-full w-full mt-20 text-gray-500 text-sm">
                       No orders yet.
