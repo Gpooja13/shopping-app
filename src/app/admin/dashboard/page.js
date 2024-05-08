@@ -14,7 +14,7 @@ const Dashboard = () => {
   const [categorySales, setCategorySales] = useState([]);
   const router = useRouter();
   const [orderList, setOrderList] = useState([]);
-  const [search, setSearch] = useState("all");
+  const [search, setSearch] = useState("");
 
   const fetchOrders = async () => {
     try {
