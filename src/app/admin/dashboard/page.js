@@ -23,14 +23,11 @@ const Dashboard = () => {
         return router.push("/login");
       }
 
-      var response = await fetch(
-        `/api/admin/viewOrders/${search}`,
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
+      var response = await fetch(`/api/admin/viewOrders/${search}`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
 
       const data = await response.json();
       if (data.error) {
@@ -62,14 +59,11 @@ const Dashboard = () => {
       return router.push("/login");
     }
     if (id) {
-      const response = await fetch(
-        `/api/admin/viewOrders/${id}`,
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
+      const response = await fetch(`/api/admin/viewOrders/${id}`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
 
       const data = await response.json();
       if (data.error) {
@@ -92,9 +86,13 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    if(search==="")
-    fetchOrders();
+    if (search === "") fetchOrders();
   }, [search]);
+
+  useEffect(() => {
+   console.log(orderList);
+  }, [orderList])
+  
 
   return (
     <div className="flex flex-col my-12">
@@ -108,12 +106,14 @@ const Dashboard = () => {
         </section>
       </div>
       <div className="max-h-[60vh] overflow-y-auto">
-       {orderList?.length!==0 && <ViewOrders
-          orderList={orderList}
-          setSearch={setSearch}
-          search={search}
-          filterOrders={filterOrders}
-        />}
+        {orderList?.length !== 0 && (
+          <ViewOrders
+            orderList={orderList}
+            setSearch={setSearch}
+            search={search}
+            filterOrders={filterOrders}
+          />
+        )}
       </div>
     </div>
   );
