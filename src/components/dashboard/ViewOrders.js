@@ -173,7 +173,7 @@ const ViewOrders = ({ orderList, setSearch, search, filterOrders }) => {
                         })}
                     </tbody>
                   </table>
-                  {orderList.length === 0 ? (
+                  {orderList?.length === 0 ? (
                     <p className="flex justify-center items-center h-full w-full mt-20 text-gray-500 text-sm">
                       No orders yet.
                     </p>
