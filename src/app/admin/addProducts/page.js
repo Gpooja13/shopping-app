@@ -22,7 +22,6 @@ const AddProducts = () => {
 
   const postDetails = async () => {
     if (image) {
-    
       const data = new FormData();
       data.append("file", image);
       data.append("upload_preset", "shopMe");
@@ -59,31 +58,29 @@ const AddProducts = () => {
         return router.push("/login");
       }
       await postDetails();
-     
-      const fetchApi = await fetch(
-        `/api/admin/viewProduct`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify({
-            title: title,
-            desc: desc,
-            image: url,
-            category: category,
-            gender: gender,
-            size: size,
-            color: color,
-            price: price,
-            availableQty: quantity,
-          }),
-        }
-      );
+
+      const fetchApi = await fetch(`/api/admin/viewProduct`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+        body: JSON.stringify({
+          title: title,
+          desc: desc,
+          image: url,
+          category: category,
+          gender: gender,
+          size: size,
+          color: color,
+          price: price,
+          availableQty: quantity,
+        }),
+      });
       const data = await fetchApi.json();
-      if (data.res === "success") {
-        toast.success("Product has been added", {
+
+      if (data.res === "failed") {
+        toast.success(data.error, {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -94,9 +91,8 @@ const AddProducts = () => {
           theme: "light",
           // transition:"Bounce"
         });
-       
-      } else if (data.res === "failed") {
-        toast.success(data.error, {
+      } else {
+        toast.success("Product has been added", {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
