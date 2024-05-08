@@ -51,7 +51,7 @@ const Navbar = () => {
     setUser("");
     setKey(Math.random());
     router.push("/login");
-    toast.success("🦄 Your have been successfully logged out", {
+    toast.success("Your have been successfully logged out", {
       position: "top-right",
       autoClose: 2000,
       hideProgressBar: false,

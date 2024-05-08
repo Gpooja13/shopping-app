@@ -100,12 +100,12 @@ const Dashboard = () => {
     <div className="flex flex-col my-12">
       <h2 className="m-auto">MONTHLY REPORT</h2>
       <div className="flex md:flex-row flex-col justify-around items-center container mx-auto p-12">
-        <section>
+        {/* <section>
           <DoughnutChart categorySales={categorySales} />
         </section>
         <section>
           <BarGraph monthSales={monthSales} />
-        </section>
+        </section> */}
       </div>
       <div className="max-h-[60vh] overflow-y-auto">
         <ViewOrders

@@ -30,7 +30,7 @@ const Login = () => {
         setEmail("");
         setPassword("");
         router.push("/");
-        toast.success("🦄 Your have been successfully logged in", {
+        toast.success("Your have been successfully logged in", {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
