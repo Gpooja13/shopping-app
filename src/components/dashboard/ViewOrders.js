@@ -1,5 +1,4 @@
 "use client";
-export const dynamic = 'auto';
 import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
 import { IoSearchOutline } from "react-icons/io5";

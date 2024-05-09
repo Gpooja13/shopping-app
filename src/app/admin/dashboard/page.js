@@ -1,4 +1,5 @@
 "use client";
+export const dynamic = "force-dynamic";
 import BarGraph from "@/components/dashboard/BarGraph";
 import DoughnutChart from "@/components/dashboard/Doughnut";
 import ViewOrders from "@/components/dashboard/ViewOrders";
@@ -22,22 +23,19 @@ const Dashboard = () => {
       if (!token) {
         return router.push("/login");
       }
-      // if(search){
-      //   var response = await fetch(`/api/admin/viewOrders/${search}`, {
-      //     headers: {
-      //       Authorization: "Bearer " + token,
-      //     },
-      //   });
-      // }
-      // else{
+      if (search) {
+        var response = await fetch(`/api/admin/viewOrders/${search}`, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
+      } else {
         var response = await fetch(`/api/admin/viewOrders`, {
           headers: {
             Authorization: "Bearer " + token,
           },
         });
-      // }
-
-      
+      }
 
       const data = await response.json();
       if (data.error) {
@@ -54,7 +52,7 @@ const Dashboard = () => {
         });
         return router.push("/");
       } else {
-        console.log("data",data);
+        console.log("data", data);
         setOrderList(data.o);
         setMonthSales(data.ordersByMonth);
         setCategorySales(data.ordersByGender);
@@ -101,9 +99,8 @@ const Dashboard = () => {
   }, [search]);
 
   useEffect(() => {
-   console.log(orderList);
-  }, [orderList])
-  
+    console.log(orderList);
+  }, [orderList]);
 
   return (
     <div className="flex flex-col my-12">
