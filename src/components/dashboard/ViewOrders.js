@@ -5,8 +5,7 @@ import { IoSearchOutline } from "react-icons/io5";
 import "react-toastify/dist/ReactToastify.css";
 import { TextInput } from "flowbite-react";
 
-const ViewOrders = ({ orderList, setSearch, search}) => {
-  console.log("order",orderList);
+const ViewOrders = ({ orderList, setSearch, search }) => {
   const searchChange = (e) => {
     const pattern = new RegExp(/^[\da-f]{24}$/);
     if (e.target.value.match(pattern)) {
@@ -117,7 +116,6 @@ const ViewOrders = ({ orderList, setSearch, search}) => {
                       </tr>
                     </thead>
                     <tbody>
-                    
                       {orderList ? (
                         orderList?.length !== 0 &&
                         orderList?.map((item) => {
