@@ -1,5 +1,5 @@
 "use client";
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 import BarGraph from "@/components/dashboard/BarGraph";
 import DoughnutChart from "@/components/dashboard/Doughnut";
 import ViewOrders from "@/components/dashboard/ViewOrders";
@@ -113,7 +113,7 @@ const Dashboard = () => {
           <BarGraph monthSales={monthSales} />
         </section>
       </div>
-      <div className="max-h-[60vh] overflow-y-auto">
+      {/* <div className="max-h-[60vh] overflow-y-auto">
         {orderList?.length !== 0 && (
           <ViewOrders
             orderList={orderList}
@@ -122,7 +122,7 @@ const Dashboard = () => {
             filterOrders={filterOrders}
           />
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
