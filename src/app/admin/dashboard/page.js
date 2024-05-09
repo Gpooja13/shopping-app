@@ -3,13 +3,11 @@ import BarGraph from "@/components/dashboard/BarGraph";
 import DoughnutChart from "@/components/dashboard/Doughnut";
 import ViewOrders from "@/components/dashboard/ViewOrders";
 import { useEffect, useState } from "react";
-import { useGlobalContext } from "../../../Context/store";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import React from "react";
 
 const Dashboard = () => {
-  const { user } = useGlobalContext();
   const [monthSales, setMonthSales] = useState([]);
   const [categorySales, setCategorySales] = useState([]);
   const router = useRouter();
@@ -30,9 +28,9 @@ const Dashboard = () => {
       //   });
       // } else {
       var response = await fetch(`/api/admin/viewOrders`, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
+        // headers: {
+        //   Authorization: "Bearer " + token,
+        // },
       });
       // }
 
@@ -64,10 +62,6 @@ const Dashboard = () => {
   useEffect(() => {
     if (search === "") fetchOrders();
   }, [search]);
-
-  useEffect(() => {
-    console.log(orderList);
-  }, [orderList]);
 
   return (
     <div className="flex flex-col my-12">
