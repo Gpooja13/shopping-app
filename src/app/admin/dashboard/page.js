@@ -29,13 +29,13 @@ const Dashboard = () => {
       //     },
       //   });
       // }
-      else{
+      // else{
         var response = await fetch(`/api/admin/viewOrders`, {
           headers: {
             Authorization: "Bearer " + token,
           },
         });
-      }
+      // }
 
       
 
