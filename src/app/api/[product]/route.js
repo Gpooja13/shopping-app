@@ -30,7 +30,6 @@ export async function GET(request, content) {
 
 export async function PATCH(request) {
   const {products} = await request.json();
-  console.log(products);
 
   for (const item in products) {
     let p;

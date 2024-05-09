@@ -21,8 +21,6 @@ export async function GET(request, content) {
       sizeSlug[item.size] = { slug: item.slug };
     }
   }
-  console.log(productOne);
-  console.log(sizeSlug);
 
   return NextResponse.json({
     slug: slugID,

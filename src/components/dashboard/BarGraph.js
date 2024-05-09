@@ -89,7 +89,7 @@ export default function BarGraph({monthSales}) {
       position: "relative",
       height: "50vh",
       width: "50vw",
-      "@media only screen and (max-width: 768px)": {
+      "@media only screen and (maxWidth: 768px)": {
         height: "30vh",
         width: "80vw"
       }
