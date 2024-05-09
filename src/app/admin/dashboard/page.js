@@ -1,4 +1,5 @@
 "use client";
+export const dynamic = "force-dynamic";
 import BarGraph from "@/components/dashboard/BarGraph";
 import DoughnutChart from "@/components/dashboard/Doughnut";
 import ViewOrders from "@/components/dashboard/ViewOrders";
@@ -28,9 +29,9 @@ const Dashboard = () => {
       //   });
       // } else {
       var response = await fetch(`/api/admin/viewOrders`, {
-        // headers: {
-        //   Authorization: "Bearer " + token,
-        // },
+        headers: {
+          Authorization: "Bearer " + token,
+        },
       });
       // }
 

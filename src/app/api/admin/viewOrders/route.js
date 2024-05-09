@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
 import Order from "../../../../models/order";
 import requireLogin from "@/middleware/requireLogin";
