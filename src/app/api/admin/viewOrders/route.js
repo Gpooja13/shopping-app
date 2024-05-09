@@ -6,7 +6,6 @@ import connectdb from "../../../../middleware/connectdb";
 export async function GET(request, content) {
   try {
     const response = await requireLogin(request);
-    console.log(request.adminData);
 
     if (request.adminData) {
       var o = await Order.find().sort({ createdAt: -1 });

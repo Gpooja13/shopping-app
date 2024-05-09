@@ -5,12 +5,44 @@ import { IoSearchOutline } from "react-icons/io5";
 import "react-toastify/dist/ReactToastify.css";
 import { TextInput } from "flowbite-react";
 
-const ViewOrders = ({ orderList, setSearch, search, filterOrders }) => {
+const ViewOrders = ({ orderList, setSearch, search}) => {
   console.log("order",orderList);
   const searchChange = (e) => {
     const pattern = new RegExp(/^[\da-f]{24}$/);
     if (e.target.value.match(pattern)) {
       setSearch(e.target.value);
+    }
+  };
+
+  const filterOrders = async (id) => {
+    const token = JSON.parse(localStorage.getItem("token"))?.token;
+    if (!token) {
+      return router.push("/login");
+    }
+    if (id) {
+      const response = await fetch(`/api/admin/viewOrders/${id}`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+
+      const data = await response.json();
+      if (data.error) {
+        toast.error(data.error, {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          // transition: "Bounce",
+        });
+        return router.push("/");
+      } else {
+        setOrderList(data.o);
+      }
     }
   };
 

@@ -22,19 +22,19 @@ const Dashboard = () => {
       if (!token) {
         return router.push("/login");
       }
-      if (search) {
-        var response = await fetch(`/api/admin/viewOrders/${search}`, {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        });
-      } else {
-        var response = await fetch(`/api/admin/viewOrders`, {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        });
-      }
+      // if (search) {
+      //   var response = await fetch(`/api/admin/viewOrders/${search}`, {
+      //     headers: {
+      //       Authorization: "Bearer " + token,
+      //     },
+      //   });
+      // } else {
+      var response = await fetch(`/api/admin/viewOrders`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+      // }
 
       const data = await response.json();
       if (data.error) {
@@ -61,38 +61,6 @@ const Dashboard = () => {
     }
   };
 
-  const filterOrders = async (id) => {
-    const token = JSON.parse(localStorage.getItem("token"))?.token;
-    if (!token) {
-      return router.push("/login");
-    }
-    if (id) {
-      const response = await fetch(`/api/admin/viewOrders/${id}`, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
-
-      const data = await response.json();
-      if (data.error) {
-        toast.error(data.error, {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          // transition: "Bounce",
-        });
-        return router.push("/");
-      } else {
-        setOrderList(data.o);
-      }
-    }
-  };
-
   useEffect(() => {
     if (search === "") fetchOrders();
   }, [search]);
@@ -113,14 +81,11 @@ const Dashboard = () => {
         </section>
       </div>
       <div className="max-h-[60vh] overflow-y-auto">
-        {orderList?.length !== 0 && (
-          <ViewOrders
-            orderList={orderList}
-            setSearch={setSearch}
-            search={search}
-            filterOrders={filterOrders}
-          />
-        )}
+        <ViewOrders
+          orderList={orderList}
+          setSearch={setSearch}
+          search={search}
+        />
       </div>
     </div>
   );
