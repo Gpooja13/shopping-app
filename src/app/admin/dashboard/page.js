@@ -22,13 +22,13 @@ const Dashboard = () => {
       if (!token) {
         return router.push("/login");
       }
-      if(search){
-        var response = await fetch(`/api/admin/viewOrders/${search}`, {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        });
-      }
+      // if(search){
+      //   var response = await fetch(`/api/admin/viewOrders/${search}`, {
+      //     headers: {
+      //       Authorization: "Bearer " + token,
+      //     },
+      //   });
+      // }
       else{
         var response = await fetch(`/api/admin/viewOrders`, {
           headers: {
