@@ -174,7 +174,7 @@ const Post = ({ params }) => {
   };
 
   const refreshVariant = (newsize) => {
-    let url = `${process.env.NEXT_PUBLIC_HOST}/products/product/${variant[newsize].slug}`;
+    let url = `${process.env.NEXT_PUBLIC_HOST}/products/${variant[newsize].slug}`;
     router.push(url);
   };
 
@@ -479,7 +479,7 @@ const Post = ({ params }) => {
                           productOneData.gender,
                           productOneData.image
                         );
-                        router.push("/checkout");
+                        router.push("/auth/checkout");
                       } else {
                         toast.error("Stock not available", {
                           position: "bottom-center",
