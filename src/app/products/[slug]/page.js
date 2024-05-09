@@ -195,19 +195,6 @@ const Post = ({ params }) => {
 
   return (
     <section className="text-gray-600 body-font overflow-hidden">
-      <ToastContainer
-        position="bottom-center"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        // transition:Bounce
-      />
       <div className="container px-5 py-16 mx-auto">
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
           <img
