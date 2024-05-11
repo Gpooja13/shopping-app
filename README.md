@@ -32,27 +32,27 @@ Check out demo video here: [demo video](https://res.cloudinary.com/cloudtrial/vi
 ## Screenshots
 
 - Login Page
-![Login]((https://res.cloudinary.com/cloudtrial/image/upload/v1715412750/Screenshot_242_qrmt58.png))
+![Login](https://res.cloudinary.com/cloudtrial/image/upload/v1715412750/Screenshot_242_qrmt58.png)
 
 - Home Page
-![Home]((https://res.cloudinary.com/cloudtrial/image/upload/v1715412752/Screenshot_237_l5zjtv.png))
+![Home](https://res.cloudinary.com/cloudtrial/image/upload/v1715412752/Screenshot_237_l5zjtv.png)
 
--![Home ]((https://res.cloudinary.com/cloudtrial/image/upload/v1715412752/Screenshot_236_qsgodx.png))
+-![Home ](https://res.cloudinary.com/cloudtrial/image/upload/v1715412752/Screenshot_236_qsgodx.png)
 
 - Category
-![Category]((https://res.cloudinary.com/cloudtrial/image/upload/v1715412752/Screenshot_243_tlzmhd.png))
+![Category](https://res.cloudinary.com/cloudtrial/image/upload/v1715412752/Screenshot_243_tlzmhd.png)
 
 - Product Desc
-![Product Desc]((https://res.cloudinary.com/cloudtrial/image/upload/v1715412750/Screenshot_247_l0walz.png))
+![Product Desc](https://res.cloudinary.com/cloudtrial/image/upload/v1715412750/Screenshot_247_l0walz.png)
 
 - Payment Gateway
-![Payment Gateway]((https://res.cloudinary.com/cloudtrial/image/upload/v1715412749/Screenshot_252_x4fioj.png))
+![Payment Gateway](https://res.cloudinary.com/cloudtrial/image/upload/v1715412749/Screenshot_252_x4fioj.png)
 
 - View Orders
-![View Orders]((https://res.cloudinary.com/cloudtrial/image/upload/v1715412749/Screenshot_256_g7l234.png))
+![View Orders](https://res.cloudinary.com/cloudtrial/image/upload/v1715412749/Screenshot_256_g7l234.png)
 
 - Admin Dashboard
-![Admin Dashboard]((https://res.cloudinary.com/cloudtrial/image/upload/v1715413560/Screenshot_260_gyzwbd.png))
+![Admin Dashboard](https://res.cloudinary.com/cloudtrial/image/upload/v1715413560/Screenshot_260_gyzwbd.png)
 
 
 
