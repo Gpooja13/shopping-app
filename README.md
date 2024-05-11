@@ -27,7 +27,7 @@ In this project, users can browse products fetched from a MongoDB database, filt
 The E-commerce website can be viewed online here:
 https://shopping-hyo8rc365-gpooja13s-projects.vercel.app/
 
-Check out demo video here: [demo video](https://res.cloudinary.com/cloudtrial/video/upload/v1715411758/InShot_20240511_120219589_hzauey.mp4)
+Check out demo video here: [Demo video](https://res.cloudinary.com/cloudtrial/video/upload/v1715411758/InShot_20240511_120219589_hzauey.mp4)
 
 ## Screenshots
 
