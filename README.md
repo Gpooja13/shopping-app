@@ -14,7 +14,7 @@ In this project, users can browse products fetched from a MongoDB database, filt
 - Server-side rendering (SSR) for improved SEO and performance
 - Statically generated pages for fast loading times
 - Responsive design for mobile and desktop devices
-- User authentication and authorization
+- User authentication and authorization along with forget your password feature
 - Checkout process with secure payment gateway integration
 - Product filtering on basis of category, color, size and price
 - Admin Dashboard: Manage products, user accounts, orders, and reports from a centralized dashboard.
