@@ -37,7 +37,7 @@ Check out demo video here: [demo video](https://res.cloudinary.com/cloudtrial/vi
 - Home Page
 ![Home](https://res.cloudinary.com/cloudtrial/image/upload/v1715412752/Screenshot_237_l5zjtv.png)
 
--![Home ](https://res.cloudinary.com/cloudtrial/image/upload/v1715412752/Screenshot_236_qsgodx.png)
+- ![Home ](https://res.cloudinary.com/cloudtrial/image/upload/v1715412752/Screenshot_236_qsgodx.png)
 
 - Category
 ![Category](https://res.cloudinary.com/cloudtrial/image/upload/v1715412752/Screenshot_243_tlzmhd.png)
@@ -99,6 +99,9 @@ npm install
 
 5. Open your browser and navigate to http://localhost:3000 to see the project running.
 
+## Acknowledgements
+
+Special thanks to the creators and maintainers of Next.js, Razorpay and Tailwind CSS for their amazing tools and documentation.
 
 ## Contact
 
