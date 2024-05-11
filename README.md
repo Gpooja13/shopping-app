@@ -1,5 +1,5 @@
 
-![Logo]("/logo-readme.png")
+![Logo](https://res.cloudinary.com/cloudtrial/image/upload/v1715414256/apple-touch-icon_taqcro.png)
 
 
 
@@ -8,14 +8,6 @@
 This project is a demonstration of an e-commerce website built using the MERN stack, showcasing the integration of [Next.js](https://nextjs.org/) as react framework for building server-side rendered and statically generated web applications.
 
 In this project, users can browse products fetched from a MongoDB database, filter them by category, and view detailed information such as description, size, and price. Additionally, Admin panel is also there to add/edit products and review placed orders.
-
-
-
-
-
-
-
-
 
 ## Features
 
@@ -30,15 +22,12 @@ In this project, users can browse products fetched from a MongoDB database, filt
 - Shopping Cart: Add and remove items, view cart contents, and proceed to checkout securely.
 - User Accounts: Create and manage user accounts, with with personalized wishlist and order history.
 
-
-
-
-
 ## Demo
 
-The E-commerce demo can be viewed online here:
+The E-commerce website can be viewed online here:
 https://shopping-hyo8rc365-gpooja13s-projects.vercel.app/
 
+Check out demo video here: [demo video](https://res.cloudinary.com/cloudtrial/video/upload/v1715411758/InShot_20240511_120219589_hzauey.mp4)
 
 ## Screenshots
 
@@ -52,8 +41,6 @@ https://shopping-hyo8rc365-gpooja13s-projects.vercel.app/
 - Tailwind CSS - (Utility-first CSS framework)
 - MongoDB - (A database solution for storing data)
 - RazorPay - (A payment gateway integration )
-
-
 
 ## Prerequisites
 
