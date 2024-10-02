@@ -10,7 +10,8 @@ const PageSection2 = () => {
         <Link href="/products/women" className="block relative h-48 rounded overflow-hidden">
           <img alt="ecommerce" className="object-cover object-center w-full h-full block" 
           // src="https://dummyimage.com/420x260"
-          src='https://source.unsplash.com/featured/450x300/?t-shirt'
+          // src='https://source.unsplash.com/featured/450x300/?t-shirt'
+          src="/tshirt.jpg"
           />
         </Link>
         <div className="mt-4">
@@ -21,7 +22,10 @@ const PageSection2 = () => {
       </div>
       <div className="lg:w-1/4 md:w-1/2 p-4 w-full transform transition duration-300 hover:scale-105">
         <Link href="/products/women" className="block relative h-48 rounded overflow-hidden">
-          <img alt="ecommerce" className="object-cover object-center w-full h-full block" src='https://source.unsplash.com/featured/450x300/?shirt'/>
+          <img alt="ecommerce" className="object-cover object-center w-full h-full block" 
+          // src='https://source.unsplash.com/featured/450x300/?shirt'
+          src="/shirt.webp"
+          />
         </Link>
         <div className="mt-4">
           <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
@@ -31,7 +35,10 @@ const PageSection2 = () => {
       </div>
       <div className="lg:w-1/4 md:w-1/2 p-4 w-full transform transition duration-300 hover:scale-105">
         <Link href="/products/women" className="block relative h-48 rounded overflow-hidden">
-          <img alt="ecommerce" className="object-cover object-center w-full h-full block" src='https://source.unsplash.com/featured/450x300/?dress'/>
+          <img alt="ecommerce" className="object-cover object-center w-full h-full block" 
+          // src='https://source.unsplash.com/featured/450x300/?dress'
+          src="/dress.webp"
+          />
         </Link>
         <div className="mt-4">
           <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
@@ -41,7 +48,10 @@ const PageSection2 = () => {
       </div>
       <div className="lg:w-1/4 md:w-1/2 p-4 w-full transform transition duration-300 hover:scale-105">
         <Link href="/products/women" className="block relative h-48 rounded overflow-hidden">
-          <img alt="ecommerce" className="object-cover object-center w-full h-full block" src='https://source.unsplash.com/featured/450x300/?sweatshirt'/>
+          <img alt="ecommerce" className="object-cover object-center w-full h-full block" 
+          // src='https://source.unsplash.com/featured/450x300/?sweatshirt'
+          src="/hood.jpg"
+          />
         </Link>
         <div className="mt-4">
           <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
@@ -51,7 +61,10 @@ const PageSection2 = () => {
       </div>
       <div className="lg:w-1/4 md:w-1/2 p-4 w-full transform transition duration-300 hover:scale-105">
         <Link href="/products/women" className="block relative h-48 rounded overflow-hidden">
-          <img alt="ecommerce" className="object-cover object-center w-full h-full block" src='https://source.unsplash.com/featured/450x300/?cup'/>
+          <img alt="ecommerce" className="object-cover object-center w-full h-full block" 
+          // src='https://source.unsplash.com/featured/450x300/?cup'
+          src="/cup.webp"
+          />
         </Link>
         <div className="mt-4">
           <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
@@ -61,7 +74,10 @@ const PageSection2 = () => {
       </div>
       <div className="lg:w-1/4 md:w-1/2 p-4 w-full transform transition duration-300 hover:scale-105">
         <Link href="/products/women" className="block relative h-48 rounded overflow-hidden">
-          <img alt="ecommerce" className="object-cover object-center w-full h-full block" src='https://source.unsplash.com/featured/450x300/?fashion accessories'/>
+          <img alt="ecommerce" className="object-cover object-center w-full h-full block" 
+          // src='https://source.unsplash.com/featured/450x300/?fashion accessories'
+          src="/access.webp"
+          />
         </Link>
         <div className="mt-4">
           <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
@@ -71,7 +87,10 @@ const PageSection2 = () => {
       </div>
       <div className="lg:w-1/4 md:w-1/2 p-4 w-full transform transition duration-300 hover:scale-105">
         <Link href="/products/women" className="block relative h-48 rounded overflow-hidden">
-          <img alt="ecommerce" className="object-cover object-center w-full h-full block" src='https://source.unsplash.com/featured/450x300/?blouse'/>
+          <img alt="ecommerce" className="object-cover object-center w-full h-full block" 
+          // src='https://source.unsplash.com/featured/450x300/?blouse'
+          src="/top.webp"
+          />
         </Link>
         <div className="mt-4">
           <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
@@ -81,7 +100,10 @@ const PageSection2 = () => {
       </div>
       <div className="lg:w-1/4 md:w-1/2 p-4 w-full transform transition duration-300 hover:scale-105">
         <Link href="/products/women" className="block relative h-48 rounded overflow-hidden">
-          <img alt="ecommerce" className="object-cover object-center w-full h-full block" src='https://source.unsplash.com/featured/450x300/?jeans'/>
+          <img alt="ecommerce" className="object-cover object-center w-full h-full block" 
+          // src='https://source.unsplash.com/featured/450x300/?jeans'
+          src="/denim.jpg"
+          />
         </Link>
         <div className="mt-4">
           <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">CATEGORY</h3>
